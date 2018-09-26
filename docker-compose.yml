@@ -7,9 +7,9 @@ services:
       - "5000:5000"
     volumes:
       - './backend/app:/app'
-  front:
+  frontend:
     build: frontend/
     ports:
       - "8080:8080"
     volumes:
-      - './frontend/front:/front'
+      - './frontend/app:/app'

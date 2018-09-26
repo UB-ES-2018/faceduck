@@ -1,9 +1,7 @@
 FROM ubuntu
 
-RUN apt-get install npm
-RUN npm install -q http-server
-RUN npm install 
-RUN npm run build
+RUN apt-get update && apt-get install -y npm && npm install -g http-server
+
+CMD cd /app; npm install && npm run build && http-server dist
 
 EXPOSE 8080
-CMD ["npm","run","serve"]
