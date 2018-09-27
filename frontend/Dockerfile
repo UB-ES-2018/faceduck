@@ -1,7 +1,7 @@
 FROM ubuntu
 
-RUN apt-get update && apt-get install -y npm && npm install -g http-server
+RUN apt-get update && apt-get install -y npm
 
-CMD cd /app; npm install && npm run build && http-server dist
+CMD cd /app; npm install; npm run serve
 
 EXPOSE 8080
