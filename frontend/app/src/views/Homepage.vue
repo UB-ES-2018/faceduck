@@ -1,24 +1,17 @@
 <template>
-<body>
+  <div id="HomePage">
     <div id='title'>
-        <h3>FACEDUCK</h3>
+        <h1>FACEDUCK</h1>
     </div>
-<a>
+
     <div id='buttons'>
         <button id='but_sign' href="/register">Register</button>
         <button id='but_sign' href="/login">Log in</button>
     </div>
-    </a>
-</body>
-
+  </div>
 </template>
+
 <style lang="sass"> 
-
-html 
-    background-color: #434547
-
-
-
 #title
   font-family: 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased

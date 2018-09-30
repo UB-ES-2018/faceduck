@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div id="AboutUs">
     <h1>This is an about page
       que ahora será una pagina de easter egg
       

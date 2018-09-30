@@ -1,5 +1,5 @@
 <template>
-  <div class="wall">
+  <div id="PersonalWall">
     <h1>This is the Wall
       
     </h1>

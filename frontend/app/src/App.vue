@@ -1,16 +1,27 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/wall">Wall</router-link> |
-      <router-link to="/vue">Vue</router-link>
-    </div>
+      <router-link to="/wall">Wall</router-link>
+    </nav>
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #434547;
+  height: 100%;
+  display: flex;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -18,8 +29,12 @@
   text-align: center;
   background-color: #434547;
   color: #ffb511;
+  margin: 0;
+
+  flex-grow: 1;
 }
-#nav {
+
+nav {
   a {
     font-weight: bold;
     color: #ffb511;
