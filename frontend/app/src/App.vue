@@ -1,26 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home2</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/wall">Wall</router-link>
+    </nav>
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #434547;
+  height: 100%;
+  display: flex;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: #434547;
+  color: #ffb511;
+  margin: 0;
+
+  flex-grow: 1;
 }
-#nav {
-  padding: 30px;
+
+nav {
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #ffb511;
     &.router-link-exact-active {
       color: #42b983;
     }
