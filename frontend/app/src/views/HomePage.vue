@@ -1,20 +1,18 @@
 <template>
+<div id="head">
   <div id="HomePage">
-    <div class="container">
-      <div class="row">
-        <div class="title col">
+    <div>
+      <div>
+        <div class="header">
           <h1>Faceduck</h1>
         </div>
       </div>
-      <div class="row" id="buttons">
-          <div class="col"> 
-            <button class="but_sign" href="/register">Register</button> 
-            <button class="but_sign" href="/login">Log in</button>
-          </div>
-      </div>
-      <LoginSignin/>
+          
     </div>
   </div>
+  <LoginSignin/>
+    </div>
+  
 </template>
 
 <script>
@@ -29,12 +27,15 @@ export default {
 </script>
 
 <style lang="scss" scoped> 
+#head{
+  top:25%;
+}
 #HomePage {
   background-color: #aaa;
   width: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-  top: 50%;
+  top: 15%;
   left: 50%;
   padding: 40px 0;
   border-radius: 10px;
@@ -47,6 +48,7 @@ export default {
   text-align: center;
   color: #ffb511;
   text-shadow: 3px 3px #555;
+  position: relative;
 
   &>h1 {
     font-size: 450%;

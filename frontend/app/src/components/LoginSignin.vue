@@ -1,24 +1,26 @@
 <template>
     <div class="container">
       <div class="backbox">
-        <div class="loginMsg" v-if="loginVisible">
+        <div class="loginMsg" v-bind:toggleClass="{visible: !loginVisible }">
           <div class="textcontent">
             <p class="title">Don't have an account?</p>
             <p>Sign up to save all your graph.</p>
-            <button id="switch1" v-on:click="showSignUp">Sign Up</button>
+            <button id="switch1" v-on:click="showSignUp">SIGN UP</button>
           </div>
         </div>
-        <div class="signupMsg" v-if="!loginVisible">
+          <div class="signupMsg" >
           <div class="textcontent">
             <p class="title">Have an account?</p>
             <p>Log in to see all your collection.</p>
             <button id="switch2" v-on:click="showLogIn">LOG IN</button>
           </div>
+
         </div>
       </div>
       <!-- backbox -->
 
-      <div class="frontbox">
+      <div class="frontbox" v-bind:class="{ moving: !loginVisible }"
+ v-on:click="showMobileMenu = !showMobileMenu">>
         <div class="login" v-if="loginVisible">
           <h2>LOG IN</h2>
           <div class="inputbox">
@@ -66,6 +68,8 @@ export default {
     showLogIn() {
       this.loginVisible = true;
     }
+    
+
   },
 };
 </script>
@@ -84,7 +88,7 @@ export default {
 
 .backbox
   background-color: #404040
-  width: 100%
+  width: 90%
   height: 80%
   position: absolute
   transform: translate(0, -50%)
@@ -104,10 +108,11 @@ export default {
   transition: right .8s ease-in-out
 
 .moving
-  right: 45%
+  right: 50%
+
 
 .loginMsg, .signupMsg
-  width: 50%
+  width: 75%
   height: 100%
   font-size: 15px
   box-sizing: border-box
@@ -122,7 +127,7 @@ export default {
 .textcontent
   color: white
   margin-top: 65px
-  margin-left: 12%
+  margin-left: 5%
 
 .loginMsg button, .signupMsg button
   background-color: #404040
