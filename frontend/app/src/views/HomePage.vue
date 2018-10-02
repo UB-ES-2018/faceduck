@@ -3,8 +3,8 @@
   <div id="HomePage">
     <div>
       <div>
-        <div class="header">
-          <h1>Faceduck</h1>
+        <div>
+          <h1 class="title">Faceduck</h1>
         </div>
       </div>
           
@@ -31,7 +31,6 @@ export default {
   top:25%;
 }
 #HomePage {
-  background-color: #aaa;
   width: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
@@ -49,12 +48,8 @@ export default {
   color: #ffb511;
   text-shadow: 3px 3px #555;
   position: relative;
+  font-size: 450%;
 
-  &>h1 {
-    font-size: 450%;
-    height: 150px;
-    line-height: 150px;
-  }
 }
 
 .but_sign {
