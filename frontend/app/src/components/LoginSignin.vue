@@ -1,94 +1,76 @@
 <template>
     <div class="container">
-    <div class="backbox">
-      <div class="loginMsg">
-        <div class="textcontent">
-          <p class="title">Don't have an account?</p>
-          <p>Sign up to save all your graph.</p>
-          <button id="switch1">Sign Up</button>
+      <div class="backbox">
+        <div class="loginMsg" v-if="loginVisible">
+          <div class="textcontent">
+            <p class="title">Don't have an account?</p>
+            <p>Sign up to save all your graph.</p>
+            <button id="switch1" v-on:click="showSignUp">Sign Up</button>
+          </div>
+        </div>
+        <div class="signupMsg" v-if="!loginVisible">
+          <div class="textcontent">
+            <p class="title">Have an account?</p>
+            <p>Log in to see all your collection.</p>
+            <button id="switch2" v-on:click="showLogIn">LOG IN</button>
+          </div>
         </div>
       </div>
-      <div class="signupMsg visibility">
-        <div class="textcontent">
-          <p class="title">Have an account?</p>
-          <p>Log in to see all your collection.</p>
-          <button id="switch2">LOG IN</button>
+      <!-- backbox -->
+
+      <div class="frontbox">
+        <div class="login" v-if="loginVisible">
+          <h2>LOG IN</h2>
+          <div class="inputbox">
+            <input type="text" name="email" placeholder="  EMAIL">
+            <input type="password" name="password" placeholder="  PASSWORD">
+          </div>
+          <p>FORGET PASSWORD?</p>
+          <button>LOG IN</button>
         </div>
+
+        <div class="signup" v-if="!loginVisible">
+          <h2>SIGN UP</h2>
+          <div class="inputbox">
+            <input type="text" name="fullname" placeholder="  FULLNAME">
+            <input type="text" name="email" placeholder="  EMAIL">
+            <input type="password" name="password" placeholder="  PASSWORD">
+          </div>
+          <button>SIGN UP</button>
+        </div>
+
       </div>
+      <!-- frontbox -->
     </div>
-    <!-- backbox -->
-
-    <div class="frontbox">
-      <div class="login">
-        <h2>LOG IN</h2>
-        <div class="inputbox">
-          <input type="text" name="email" placeholder="  EMAIL">
-          <input type="password" name="password" placeholder="  PASSWORD">
-        </div>
-        <p>FORGET PASSWORD?</p>
-        <button>LOG IN</button>
-      </div>
-
-      <div class="signup hide">
-        <h2>SIGN UP</h2>
-        <div class="inputbox">
-          <input type="text" name="fullname" placeholder="  FULLNAME">
-          <input type="text" name="email" placeholder="  EMAIL">
-          <input type="password" name="password" placeholder="  PASSWORD">
-        </div>
-        <button>SIGN UP</button>
-      </div>
-
-    </div>
-    <!-- frontbox -->
-  </div>
 </template>
 
 
 <script>
 export default {
-    name: 'LoginSignin',
-  props: {}
-}
-var $loginMsg = $('.loginMsg'),
-  $login = $('.login'),
-  $signupMsg = $('.signupMsg'),
-  $signup = $('.signup'),
-  $frontbox = $('.frontbox');
+  name: 'LoginSignin',
+  data() {
+    return {
+      loginVisible: true
+    }
+  },
+  computed: {
+    signupVisible() {
+      return !this.loginVisible;
+    }
+  },
+  methods: {
+    showSignUp() {
+      this.loginVisible = false;
+    },
 
-$('#switch1').on('click', function() {
-  $loginMsg.toggleClass("visibility");
-  $frontbox.addClass("moving");
-  $signupMsg.toggleClass("visibility");
-
-  $signup.toggleClass('hide');
-  $login.toggleClass('hide');
-})
-
-$('#switch2').on('click', function() {
-  $loginMsg.toggleClass("visibility");
-  $frontbox.removeClass("moving");
-  $signupMsg.toggleClass("visibility");
-
-  $signup.toggleClass('hide');
-  $login.toggleClass('hide');
-})
-
-setTimeout(function(){
-  $('#switch1').click()
-},1000)
-
-setTimeout(function(){
-  $('#switch2').click()
-},3000)
-
+    showLogIn() {
+      this.loginVisible = true;
+    }
+  },
+};
 </script>
 
-<style <style lang="sass" scoped>
-
-body
-  background-color: #A8A8A8
-  font-family: 'Roboto', sans-serif
+<style lang="sass" scoped>
 
 .container
   //border:1px solid white
@@ -153,7 +135,7 @@ body
   padding: 10px
   margin-top: 20px
 
-/* front box content
+/* front box content */
 
 .login, .signup
   padding: 20px
@@ -190,7 +172,7 @@ body
   bottom: 30px
   cursor: pointer
 
-/* Fade In & Out
+/* Fade In & Out */
 
 .login p
   cursor: pointer

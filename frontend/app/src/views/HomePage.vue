@@ -12,9 +12,21 @@
             <button class="but_sign" href="/login">Log in</button>
           </div>
       </div>
+      <LoginSignin/>
     </div>
   </div>
 </template>
+
+<script>
+import LoginSignin from "../components/LoginSignin.vue";
+
+export default {
+  name: 'HomePage',
+  components: {
+    LoginSignin,
+  },
+};
+</script>
 
 <style lang="scss" scoped> 
 #HomePage {
