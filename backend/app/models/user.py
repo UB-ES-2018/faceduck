@@ -1,21 +1,19 @@
 from elasticsearch_dsl import Document, Date, Nested, Boolean, Text, Integer, InnerDoc
 
 class User(Document)
+	username = Text()
 	email = Text()
 	password = Text()
-	username = Text()
-
+	
 	name = Text()
 	surname = Text()
+	birthday = Date()
 	gender = Text()
-	birth = Date()
-	age = Integer()
-	isAdult = Boolean()
-	location = Text()
-	description = Text()
-	url = Text()
-	registerDate = Date()
-	
+
+	#location = Text()
+	#description = Text()
+	#url = Text()
+	#registerDate = Date()
 	#profileImagePath = Text()
 	#phone = Text()
 	#website = Text()
@@ -25,7 +23,7 @@ class User(Document)
 	#friends = Nested(User)
 
 	class Index:
-		name = self.email
+		name = 'user'
 
 	def save(self, ** kwargs):
         return super().save(** kwargs)
