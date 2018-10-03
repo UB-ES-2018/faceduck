@@ -4,50 +4,62 @@
         <div class="loginMsg" v-bind:toggleClass="{visible: !loginVisible }">
           <div class="textcontent">
             <p class="title">Don't have an account?</p>
-            <p>Sign up to save all your graph.</p>
+            <p>Sign up and find your friends.</p>
             <button id="switch1" v-on:click="showSignUp">SIGN UP</button>
           </div>
         </div>
-          <div class="signupMsg" >
+        <div class="signupMsg">
           <div class="textcontent">
             <p class="title">Have an account?</p>
-            <p>Log in to see all your collection.</p>
+            <p>Log in to meet your friends.</p>
             <button id="switch2" v-on:click="showLogIn">LOG IN</button>
           </div>
-
         </div>
       </div>
       <!-- backbox -->
 
-      <div class="frontbox" v-bind:class="{ moving: !loginVisible }"
- v-on:click="showMobileMenu = !showMobileMenu">
+      <div class="frontbox" v-bind:class="{ moving: !loginVisible }">
         <div class="login" v-if="loginVisible">
           <h2>LOG IN</h2>
-          <div class="inputbox">
-            <input type="text" name="email" placeholder="  EMAIL">
-            <input type="password" name="password" placeholder="  PASSWORD">
-          </div>
-          <p>FORGET PASSWORD?</p>
-          <button>LOG IN</button>
+          <form class="inputbox" v-on:submit="submitLogin">
+            <input type="text" name="email" v-model="login.email"
+              placeholder="  EMAIL">
+            <input type="password" name="password" v-model="login.password"
+              placeholder="  PASSWORD">
+            <!--<p>FORGOT PASSWORD?</p>-->
+            <button type="submit">LOG IN</button>
+          </form>
         </div>
 
         <div class="signup" v-if="!loginVisible">
           <h2>SIGN UP</h2>
-          <div class="inputbox">
-            <div style="display:flex">
-              <input type="text" name="name" placeholder="  NAME" style="margin-right:5px">
-              <input type="text" name="surname" placeholder="  SURNAME">
+          <form class="inputbox" v-on:submit="submitSignup" v-if="!successfulSignup">
+            <div class="inline-input">
+              <input type="text" name="name" v-model="signup.name"
+                placeholder="  NAME" required>
+              <input type="text" name="surname" v-model="signup.surname"
+                placeholder="  SURNAME" required>
             </div>
-            <input type="text" name="email" placeholder="  EMAIL">
-            <input type="password" name="password" placeholder="  PASSWORD">
-            <input type="date" name="dateofbirth" placeholder="  DATE OF BIRTH">
-            <select>
+            <input type="email" name="email" v-model="signup.email"
+              placeholder="  EMAIL" required>
+            <input type="password" name="password" v-model="signup.password"
+              placeholder="  PASSWORD" required>
+            <input type="date" name="dateofbirth" v-model="signup.dateofbirth"
+             placeholder="  DATE OF BIRTH" required>
+            <select name="gender" v-model="signup.gender" required>
+              <option value="" disabled selected>Select one…</option>
               <option value="male" >Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
             </select>
+            <button type="submit" v-on:click="failedSignup = false"
+              v-bind:class="{ shaking: failedSignup }">SIGN UP</button>
+          </form>
+          <div class="success" v-if="successfulSignup">
+            You signed up correctly
+
+            <button class="login-now" v-on:click="showLogIn">LOGIN NOW!</button>
           </div>
-          <button>SIGN UP</button>
         </div>
 
       </div>
@@ -57,11 +69,29 @@
 
 
 <script>
+
+var apiSignupUrl = 'http://localhost:5000/user';
+var apiLoginUrl  = ''; // ToDo
+
 export default {
   name: 'LoginSignin',
   data() {
     return {
-      loginVisible: true
+      loginVisible: false,
+      successfulSignup: false,
+      failedSignup: false,
+      login: {
+        email: "",
+        password: ""
+      },
+      signup: {
+        name: "",
+        surname: "",
+        email: "",
+        password: "",
+        dateofbirth: "",
+        gender: ""
+      }
     }
   },
   computed: {
@@ -76,9 +106,27 @@ export default {
 
     showLogIn() {
       this.loginVisible = true;
+    },
+    submitSignup(e) { 
+      e.preventDefault();
+      fetch(apiSignupUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(this.signup)
+      }).then((response) => {
+        if (response.ok) {
+          this.successfulSignup = true;
+        } else {
+          // ToDo: highlight bad fields
+          this.failedSignup = true;
+        }
+      });
+    },
+    submitLogin(e) {
+      e.preventDefault();
     }
-    
-
   },
 };
 </script>
@@ -171,12 +219,12 @@ export default {
   margin-bottom: 20px
   font-size: 12px
 
-.login button, .signup button
+.inputbox button[type="submit"]
   background-color: #ffb511
   border: none
   color: white
   font-size: 12px
-  font-weight: 300
+  font-weight: bold
   box-sizing: content-box
   padding: 10px
   border-radius: 10px
@@ -185,6 +233,29 @@ export default {
   right: 30px
   bottom: 30px
   cursor: pointer
+
+button.login-now 
+  background-color: #ffb511
+  border: none
+  color: white
+  font-size: 12px
+  font-weight: bold
+  box-sizing: content-box
+  padding: 10px
+  border-radius: 10px
+  margin-top: 10px
+  width: 100px
+  cursor: pointer
+
+.inline-input 
+  display: flex
+  & input:not(last-child)
+    margin-right: 5px
+
+.success
+  color: #008000
+  font-weight: bold
+  text-align: center
 
 /* Fade In & Out */
 
@@ -195,12 +266,31 @@ export default {
 
 .loginMsg, .signupMsg
   //opacity: 1;
-  transition: opacity .8s ease-in-out
+  transition: opacity .5s ease-in-out
 
 .visibility
   opacity: 0
 
 .hide
   display: none
+
+/* Button shake */
+
+.shaking
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+
+@keyframes shake 
+  10%, 90% 
+    transform: translate3d(-1px, 0, 0);
+  
+  20%, 80% 
+    transform: translate3d(2px, 0, 0);
+
+  30%, 50%, 70% 
+    transform: translate3d(-4px, 0, 0);
+
+  40%, 60% 
+    transform: translate3d(4px, 0, 0);
+
 
 </style>
