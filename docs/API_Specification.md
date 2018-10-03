@@ -1,5 +1,23 @@
 # API Specification
 
+- HTTP Codes used
+
+| Code | Name                  |
+|------|-----------------------|
+| 200  | Ok                    |
+| 204  | No Content            |
+| 400  | Bad Request           |
+| 403  | Forbidden             |
+| 500  | Internal Server Error |
+
+- 400 Error Ids
+
+| Error Id | Error description         |
+|:--------:|---------------------------|
+| 001      | Invalid data              |
+| 002      | Already existing username |
+| 003      | Already existing email    |
+
 ## Sign up
 
 ### Request
@@ -49,11 +67,11 @@
 }
 ```
 
-### Response success
+### Response: success
 
-`200 OK`
+`204 No Content`
 
-### Response error
+### Response: client error
 
 `400 Bad Request`
 
@@ -71,7 +89,14 @@
     "title": "Sign up error",
     "type": "object",
     "properties": {
-        "error-id": {"type": "integer"},
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001",
+                "002",
+                "003"
+            ]
+        },
         "error-message": {"type": "string"}
     },
     "required": ["error-id", "error-message"]
@@ -82,7 +107,11 @@
 
 ```json
 {
-    "error-id": "4567",
-    "error-message": "Non valid email.",
+    "error-id": "001",
+    "error-message": "Invalid data",
 }
 ```
+
+### Response: server error
+
+`500 Internal Server Error`
