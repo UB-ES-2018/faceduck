@@ -20,7 +20,7 @@
       <!-- backbox -->
 
       <div class="frontbox" v-bind:class="{ moving: !loginVisible }"
- v-on:click="showMobileMenu = !showMobileMenu">>
+ v-on:click="showMobileMenu = !showMobileMenu">
         <div class="login" v-if="loginVisible">
           <h2>LOG IN</h2>
           <div class="inputbox">
@@ -34,9 +34,18 @@
         <div class="signup" v-if="!loginVisible">
           <h2>SIGN UP</h2>
           <div class="inputbox">
-            <input type="text" name="fullname" placeholder="  FULLNAME">
+            <div style="display:flex">
+              <input type="text" name="name" placeholder="  NAME" style="margin-right:5px">
+              <input type="text" name="surname" placeholder="  SURNAME">
+            </div>
             <input type="text" name="email" placeholder="  EMAIL">
             <input type="password" name="password" placeholder="  PASSWORD">
+            <input type="date" name="dateofbirth" placeholder="  DATE OF BIRTH">
+            <select>
+              <option value="male" >Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
           </div>
           <button>SIGN UP</button>
         </div>
@@ -89,7 +98,7 @@ export default {
 .backbox
   background-color: #404040
   width: 90%
-  height: 80%
+  height: 100%
   position: absolute
   transform: translate(0, -50%)
   top: 50%
@@ -98,7 +107,7 @@ export default {
 .frontbox
   background-color: white
   border-radius: 20px
-  height: 100%
+  height: 125%
   width: 50%
   z-index: 10
   position: absolute
@@ -147,13 +156,13 @@ export default {
   text-align: center
 
 .login h2, .signup h2
-  color: #35B729
+  color: #ffb511
   font-size: 22px
 
 .inputbox
   margin-top: 30px
 
-.login input, .signup input
+.login input, .signup input, .signup select
   display: block
   width: 100%
   height: 40px
@@ -163,7 +172,7 @@ export default {
   font-size: 12px
 
 .login button, .signup button
-  background-color: #35B729
+  background-color: #ffb511
   border: none
   color: white
   font-size: 12px
