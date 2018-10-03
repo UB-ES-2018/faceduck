@@ -1,0 +1,206 @@
+<template>
+    <div class="container">
+      <div class="backbox">
+        <div class="loginMsg" v-bind:toggleClass="{visible: !loginVisible }">
+          <div class="textcontent">
+            <p class="title">Don't have an account?</p>
+            <p>Sign up to save all your graph.</p>
+            <button id="switch1" v-on:click="showSignUp">SIGN UP</button>
+          </div>
+        </div>
+          <div class="signupMsg" >
+          <div class="textcontent">
+            <p class="title">Have an account?</p>
+            <p>Log in to see all your collection.</p>
+            <button id="switch2" v-on:click="showLogIn">LOG IN</button>
+          </div>
+
+        </div>
+      </div>
+      <!-- backbox -->
+
+      <div class="frontbox" v-bind:class="{ moving: !loginVisible }"
+ v-on:click="showMobileMenu = !showMobileMenu">
+        <div class="login" v-if="loginVisible">
+          <h2>LOG IN</h2>
+          <div class="inputbox">
+            <input type="text" name="email" placeholder="  EMAIL">
+            <input type="password" name="password" placeholder="  PASSWORD">
+          </div>
+          <p>FORGET PASSWORD?</p>
+          <button>LOG IN</button>
+        </div>
+
+        <div class="signup" v-if="!loginVisible">
+          <h2>SIGN UP</h2>
+          <div class="inputbox">
+            <div style="display:flex">
+              <input type="text" name="name" placeholder="  NAME" style="margin-right:5px">
+              <input type="text" name="surname" placeholder="  SURNAME">
+            </div>
+            <input type="text" name="email" placeholder="  EMAIL">
+            <input type="password" name="password" placeholder="  PASSWORD">
+            <input type="date" name="dateofbirth" placeholder="  DATE OF BIRTH">
+            <select>
+              <option value="male" >Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <button>SIGN UP</button>
+        </div>
+
+      </div>
+      <!-- frontbox -->
+    </div>
+</template>
+
+
+<script>
+export default {
+  name: 'LoginSignin',
+  data() {
+    return {
+      loginVisible: true
+    }
+  },
+  computed: {
+    signupVisible() {
+      return !this.loginVisible;
+    }
+  },
+  methods: {
+    showSignUp() {
+      this.loginVisible = false;
+    },
+
+    showLogIn() {
+      this.loginVisible = true;
+    }
+    
+
+  },
+};
+</script>
+
+<style lang="sass" scoped>
+
+.container
+  //border:1px solid white
+  width: 600px
+  height: 350px
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  display: inline-flex
+
+.backbox
+  background-color: #404040
+  width: 90%
+  height: 100%
+  position: absolute
+  transform: translate(0, -50%)
+  top: 50%
+  display: inline-flex
+
+.frontbox
+  background-color: white
+  border-radius: 20px
+  height: 125%
+  width: 50%
+  z-index: 10
+  position: absolute
+  right: 0
+  margin-right: 3%
+  margin-left: 3%
+  transition: right .8s ease-in-out
+
+.moving
+  right: 50%
+
+
+.loginMsg, .signupMsg
+  width: 75%
+  height: 100%
+  font-size: 15px
+  box-sizing: border-box
+
+.loginMsg .title, .signupMsg .title
+  font-weight: 300
+  font-size: 23px
+
+.loginMsg p, .signupMsg p
+  font-weight: 100
+
+.textcontent
+  color: white
+  margin-top: 65px
+  margin-left: 5%
+
+.loginMsg button, .signupMsg button
+  background-color: #404040
+  border: 2px solid white
+  border-radius: 10px
+  color: white
+  font-size: 12px
+  box-sizing: content-box
+  font-weight: 300
+  padding: 10px
+  margin-top: 20px
+
+/* front box content */
+
+.login, .signup
+  padding: 20px
+  text-align: center
+
+.login h2, .signup h2
+  color: #ffb511
+  font-size: 22px
+
+.inputbox
+  margin-top: 30px
+
+.login input, .signup input, .signup select
+  display: block
+  width: 100%
+  height: 40px
+  background-color: #f2f2f2
+  border: none
+  margin-bottom: 20px
+  font-size: 12px
+
+.login button, .signup button
+  background-color: #ffb511
+  border: none
+  color: white
+  font-size: 12px
+  font-weight: 300
+  box-sizing: content-box
+  padding: 10px
+  border-radius: 10px
+  width: 60px
+  position: absolute
+  right: 30px
+  bottom: 30px
+  cursor: pointer
+
+/* Fade In & Out */
+
+.login p
+  cursor: pointer
+  color: #404040
+  font-size: 15px
+
+.loginMsg, .signupMsg
+  //opacity: 1;
+  transition: opacity .8s ease-in-out
+
+.visibility
+  opacity: 0
+
+.hide
+  display: none
+
+</style>
