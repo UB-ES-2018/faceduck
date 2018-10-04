@@ -12,11 +12,12 @@
 
 - 400 Error Ids
 
-| Error Id | Error description         |
-|:--------:|---------------------------|
-| 001      | Invalid data              |
-| 002      | Already existing username |
-| 003      | Already existing email    |
+| Error Id | Error description                 |
+|:--------:|-----------------------------------|
+| 001      | Invalid data                      |
+| 002      | Already existing username         |
+| 003      | Already existing email            |
+| 004      | This email or password is invalid |
 
 ## Sign up
 
@@ -109,6 +110,120 @@
 {
     "error-id": "001",
     "error-message": "Invalid data",
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Log in
+
+### Request
+
+**POST** `/session`
+
+#### - Request headers
+
+| Property     | Required | Values           |
+|--------------|:--------:|:----------------:|
+| Content-Type | Yes      | application/json |
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Login",
+    "type": "object",
+    "properties": {
+        "email": {
+            "type": "string",
+            "format": "email"
+        },
+        "password": {"type": "string"}
+    },
+    "required": ["email", "password"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "email": "test@faceduck.com",
+    "password": "12345"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Login success",
+    "type": "object",
+    "properties": {
+        "access-token": {"type": "string"}
+    },
+    "required": ["access-token"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "access-token": "lfn1l324r0fcsanc031ekdjs"
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Login error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "004"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "004",
+    "error-message": "This email or password is invalid",
 }
 ```
 
