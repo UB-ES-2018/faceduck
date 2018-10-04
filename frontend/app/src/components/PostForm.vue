@@ -3,12 +3,26 @@
         <form id='PostF'>
             <input type="PostTitle" name="title" v-model="post.title" placeholder="Title">
             <input type="PostText" name="text" v-model="post.text" placeholder="Text in here">
+            <button class='postbutton'> POST </button>
         </form>
     </div>
 </template>
 
 <style lang="sass" scoped>
-
+.postbutton button[type="submit"]
+  background-color: #ffb511
+  border: none
+  color: white
+  font-size: 12px
+  font-weight: bold
+  box-sizing: content-box
+  padding: 10px
+  border-radius: 10px
+  width: 60px
+  position: absolute
+  right: 30px
+  bottom: 30px
+  cursor: pointer
 </style>
 
 <script>
