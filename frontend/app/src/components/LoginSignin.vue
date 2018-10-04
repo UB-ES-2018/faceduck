@@ -265,7 +265,7 @@ button.login-now
 
 .inline-input 
   display: flex
-  & input:not(last-child)
+  & input:not(:last-child)
     margin-right: 5px
 
 .success
