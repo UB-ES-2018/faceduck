@@ -27,7 +27,8 @@
             <input type="password" name="password" v-model="login.password"
               placeholder="  PASSWORD">
             <!--<p>FORGOT PASSWORD?</p>-->
-            <button type="submit">LOG IN</button>
+            <button type="submit" v-on:click="failedLogin = false"
+              v-bind:class="{ shaking: failedLogin }">LOG IN</button>
           </form>
         </div>
 
@@ -80,6 +81,7 @@ export default {
       loginVisible: false,
       successfulSignup: false,
       failedSignup: false,
+      failedLogin: false,
       login: {
         email: "",
         password: ""
@@ -122,10 +124,24 @@ export default {
           // ToDo: highlight bad fields
           this.failedSignup = true;
         }
-      });
+      }).catch((r) => this.failedSignup = true);
     },
     submitLogin(e) {
       e.preventDefault();
+      fetch(apiLoginUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(this.login)
+      }).then((response) => {
+        if (response.ok) {
+          // DO AUTHENTICATION
+        } else {
+          // ToDo: highlight bad fields
+          this.failedLogin = true;
+        }
+      }).catch((r) => this.failedSignup = true);
     }
   },
 };
