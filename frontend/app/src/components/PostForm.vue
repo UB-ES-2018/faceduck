@@ -1,15 +1,79 @@
 <template>
     <div id='PostForm'>
-        <form id='PostF'>
-            <input type="PostTitle" name="title" v-model="post.title" placeholder="Title">
-            <input type="PostText" name="text" v-model="post.text" placeholder="Text in here">
-            <button class='postbutton'> POST </button>
-        </form>
+        <div class="container">
+            <form class='inputbox'>
+                <fieldset class="inputs">
+                    <textarea type="text" name="post" id="text-box" placeholder="Say Something..."></textarea>
+                </fieldset>
+                <fieldset class="actions">
+                    <button type="submit" v-on:click='submitPost'> Post </button>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </template>
 
 <style lang="sass" scoped>
-.postbutton button[type="submit"]
+
+
+.container 
+	margin-top: 80px
+	margin-left: auto
+	margin-right: auto
+	width: 700px
+    height: auto
+	background:rgb(241, 241, 241)
+	color:black !important
+	font-family: 'Verdana'
+	font-size: 18px
+	padding-top: 20px
+    padding-bottom: 25px
+	-moz-box-shadow: 0px 5px 10px 0px #333, 0px -3px 10px 0px #333
+	-webkit-box-shadow: 0px 5px 10px 0px #333, 0px -3px 10px 0px #333
+	box-shadow: 0px 5px 10px 0px #333, 0px -3px 10px 0px #333
+	-moz-border-radius: .5em
+	-webkit-border-radius: .5em
+	border-radius: .5em
+	
+
+
+#text-box 
+  background: #f2f2f2
+  padding: 6px
+  margin-top: -.25%
+  margin-bottom: .25%
+  width: 650px
+  height: 1.5%
+  font-family: 'Merriweather Sans', sans-serif
+  font-size: 14px
+  border: 1px solid #82aee8
+  -moz-border-radius: 5px
+  -webkit-border-radius: 5px
+  border-radius: 5px
+  -moz-box-shadow: 0 1px 1px #82aee8 inset
+  -webkit-box-shadow: 0 1px 1px #82aee8 inset
+  box-shadow: 0 1px 1px #82aee8 inset
+
+#text-box:focus 
+  background-color: #fff
+  border-color: #82aee8
+  outline: none
+  -moz-box-shadow: 0 0 0 1px #82aee8 inset
+  -webkit-box-shadow: 0 0 0 1px #82aee8 inset
+  box-shadow: 0 0 0 1px #82aee8 inset
+
+fieldset 
+  border: 0
+
+.inputbox input
+  display: flex
+  width: 100%
+  height: 40px
+  background-color: #f2f2f2
+  border: none
+  margin-bottom: 20px
+  font-size: 12px
+.inputbox button[type="submit"]
   background-color: #ffb511
   border: none
   color: white
@@ -19,36 +83,24 @@
   padding: 10px
   border-radius: 10px
   width: 60px
-  position: absolute
-  right: 30px
-  bottom: 30px
+  position: relative
+  left: 40% 
   cursor: pointer
 </style>
 
 <script>
+    var apiPostFormUrl = 'http://localhost:5000/';
     export default {
         name: 'PostForm',
         data() {
             return {
-                loginVisible: false,
-                successfulSignup: false,
-                failedSignup: false,
-                failedLogin: false,
                 post: {
-                    title: "",
                     text: ""
                 }
             }
         },
         methods: {
-            showSignUp() {
-                this.loginVisible = false;
-            },
-    
-            showLogIn() {
-                this.loginVisible = true;
-            },
-            submitSignup(e) {
+            submitPost(e) {
                 e.preventDefault();
                 fetch(apiSignupUrl, {
                     method: "POST",
@@ -65,23 +117,7 @@
                     }
                 }).catch((r) => this.failedSignup = true);
             },
-            submitLogin(e) {
-                e.preventDefault();
-                fetch(apiLoginUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(this.login)
-                }).then((response) => {
-                    if (response.ok) {
-                        // DO AUTHENTICATION
-                    } else {
-                        // ToDo: highlight bad fields
-                        this.failedLogin = true;
-                    }
-                }).catch((r) => this.failedSignup = true);
-            }
+    
         },
     }
 </script>
