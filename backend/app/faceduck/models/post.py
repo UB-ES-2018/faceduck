@@ -3,7 +3,7 @@ from elasticsearch_dsl import Document, Date, Nested, Boolean, Text, Integer, In
 class Post(Document):
 	text = Text()
 	created_at = Date()
-	author = User()
+	author = Text()
 
 	class Index:
 		name = 'post'
