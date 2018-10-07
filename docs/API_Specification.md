@@ -174,9 +174,35 @@
     "title": "Login success",
     "type": "object",
     "properties": {
-        "access-token": {"type": "string"}
+        "access-token": {"type": "string"},
+        "user": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "username": {"type": "string"},
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "password": {"type": "string"},
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "birthday": {"type": "string"},
+                "gender": {"type": "string"}
+            },
+            "required": [
+                "api",
+                "username", 
+                "email", 
+                "password", 
+                "name", 
+                "surname", 
+                "birthday", 
+                "gender"
+            ]
+        }
     },
-    "required": ["access-token"]
+    "required": ["access-token", "user"]
 }
 ```
 
@@ -184,7 +210,17 @@
 
 ```json
 {
-    "access-token": "lfn1l324r0fcsanc031ekdjs"
+    "access-token": "lfn1l324r0fcsanc031ekdjs",
+    "user": {
+        "id": "32",
+        "username": "test123",
+        "email": "test@faceduck.com",
+        "password": "12345",
+        "name": "Scrum",
+        "surname": "Master",
+        "birthday": "1984-10-01",
+        "gender": "male"
+    }
 }
 ```
 
