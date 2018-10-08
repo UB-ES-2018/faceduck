@@ -3,7 +3,7 @@
         <div class="container">
             <form class='inputbox'>
                 <fieldset class="inputs">
-                    <textarea type="text" name="post" id="text-box" placeholder="Say Something..."></textarea>
+                    <textarea cols = "5" rows="5" type="text" name="post" id="text-box" placeholder="Say Something..."></textarea>
                 </fieldset>
                 <fieldset class="actions">
                     <button type="submit" v-on:click='submitPost'> Post </button>
@@ -34,6 +34,7 @@
 	-moz-border-radius: .5em
 	-webkit-border-radius: .5em
 	border-radius: .5em
+    
 	
 
 
@@ -53,6 +54,7 @@
   -moz-box-shadow: 0 1px 1px #82aee8 inset
   -webkit-box-shadow: 0 1px 1px #82aee8 inset
   box-shadow: 0 1px 1px #82aee8 inset
+  width: calc(100% - 45px)
 
 #text-box:focus 
   background-color: #fff
@@ -61,6 +63,11 @@
   -moz-box-shadow: 0 0 0 1px #82aee8 inset
   -webkit-box-shadow: 0 0 0 1px #82aee8 inset
   box-shadow: 0 0 0 1px #82aee8 inset
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  overflow-y: auto
+  overflow-x: hidden
 
 fieldset 
   border: 0
