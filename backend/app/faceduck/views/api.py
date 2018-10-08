@@ -1,6 +1,5 @@
 from faceduck.blueprints import api
 from faceduck.core import signup
-from flask import Response
 import json
 
 @api.route('/user', methods=["POST"])
@@ -9,15 +8,16 @@ def signup():
 	try:
 		username = req['username']
 		email = req['email']
-		password = req['passowrd']
+		password = req['password']
 		name = req['name']
 		surname = req['surname']
 		birthday = req['birthday']
 		gender = req['gender']
 	except KeyError:
-		resp = {'error-id': '400', 'error-message': 'Invalid data submitted'}
-		return Response('error-message': 'Invalid data submitted', status=400)
-			
+		return json.dumps({'error-id': '400', 'error-message': 'Invalid data submitted'})
 	
-	return signup.validateSignup(username, email, password, name, surname, birthday, gender)
+	try:
+		signup.createUser(username, email, password, name, surname, birthday, gender)
+	except ValueError:
+		return json.dumps({'error-id': '400', 'error-message': "Username or Email already used"})
 	
