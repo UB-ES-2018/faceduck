@@ -184,17 +184,15 @@
                     "type": "string",
                     "format": "email"
                 },
-                "password": {"type": "string"},
                 "name": {"type": "string"},
                 "surname": {"type": "string"},
                 "birthday": {"type": "string"},
                 "gender": {"type": "string"}
             },
             "required": [
-                "api",
+                "id",
                 "username", 
-                "email", 
-                "password", 
+                "email",
                 "name", 
                 "surname", 
                 "birthday", 
@@ -215,7 +213,6 @@
         "id": "32",
         "username": "test123",
         "email": "test@faceduck.com",
-        "password": "12345",
         "name": "Scrum",
         "surname": "Master",
         "birthday": "1984-10-01",
@@ -245,6 +242,7 @@
         "error-id": {
             "type": "integer",
             "enum": [
+                "001",
                 "004"
             ]
         },
