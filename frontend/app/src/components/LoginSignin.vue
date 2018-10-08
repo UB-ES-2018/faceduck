@@ -140,6 +140,8 @@ export default {
         if (response.ok) {
           localStorage.set("access-token",
             response.json()["access-token"]);
+          localStorage.set("user",
+            response.json()["user"]);
         } else {
           // ToDo: highlight bad fields
           this.failedLogin = true;
