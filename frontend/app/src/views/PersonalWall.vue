@@ -1,8 +1,9 @@
 <template>
   <div id="PersonalWall">
     <h1>This is the Wall</h1>
-    <PostForm/>
+    
     <div class="container" align="center">
+      <PostForm/>
       <PostView/>
     </div>
   </div>
