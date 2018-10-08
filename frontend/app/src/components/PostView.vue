@@ -12,9 +12,9 @@
             
                 <div class="info">
             
-                    <div class="main">Nickname or Title</div>
+                    <div class="main">Nickname</div>
             
-                    <div class="sub">Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj</div>
+                    <div class="sub" position: relative; height: 5em; style="overflow-y: scroll;">Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj</div>
             
                 </div> <!--Closing info-->
             
@@ -46,7 +46,7 @@
     
                     margin: 4%
                     
-                    height: 20em
+                    height: 15em
 
                     border-radius: 20px
 
