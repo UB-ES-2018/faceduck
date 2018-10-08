@@ -4,7 +4,7 @@ def createUser(user, email, password, name, surname, birthday, gender):
 
 	newUser = None
 	
-	try´{
+	try{
 		User.get(username = user):
 		User.get(email=email):
 	except ValueError:
