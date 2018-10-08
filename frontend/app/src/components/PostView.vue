@@ -35,7 +35,7 @@
             width: 100%
     
             .option 
-
+                
                 position: relative
     
                 overflow: hidden
@@ -43,7 +43,7 @@
                 background: white
     
                 &.active 
-    
+                    
                     margin: 4%
                     
                     height: 20em
@@ -139,6 +139,8 @@
     
                         .sub 
                             transition-delay: .1s
+                            
+                            overflow-y: scroll
     
 </style>
 
