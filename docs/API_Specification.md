@@ -274,37 +274,7 @@
 
 ### Request
 
-**GET** `/post`
-
-#### - Request headers
-
-| Property     | Required | Values           |
-|--------------|:--------:|:----------------:|
-| Content-Type | Yes      | application/json |
-
-#### - Request body
-
-```json
-{
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Get post",
-    "type": "object",
-    "properties": {
-        "post-id": {"type": "string"}
-    },
-    "required": [
-        "post-id"
-    ]
-}
-```
-
-*Examples:*
-
-```json
-{
-    "post-id": "52"
-}
-```
+**GET** `/post/{post_id}`
 
 ### Response: success
 
