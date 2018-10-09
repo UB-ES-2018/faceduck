@@ -214,7 +214,7 @@
 ```json
 {
     "text": "Hello this is a post.",
-    "created-at": "12-01-2018, 03:45:34"
+    "created-at": "12-01-2018, 03:45:34",
     "author": {
         "id": "32",
         "username": "test123",
@@ -262,7 +262,7 @@
 ```json
 {
     "error-id": "001",
-    "error-message": "Invalid data",
+    "error-message": "Invalid data"
 }
 ```
 
