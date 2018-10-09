@@ -1,9 +1,9 @@
 <template>
     <div id='PostForm'>
         <div class="container">
-            <form class='inputbox'>
+            <form class='inputbox' v-on:submit="submitPost">
                 <fieldset class="inputs">
-                    <textarea cols = "5" rows="5" type="text" name="post" id="text-box" placeholder="Say Something..."></textarea>
+                    <textarea cols = "5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
                 </fieldset>
                 <fieldset class="actions">
                     <button type="submit" v-on:click='submitPost'> Post </button>
@@ -43,7 +43,6 @@
   padding: 6px
   margin-top: -.25%
   margin-bottom: .25%
-  width: 650px
   height: 1.5%
   font-family: 'Merriweather Sans', sans-serif
   font-size: 14px
@@ -94,33 +93,35 @@ fieldset
 </style>
 
 <script>
-    var apiPostFormUrl = 'http://localhost:5000/';
+    var apiPostFormUrl = 'http://localhost:5000/post';
     export default {
         name: 'PostForm',
         data() {
             return {
                 post: {
-                    text: ""
+                    text: "",
+                    user: "",
+                    created_at:""
                 }
             }
         },
         methods: {
             submitPost(e) {
                 e.preventDefault();
-                fetch(apiSignupUrl, {
+                fetch(apiPostFormUrl, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(this.signup)
+                    body: JSON.stringify(this.post)
                 }).then((response) => {
                     if (response.ok) {
-                        this.successfulSignup = true;
+                        this.successfulPost = true;
                     } else {
                         // ToDo: highlight bad fields
-                        this.failedSignup = true;
+                        this.failedPost = true;
                     }
-                }).catch((r) => this.failedSignup = true);
+                }).catch((r) => this.failedPost = true);
             },
     
         },

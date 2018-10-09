@@ -39,12 +39,10 @@
 
         .options
 
-            width: 100%
-    
+            width: 61%
             .option 
                 overflow-y: scroll
                 position: relative
-    
                 overflow: hidden
     
                 background: white
