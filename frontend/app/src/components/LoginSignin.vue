@@ -35,6 +35,7 @@
         <div class="signup" v-if="!loginVisible">
           <h2>SIGN UP</h2>
           <form class="inputbox" v-on:submit="submitSignup" v-if="!successfulSignup">
+            <input type="text" name="username" v-model="signup.username" placeholder= " USERNAME" required>
             <div class="inline-input">
               <input type="text" name="name" v-model="signup.name"
                 placeholder="  NAME" required>
@@ -87,6 +88,7 @@ export default {
         password: ""
       },
       signup: {
+        username:"",
         name: "",
         surname: "",
         email: "",
@@ -176,7 +178,7 @@ export default {
 .frontbox
   background-color: white
   border-radius: 20px
-  height: 125%
+  height: 150%
   width: 50%
   z-index: 10
   position: absolute
