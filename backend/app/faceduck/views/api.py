@@ -82,3 +82,12 @@ def get_post(post_id):
         return client_error(e.id)
     
     return jsonify(response)
+
+
+@api.route('/user/search', methods=["POST"])
+@jwt_required
+def search_users():
+    content = request.get_json()
+    query = content['query']
+    users = core.search_users(query)
+    return jsonify([user_mapper(u) for u in users])
