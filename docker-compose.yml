@@ -7,6 +7,9 @@ services:
       - "5000:5000"
     volumes:
       - './backend/app:/app'
+    restart: "on-failure"
+    links:
+      - elasticsearch:elasticsearch
   frontend:
     build: frontend/
     ports:
