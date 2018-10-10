@@ -45,7 +45,7 @@
               placeholder="  EMAIL" required>
             <input type="password" name="password" v-model="signup.password"
               placeholder="  PASSWORD" required>
-            <input type="date" name="dateofbirth" v-model="signup.dateofbirth"
+            <input type="date" name="birthday" v-model="signup.birthday"
              placeholder="  DATE OF BIRTH" required>
             <select name="gender" v-model="signup.gender" required>
               <option value="" disabled selected>Select one…</option>
@@ -72,7 +72,7 @@
 <script>
 
 var apiSignupUrl = 'http://localhost:5000/user';
-var apiLoginUrl  = ''; // ToDo
+var apiLoginUrl  = 'http://localhost:5000/session';
 
 export default {
   name: 'LoginSignin',
@@ -91,7 +91,7 @@ export default {
         surname: "",
         email: "",
         password: "",
-        dateofbirth: "",
+        birthday: "",
         gender: ""
       }
     }
@@ -117,14 +117,15 @@ export default {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(this.signup)
-      }).then((response) => {
+      }).catch((r) => this.failedSignup = true)
+      .then((response) => {
         if (response.ok) {
           this.successfulSignup = true;
         } else {
           // ToDo: highlight bad fields
           this.failedSignup = true;
         }
-      }).catch((r) => this.failedSignup = true);
+      });
     },
     submitLogin(e) {
       e.preventDefault();
@@ -134,14 +135,18 @@ export default {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(this.login)
-      }).then((response) => {
+      }).catch((r) => this.failedSignup = true)
+      .then((response) => {
         if (response.ok) {
-          // DO AUTHENTICATION
+          localStorage.set("access-token",
+            response.json()["access-token"]);
+          localStorage.set("user",
+            response.json()["user"]);
         } else {
           // ToDo: highlight bad fields
           this.failedLogin = true;
         }
-      }).catch((r) => this.failedSignup = true);
+      });
     }
   },
 };
