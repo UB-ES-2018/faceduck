@@ -10,7 +10,7 @@ def createUser(id, user, email, password, name, surname, birthday, gender):
 	except ValueError:
 		return newUser
 	
-	newUser = User(meta='id': id},  username=user, email=email, password=password, name=name, surname=surname, birthday=birthday, gender=gender)
+	newUser = User(meta={'id': id},  username=user, email=email, password=password, name=name, surname=surname, birthday=birthday, gender=gender)
 	newUser.save()
 	
 	return newUser
