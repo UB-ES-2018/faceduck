@@ -1,24 +1,36 @@
+from flask import make_response, request
+from flask import jsonify
 from faceduck.blueprints import api
-from faceduck.core import signup
-import json
-import uuid
+from faceduck import core
+from .mappers import ERRORS
+from faceduck.utils import FaceduckError
+
+
+def client_error(error_id):
+    return make_response(jsonify(**ERRORS[error_id]), 400)
+
 
 @api.route('/user', methods=["POST"])
 def signup():
-	req = request.get_json()
-	try:
-		id = uuid.uuid4()
-		username = req['username']
-		email = req['email']
-		password = req['password']
-		name = req['name']
-		surname = req['surname']
-		birthday = req['birthday']
-		gender = req['gender']
-	except KeyError:
-		return json.dumps({'error-id': '400', 'error-message': 'Invalid data submitted'})
-	
-	try:
-		signup.createUser(id, username, email, password, name, surname, birthday, gender)
-	except ValueError:
-		return json.dumps({'error-id': '400', 'error-message': "Username or Email already used"})
+    if not request.is_json:
+        return client_error("001")
+    
+    try:
+        username = request.json['username']
+        email = request.json['email']
+        password = request.json['password']
+        name = request.json['name']
+        surname = request.json['surname']
+        birthday = request.json['birthday']
+        gender = request.json['gender']
+    except KeyError:
+        return client_error("001")
+
+    try:
+        user = core.create_user(username, email, password, name,
+                                surname, birthday, gender)
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return ("", 204)
+

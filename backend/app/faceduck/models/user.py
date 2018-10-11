@@ -4,12 +4,12 @@ class User(Document):
     username = Text()
     email = Text()
     password = Text()
-
+    
     name = Text()
     surname = Text()
     birthday = Date()
     gender = Text()
-
+    
     #location = Text()
     #description = Text()
     #url = Text()
@@ -21,9 +21,9 @@ class User(Document):
     #posts = Nested(Post)
     #friendsCount = Integer()
     #friends = Nested(User)
-
+    
     class Index:
         name = 'user'
-
+    
     def save(self, ** kwargs):
         return super().save(** kwargs)
