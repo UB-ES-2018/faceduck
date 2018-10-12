@@ -3,7 +3,7 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
                 <fieldset class="inputs">
-                    <textarea cols = "5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
+                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
                 </fieldset>
                 <fieldset class="actions">
                     <button type="submit" v-on:click='submitPost'> Post </button>
@@ -100,14 +100,27 @@ fieldset
             return {
                 post: {
                     text: "",
-                    user: "",
-                    created_at:""
+                    user: "Admin", //localStorage.user, // To Do Not shure i
+                    created_at: "",
                 }
             }
         },
         methods: {
             submitPost(e) {
+                Number.prototype.padLeft = function(base, chr) {
+                    var len = (String(base || 10).length - String(this).length) + 1;
+                    return len > 0 ? new Array(len).join(chr || '0') + this : this;
+                }
+                var d = new Date,
+                    dformat = [(d.getMonth() + 1).padLeft(),
+                        d.getDate().padLeft(),
+                        d.getFullYear()
+                    ].join('/') + ' ' + [d.getHours().padLeft(),
+                        d.getMinutes().padLeft(),
+                        d.getSeconds().padLeft()
+                    ].join(':');
                 e.preventDefault();
+                this.post.created_at = dformat;
                 fetch(apiPostFormUrl, {
                     method: "POST",
                     headers: {

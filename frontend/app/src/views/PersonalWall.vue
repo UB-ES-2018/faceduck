@@ -8,6 +8,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import PostForm from "../components/PostForm.vue";
 import PostView from "../components/PostView.vue";
@@ -19,5 +20,21 @@ export default {
     PostView,
 
   },
-};
+  /**
+	data() {
+		return {}
+	},
+	beforeCreate: function() {
+		if (!localStorage.getItem("access-token")) {
+			this.$router.push("/");
+		}
+	},
+	 methods: {
+		logout: function() {
+			localStorage.removeItem("access-token");
+			this.$router.push("/");
+		}
+	}*/
+}
+
 </script>
