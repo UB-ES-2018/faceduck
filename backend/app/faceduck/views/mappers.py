@@ -5,3 +5,16 @@ ERRORS = {
     "004": {"error-id": "004", "error-message": "This email or password is invalid"}
 }
 
+
+def user_mapper(user):
+    user_dict = {"id": user.meta.id}
+
+    for attr in dir(user):
+        key = attr.replace("_", "-")
+
+        if attr != "password":
+            user_dict[key] = getattr(user, attr)
+
+    return user_dict
+
+
