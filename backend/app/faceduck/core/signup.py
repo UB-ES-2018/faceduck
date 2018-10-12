@@ -1,6 +1,7 @@
 import logging
 import uuid
 from elasticsearch.exceptions import NotFoundError
+from werkzeug.security import generate_password_hash 
 from faceduck.models.user import User
 from faceduck.utils import FaceduckError
 
@@ -29,6 +30,7 @@ def create_user(username, email, password, name, surname, birthday, gender):
         raise FaceduckError("003")
     
     id = uuid.uuid4()
+    password = generate_password_hash(password)
     user = User(meta={'id': id}, username=username, email=email, password=password,
                 name=name, surname=surname, birthday=birthday, gender=gender)
     user.save()
