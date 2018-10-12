@@ -1,6 +1,7 @@
 from faceduck.models.user import User
 from faceduck.core.sessionkeeping import SessionKeeping
 from werkzeug.security import check_password_hash
+from faceduck.utils import FaceduckError
 
 
 def get_user_by_email(email):
