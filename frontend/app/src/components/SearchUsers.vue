@@ -1,9 +1,9 @@
 <template>
     <div id='SearchUsers'>
-        <form class="inputbox" >
+        <form class="inputbox"   v-on:submit.prevent="send">
         <div>
-            <input type="text" placeholder="username">
-            <button type="button" v-on:click="fakeJson">Searh</button>
+            <input type="text" placeholder="username" v-model="searchQuery"  v-on:keyup.enter="getUsers">
+            <button type="button" v-on:click="getUsers">Searh</button>
         </div>
         </form>
         <div class="results">
@@ -13,73 +13,29 @@
 </template>
 
 <script>
+var apiUsersSearchUrl  = 'http://192.168.1.101:5000/user/search'; //Backend ip
+
 export default {
     data() {
         return{
             results: [],
+            searchQuery: "",
         };
     },
     methods: {
         //wip
         getUsers() {
-            fetch('your-api-here', { params: { keywords: this.keywords } })
-                .then(function(response) {return response.json();}).then(function(rj){this.results=rj})
-                .catch(error => {});
-                console.log(this.results[0]);
+            fetch(apiUsersSearchUrl+"?query="+this.searchQuery, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json"
+                },
+                body: JSON.stringify({query: this.searchQuery})
+            }).then(res => res.json())
+            .then(data => this.results = data);
+            
         },
-        //to emulate api call - json is in correct api format
-        fakeJson(){
-            this.results=[
-            {
-            "id":"01",
-            "username": "fhgt",
-            "email": "fucker@gmail.com",
-            "name" : "Dmfdsfdsitri",
-            "surname" : "Lalkov",
-            "birthday" : "10.12.1981",
-            "gender" : "male"
-            },
-            {
-            "id": "02",
-            "username": "d222",
-            "email": "fucker@gmail.com",
-            "name" : "MaMadfim",
-            "surname" : "VoTrmpn",
-            "birthday" : "10.12.1981",
-            "gender" : "male"
-            },
-            {
-            "id": "03",
-            "username": "cd01",
-            "email": "fucker@gmail.com",
-            "name" : "Fenya",
-            "surname" : "Baggins",
-            "birthday" : "10.12.1981",
-            "gender" : "male"
-            },
-            {
-            "id": "04",
-            "username": "fru456",
-            "email": "fucker@gmail.com",
-            "name" : "Sasha",
-            "surname" : "Seriy",
-            "birthday" : "10.12.1981",
-            "gender" : "male"
-            },
-            {
-            "id": "09186777",
-            "username": "lastT",
-            "email": "fucker@gmail.com",
-            "name" : "Neveroyatniy",
-            "surname" : "Alk",
-            "birthday" : "10.12.1981",
-            "gender" : "male"
-            }
-
-        ]
-
-
-        }
+        
     }
 }
 </script>
