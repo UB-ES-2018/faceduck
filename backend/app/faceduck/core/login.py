@@ -2,7 +2,6 @@ from faceduck.models.user import User
 from faceduck.core.sessionkeeping import SessionKeeping
 from werkzeug.security import check_password_hash
 from faceduck.utils import FaceduckError
-from flask import current_app
 
 
 def get_user_by_email(email):
@@ -24,11 +23,9 @@ def login_user(email, password):
     user = get_user_by_email(email)
 
     if user is None:
-        current_app.logger.info("User is none")
         raise FaceduckError("004")
 
     if not check_password_hash(user.password, password):
-        current_app.logger.info("PWD is wrong {}, {}".format(user.password, password))
         raise FaceduckError("004")
 
     token = SessionKeeping.generate_jwt_token(user.meta.id)
