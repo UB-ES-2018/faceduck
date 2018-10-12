@@ -1,142 +1,157 @@
 <template>
-  <div class="container">
-    <div class="backbox">
-      <div class="loginMsg" v-bind:toggleClass="{visible: !loginVisible }">
-        <div class="textcontent">
-          <p class="title">Don't have an account?</p>
-          <p>Sign up and find your friends.</p>
-          <button id="switch1" v-on:click="showSignUp">SIGN UP</button>
-        </div>
-      </div>
-      <div class="signupMsg">
-        <div class="textcontent">
-          <p class="title">Have an account?</p>
-          <p>Log in to meet your friends.</p>
-          <button id="switch2" v-on:click="showLogIn">LOG IN</button>
-        </div>
-      </div>
-    </div>
-    <!-- backbox -->
-  
-    <div class="frontbox" v-bind:class="{ moving: !loginVisible }">
-      <div class="login" v-if="loginVisible">
-        <h2>LOG IN</h2>
-        <form class="inputbox" v-on:submit="submitLogin">
-          <input type="text" name="email" v-model="login.email" placeholder="  EMAIL">
-          <input type="password" name="password" v-model="login.password" placeholder="  PASSWORD">
-          <!--<p>FORGOT PASSWORD?</p>-->
-          <button type="submit" v-on:click="failedLogin = false" v-bind:class="{ shaking: failedLogin }">LOG IN</button>
-        </form>
-      </div>
-  
-      <div class="signup" v-if="!loginVisible">
-        <h2>SIGN UP</h2>
-        <form class="inputbox" v-on:submit="submitSignup" v-if="!successfulSignup">
-          <input type="text" name="username" v-model="signup.username" placeholder= " USERNAME" required>
-          <div class="inline-input">
-            <input type="text" name="name" v-model="signup.name" placeholder="  NAME" required>
-            <input type="text" name="surname" v-model="signup.surname" placeholder="  SURNAME" required>
+    <div class="container">
+      <div class="backbox">
+        <div class="loginMsg" v-bind:toggleClass="{visible: !loginVisible }">
+          <div class="textcontent">
+            <p class="title">Don't have an account?</p>
+            <p>Sign up and find your friends.</p>
+            <button id="switch1" v-on:click="showSignUp">SIGN UP</button>
           </div>
-          <input type="email" name="email" v-model="signup.email" placeholder="  EMAIL" required>
-          <input type="password" name="password" v-model="signup.password" placeholder="  PASSWORD" required>
-          <input type="date" name="dateofbirth" v-model="signup.dateofbirth" placeholder="  DATE OF BIRTH" required>
-          <select name="gender" v-model="signup.gender" required>
-                <option value="" disabled selected>Select one…</option>
-                <option value="male" >Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-          <button type="submit" v-on:click="failedSignup = false" v-bind:class="{ shaking: failedSignup }">SIGN UP</button>
-        </form>
-        <div class="success" v-if="successfulSignup">
-          You signed up correctly
-  
-          <button class="login-now" v-on:click="showLogIn">LOGIN NOW!</button>
+        </div>
+        <div class="signupMsg">
+          <div class="textcontent">
+            <p class="title">Have an account?</p>
+            <p>Log in to meet your friends.</p>
+            <button id="switch2" v-on:click="showLogIn">LOG IN</button>
+          </div>
         </div>
       </div>
-  
+      <!-- backbox -->
+
+      <div class="frontbox" v-bind:class="{ moving: !loginVisible }">
+        <div class="login" v-if="loginVisible">
+          <h2>LOG IN</h2>
+          <form class="inputbox" v-on:submit="submitLogin">
+            <input type="text" name="email" v-model="login.email"
+              placeholder="  EMAIL">
+            <input type="password" name="password" v-model="login.password"
+              placeholder="  PASSWORD">
+            <!--<p>FORGOT PASSWORD?</p>-->
+            <button type="submit" v-on:click="failedLogin = false"
+              v-bind:class="{ shaking: failedLogin }">LOG IN</button>
+          </form>
+        </div>
+
+        <div class="signup" v-if="!loginVisible">
+          <h2>SIGN UP</h2>
+          <form class="inputbox" v-on:submit="submitSignup" v-if="!successfulSignup">
+            <input type="text" name="username" v-model="signup.username" placeholder= " USERNAME" required>
+            <div class="inline-input">
+              <input type="text" name="name" v-model="signup.name"
+                placeholder="  NAME" required>
+              <input type="text" name="surname" v-model="signup.surname"
+                placeholder="  SURNAME" required>
+            </div>
+            <input type="email" name="email" v-model="signup.email"
+              placeholder="  EMAIL" required>
+            <input type="password" name="password" v-model="signup.password"
+              placeholder="  PASSWORD" required>
+            <input type="date" name="birthday" v-model="signup.birthday"
+             placeholder="  DATE OF BIRTH" required>
+            <select name="gender" v-model="signup.gender" required>
+              <option value="" disabled selected>Select one…</option>
+              <option value="male" >Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+            <button type="submit" v-on:click="failedSignup = false"
+              v-bind:class="{ shaking: failedSignup }">SIGN UP</button>
+          </form>
+          <div class="success" v-if="successfulSignup">
+            You signed up correctly
+
+            <button class="login-now" v-on:click="showLogIn">LOGIN NOW!</button>
+          </div>
+        </div>
+
+      </div>
+      <!-- frontbox -->
     </div>
-    <!-- frontbox -->
-  </div>
 </template>
 
 
 <script>
-  var apiSignupUrl = 'http://localhost:5000/user';
-  var apiLoginUrl = ''; // ToDo
-  
-  export default {
-    name: 'LoginSignin',
-    data() {
-      return {
-        loginVisible: false,
-        successfulSignup: false,
-        failedSignup: false,
-        failedLogin: false,
-        login: {
-          email: "",
-          password: ""
+
+var apiSignupUrl = 'http://localhost:5000/user';
+var apiLoginUrl  = 'http://localhost:5000/session';
+
+export default {
+  name: 'LoginSignin',
+  data() {
+    return {
+      loginVisible: false,
+      successfulSignup: false,
+      failedSignup: false,
+      failedLogin: false,
+      login: {
+        email: "",
+        password: ""
+      },
+      signup: {
+        username:"",
+        name: "",
+        surname: "",
+        email: "",
+        password: "",
+        birthday: "",
+        gender: ""
+      }
+    }
+  },
+  computed: {
+    signupVisible() {
+      return !this.loginVisible;
+    }
+  },
+  methods: {
+    showSignUp() {
+      this.loginVisible = false;
+    },
+
+    showLogIn() {
+      this.loginVisible = true;
+    },
+    submitSignup(e) { 
+      e.preventDefault();
+      fetch(apiSignupUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
         },
-        signup: {
-          username: "",
-          name: "",
-          surname: "",
-          email: "",
-          password: "",
-          dateofbirth: "",
-          gender: ""
+        body: JSON.stringify(this.signup)
+      }).catch((r) => this.failedSignup = true)
+      .then((response) => {
+        if (response.ok) {
+          this.successfulSignup = true;
+        } else {
+          // ToDo: highlight bad fields
+          this.failedSignup = true;
         }
-      }
+      });
     },
-    computed: {
-      signupVisible() {
-        return !this.loginVisible;
-      }
-    },
-    methods: {
-      showSignUp() {
-        this.loginVisible = false;
-      },
-  
-      showLogIn() {
-        this.loginVisible = true;
-      },
-      submitSignup(e) {
-        e.preventDefault();
-        fetch(apiSignupUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(this.signup)
-        }).then((response) => {
-          if (response.ok) {
-            this.successfulSignup = true;
-          } else {
-            // ToDo: highlight bad fields
-            this.failedSignup = true;
-          }
-        }).catch((r) => this.failedSignup = true);
-      },
-      submitLogin(e) {
-        e.preventDefault();
-        fetch(apiLoginUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(this.login)
-        }).then((response) => {
-          if (response.ok) {
-            // DO AUTHENTICATION
-          } else {
-            // ToDo: highlight bad fields
-            this.failedLogin = true;
-          }
-        }).catch((r) => this.failedSignup = true);
-      }
-    },
-  };
+    submitLogin(e) {
+      e.preventDefault();
+      fetch(apiLoginUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(this.login)
+      }).catch((r) => this.failedSignup = true)
+      .then((response) => {
+        if (response.ok) {
+          localStorage.set("access-token",
+            response.json()["access-token"]);
+          localStorage.set("user",
+            response.json()["user"]);
+        } else {
+          // ToDo: highlight bad fields
+          this.failedLogin = true;
+        }
+      });
+    }
+  },
+};
 </script>
 
 <style lang="sass" scoped>
