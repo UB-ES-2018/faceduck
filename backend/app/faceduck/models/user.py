@@ -1,5 +1,6 @@
 from elasticsearch_dsl import Document, Date, Nested, Boolean, Text, Integer, InnerDoc
 
+
 class User(Document):
     username = Text()
     email = Text()

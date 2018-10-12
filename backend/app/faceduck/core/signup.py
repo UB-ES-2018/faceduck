@@ -1,32 +1,38 @@
-import logging
 import uuid
-from elasticsearch.exceptions import NotFoundError
-from werkzeug.security import generate_password_hash 
+from werkzeug.security import generate_password_hash
 from faceduck.models.user import User
 from faceduck.utils import FaceduckError
 
 
-def create_user(username, email, password, name, surname, birthday, gender):
+def username_already_exists(username):
     username_response = User.search().from_dict({
         "query": {
-            "term": {
+            "match_phrase": {
                 "username": username
             }
         }
     }).execute()
 
-    if len(username_response) != 0:
-        raise FaceduckError("002")
-    
+    return len(username_response.hits) > 0
+
+
+def email_already_exists(email):
     email_response = User.search().from_dict({
         "query": {
-            "term": {
+            "match_phrase": {
                 "email": email
             }
         }
     }).execute()
-    
-    if len(email_response) != 0:
+
+    return len(email_response.hits) > 0
+
+
+def create_user(username, email, password, name, surname, birthday, gender):
+    if username_already_exists(username):
+        raise FaceduckError("002")
+
+    if email_already_exists(email):
         raise FaceduckError("003")
     
     id = uuid.uuid4()
