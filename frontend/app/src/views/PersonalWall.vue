@@ -21,7 +21,7 @@ export default {
 
   },
   /**
-	data() {
+  data() {
 		return {}
 	},
 	beforeCreate: function() {
@@ -29,7 +29,7 @@ export default {
 			this.$router.push("/");
 		}
 	},
-	 methods: {
+	methods: {
 		logout: function() {
 			localStorage.removeItem("access-token");
 			this.$router.push("/");
@@ -38,3 +38,4 @@ export default {
 }
 
 </script>
+
