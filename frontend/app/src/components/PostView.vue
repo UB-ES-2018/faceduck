@@ -1,36 +1,52 @@
 <template>
-
-    <div class="options"> <!-- The below v-on:click and v-bind are not working right now, the idea was to open and close the post -->
-
-        <div class="option active" v-on:click= "showPost = !showPost" v-bind:class="{ active: isActive }">
-            
-            <div class="shadow"></div> <!--Closing shadow-->
-            
-            <div class="label">
-            
-                <div class="icon"> </div> <!--Closing icon-->
-            
-                <div class="info">
-            
-                    <div class="main">Nickname</div>
-            
-                    <div class="sub">Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                    </div>
-            
-                </div> <!--Closing info-->
-            
-            </div> <!--Closing lavel-->
-        
-        </div> <!--Closing .option 0-->
+    <div class="options">
+        <!-- The below v-on:click and v-bind are not working right now, the idea was to open and close the post -->
     
-    </div> <!--Closing .options-->
-
+        <div class="option active" v-if="isVisible">
+    
+            <div class="shadow"></div>
+            <!--Closing shadow-->
+    
+            <div class="label">
+    
+                <div class="icon"> </div>
+                <!--Closing icon-->
+    
+                <div class="info">
+    
+                    <div class="main">Nickname</div>
+    
+                    <div class="sub">Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj
+                        tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij
+                        cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj
+                        ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj
+                        tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg
+                        uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj
+                        tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij
+                        cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj
+                        ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj
+                        tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg
+                        uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj
+                        tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij
+                        cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj
+                        ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj
+                        tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg
+                        uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj
+                        tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij
+                        cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
+                    </div>
+    
+                </div>
+                <!--Closing info-->
+    
+            </div>
+            <!--Closing lavel-->
+    
+        </div>
+        <!--Closing .option 0-->
+    
+    </div>
+    <!--Closing .options-->
 </template>
 
 <style lang="sass" scoped>
@@ -41,7 +57,6 @@
 
             width: 61%
             .option 
-                overflow-y: scroll
                 position: relative
                 overflow: hidden
     
@@ -150,29 +165,63 @@
 </style>
 
 <script>
-
+    var apiPostFormUrl = 'http://localhost:5000/post';
+    
     export default {
-
+    
         name: 'PostView',
-
-        data(){
-            return{
-                isActive: false,
+    
+        data() {
+            return {
+                isVisible: false,
+                post: "",
+                message: "",
             }
-            
-
+    
+    
         },
-
+        created: function() {
+            if (localStorage.getItem("isPostVisible") != null) {
+                this.isVisible = localStorage.getItem("isPostVisible")
+            }
+    
+            alert(this.isVisible)
+    
+        },
+        mounted: function() {
+            this.$root.$on('showPost', (text) => { // here you need to use the arrow function
+                this.isVisible = text;
+                alert(this.message)
+            })
+        },
+    
         methods: {
     
             showPost() {
+                e.preventDefault();
+                fetch(apiGetPost, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(localStorage.getItem("lastPost"))
+                    }).catch((r) => this.failedSignup = true)
+                    .then((response) => {
+                        if (response.ok) {
+                            response.json().then((json) => {
+                                alert(json)
+                                localStorage.setItem("post",
+                                    JSON.stringify(json));
+                            });
+                            this.isVisible = !this.isVisible;
+                        } else {
+                            // ToDo: highlight bad fields
+                        }
+                        alert(this.post)
+                    });
     
-                this.isActive = !this.isActive;
+            },
     
-            }
-   
-        },
-    
-    };
-
+        }
+    }
 </script>

@@ -100,13 +100,14 @@ fieldset
             return {
                 post: {
                     text: "",
-                    user: "Admin", //localStorage.user, // To Do Not shure i
+                    user:"" ,//localStorage.getItem(user), //localStorage.user, // To Do Not shure i
                     created_at: "",
                 }
             }
         },
         methods: {
             submitPost(e) {
+                this.$root.$emit('showPost', true);
                 Number.prototype.padLeft = function(base, chr) {
                     var len = (String(base || 10).length - String(this).length) + 1;
                     return len > 0 ? new Array(len).join(chr || '0') + this : this;
@@ -121,6 +122,8 @@ fieldset
                     ].join(':');
                 e.preventDefault();
                 this.post.created_at = dformat;
+                this.post.user = localStorage.getItem(user);
+                localStorage.setItem("lastPost",JSON.stringify)
                 fetch(apiPostFormUrl, {
                     method: "POST",
                     headers: {
@@ -128,11 +131,12 @@ fieldset
                     },
                     body: JSON.stringify(this.post)
                 }).then((response) => {
+                    
                     if (response.ok) {
-                        this.successfulPost = true;
+                        localStorage.setItem("isPostVisible", true);
                     } else {
                         // ToDo: highlight bad fields
-                        this.failedPost = true;
+                        localStorage.setItem("isPostVisible", false);
                     }
                 }).catch((r) => this.failedPost = true);
             },
