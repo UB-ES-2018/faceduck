@@ -20,7 +20,7 @@ def user_loader_callback(identity):
 
 # CORS config
 # add needed IPs or regExes to origins to allow api cconnection
-cors = CORS(app, resources={r"/*": {"origins": ['http://127.0.0.1', 'http://localhost' ,'http://192.168.99.100']}}, supports_credentials=True)
+cors = CORS(app, resources={r"/*": {"origins": ['http://127.0.0.1:8080', 'http://localhost:8080' ,'http://192.168.99.100:8080']}}, supports_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 if __name__ == '__main__':
