@@ -1,3 +1,4 @@
 Flask==1.0.2
 elasticsearch-dsl==6.2.1
 flask-cors==3.0.6
+flask_jwt_extended==3.13.1

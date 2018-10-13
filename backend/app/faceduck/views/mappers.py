@@ -12,7 +12,7 @@ ERRORS = {
 
 def user_mapper(user):
     user_dict = {"id": user.meta.id}
-    
+
     for attr in dir(user):
         key = attr.replace("_", "-")
         
@@ -36,3 +36,4 @@ def post_mapper(post):
             post_dict[key] = getattr(post, attr)
 
     return post_dict
+

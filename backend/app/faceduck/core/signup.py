@@ -42,4 +42,3 @@ def create_user(username, email, password, name, surname, birthday, gender):
     user.save()
     
     return user
-
