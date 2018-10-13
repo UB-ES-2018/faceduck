@@ -18,4 +18,10 @@ we'll be able to modularize and split the `api` blueprint into a blueprint per e
 
 * `models` folder contains domain models that will be used to persist to ES, and (un)marshall from/to JSON for the API.
 
-* `views` folder contain the different blueprints that support our API routes.  
+* `views` folder contain the different blueprints that support our API routes.
+
+
+## Dependencies
+
+We're using flask-jwt-extended to handle authentication and session keeping. If you have any doubts regarding this 
+module, please check its documentation [here](https://flask-jwt-extended.readthedocs.io/en/latest/index.html).  

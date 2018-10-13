@@ -2,8 +2,9 @@ from flask import make_response, request
 from flask import jsonify
 from faceduck.blueprints import api
 from faceduck import core
-from .mappers import ERRORS
+from .mappers import ERRORS, user_mapper
 from faceduck.utils import FaceduckError
+from werkzeug.security import generate_password_hash
 
 
 def client_error(error_id):
@@ -34,3 +35,20 @@ def signup():
     
     return ("", 204)
 
+
+@api.route('/session', methods=["POST"])
+def login():
+    req = request.get_json()
+    try:
+        email = req['email']
+        password = req['password']
+    except KeyError:
+        return client_error("001")
+    try:
+        user, token = core.login_user(email, password)
+        return jsonify({
+            'user': user_mapper(user),
+            'access-token': token
+        })
+    except FaceduckError as e:
+        return client_error(e.id)
