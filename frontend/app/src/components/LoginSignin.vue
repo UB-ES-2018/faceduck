@@ -72,8 +72,9 @@
 
 <script>
 
-var apiSignupUrl = 'http://localhost:5000/user';
-var apiLoginUrl  = 'http://localhost:5000/session';
+var host = window.location.hostname;
+var apiSignupUrl = '//' + host + ':5000/user';
+var apiLoginUrl  = '//' + host + ':5000/session';
 
 export default {
   name: 'LoginSignin',
@@ -140,10 +141,13 @@ export default {
       }).catch((r) => this.failedSignup = true)
       .then((response) => {
         if (response.ok) {
-          localStorage.set("access-token",
-            response.json()["access-token"]);
-          localStorage.set("user",
-            response.json()["user"]);
+          response.json().then((json) => {
+            localStorage.setItem("access-token",
+              json["access-token"]);
+            localStorage.setItem("user",
+              JSON.stringify(json["user"]));
+            this.$router.push("/wall");
+          });
         } else {
           // ToDo: highlight bad fields
           this.failedLogin = true;
@@ -161,7 +165,7 @@ export default {
   width: 600px
   height: 350px
   position: absolute
-  top: 50%
+  top: 45%
   left: 50%
   transform: translate(-50%, -50%)
   display: inline-flex

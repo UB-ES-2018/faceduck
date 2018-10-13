@@ -20,7 +20,6 @@ export default {
     PostView,
 
   },
-  /**
   data() {
 		return {}
 	},
@@ -34,7 +33,7 @@ export default {
 			localStorage.removeItem("access-token");
 			this.$router.push("/");
 		}
-	}*/
+	}
 }
 
 </script>
