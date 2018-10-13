@@ -36,4 +36,3 @@ def post_mapper(post):
             post_dict[key] = getattr(post, attr)
 
     return post_dict
-

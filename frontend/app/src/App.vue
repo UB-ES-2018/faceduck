@@ -1,16 +1,13 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/wall">Wall</router-link>
     </nav>
     <router-view/>
   </div>
 </template>
 
 <style lang="sass">
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css");
 
 html 
   height: 100%
