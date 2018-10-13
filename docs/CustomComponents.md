@@ -36,4 +36,4 @@ Usages: there are basically 4 cases. The button is displayed on Bob's profile.
 <FriendButton name="Bob" friends/>
 ```
 
-Clearly, the name should be templated by the use of ```{{name}}```.
+Clearly, the name should be templated by the use of ```{{name}}```. Boolean props must be v-binded, see [https://vuejs.org/v2/guide/components-props.html#Passing-a-Boolean]
