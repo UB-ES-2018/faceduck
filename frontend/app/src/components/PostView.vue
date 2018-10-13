@@ -14,27 +14,9 @@
     
                 <div class="info">
     
-                    <div class="main">Nickname</div>
+                    <div class="main">{{this.post.user}}</div>
     
-                    <div class="sub">Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj
-                        tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij
-                        cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj
-                        ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj
-                        tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg
-                        uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj
-                        tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij
-                        cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj
-                        ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj
-                        tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg
-                        uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj
-                        tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij
-                        cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj
-                        ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj
-                        tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg
-                        uhj Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj
-                        tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij
-                        cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                    </div>
+                    <div class="sub">{{this.post.text}}</div>
     
                 </div>
                 <!--Closing info-->
@@ -174,7 +156,11 @@
         data() {
             return {
                 isVisible: false,
-                post: "",
+                post: {
+                    user:"",
+                    text:"",
+                },
+
                 message: "",
             }
     
@@ -185,13 +171,20 @@
                 this.isVisible = localStorage.getItem("isPostVisible")
             }
     
-            alert(this.isVisible)
+            //alert(this.isVisible)
     
         },
         mounted: function() {
             this.$root.$on('showPost', (text) => { // here you need to use the arrow function
-                this.isVisible = text;
-                alert(this.message)
+                //alert(text)
+                if (text != null) {
+                    this.isVisible = true;
+                    this.post.text = "";
+                    this.post.text = text;
+                    this.post.user = JSON.parse(localStorage.getItem("user"))["username"];
+                  //  alert(this.post.user)
+                    
+                }
             })
         },
     
@@ -209,7 +202,6 @@
                     .then((response) => {
                         if (response.ok) {
                             response.json().then((json) => {
-                                alert(json)
                                 localStorage.setItem("post",
                                     JSON.stringify(json));
                             });
