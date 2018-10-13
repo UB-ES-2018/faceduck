@@ -6,7 +6,10 @@
             <button type="button" v-on:click="getUsers">Searh</button>
         </div>
         </form>
-        <div class="results-list">
+        <template v-if="nores">
+            <h3>Nothing found</h3>
+        </template>
+        <div class="results-list" v-else>
             <div class="results-item" v-for="result in results" :key="result.username">
                 <div class="border-b-1">
                 <div class="results-item-text">
@@ -17,6 +20,7 @@
                 </div>
 
             </div>
+            
         </div>   
     </div>   
 </template>
@@ -29,11 +33,14 @@ export default {
         return{
             results: [],
             searchQuery: "",
+            nores: false,//ugly way to hide nothing found message
         };
     },
     methods: {
         //wip
         getUsers() {
+            this.nores=false;
+            this.results=[];
             fetch(apiUsersSearchUrl, {
                 method: "POST",
                 headers: {
@@ -42,8 +49,12 @@ export default {
                 body: JSON.stringify({query: this.searchQuery})
             }).then(res => res.json())
             .then(data => this.results = data);
+            console.log(Object.keys(this.results).length);
+            var vm = this;
             
+            setTimeout(function() {if (Object.keys(vm.results).length < 1){ vm.nores=true;}}, 500);
         },
+
         
     }
 }
