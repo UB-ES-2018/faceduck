@@ -1,10 +1,12 @@
 <template>
   <div id="PersonalPage" >
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-light" style="background-color: pale-sky;">
         <h1 class="title">Faceduck</h1>
-        <fieldset class="actions">
-            <button class="button" v-on:click='logOutButton'> Log Out </button>
-        </fieldset>
+          <form class="form-inline">
+            <div class="page mr-sm-2" v-on:click='profile'> User </div>
+            <div class="page my-2 mr-sm-2" v-on:click='wall'>Wall</div>
+            <button class="button" v-on:click='logout'> Log Out </button>
+          </form>
     </nav>
     <div class="container" align="center">
         <div class="photo"></div>
@@ -24,7 +26,11 @@
   text-align: center
   color: #ffb511
   text-shadow: 3px 3px #555
-  font-size: 150%
+  font-size: 25px
+
+.page
+  color: #ffb511
+  cursor: pointer
 
 .button
   background-color: #ffb511
@@ -77,6 +83,12 @@ export default {
 		}
 	},
 	methods: {
+        profile () {
+			this.$router.push("/profile");
+        },
+        wall () {
+			this.$router.push("/wall");
+		},
 		logout () {
 			localStorage.removeItem("access-token");
 			this.$router.push("/");
