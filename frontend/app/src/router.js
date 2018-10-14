@@ -26,6 +26,12 @@ export default new Router({
             name: 'wall',
             component: () =>
                 import ( /* webpackChunkName: "wall" */ './views/PersonalWall.vue')
-        }
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: () =>
+                import ( /* webpackCunkName: "profile" */ './views/PersonalPage.vue')
+        },
     ]
 })
