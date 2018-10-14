@@ -39,10 +39,12 @@ export default {
                 })
             }).then((response) => {
                 if (response.ok) {
-                  this.$root.$emit('showPost', this.post.text);
+                  
                  response.json().then((json) => {
-                    alert(json["text"])
+                    localStorage.setItem("lastPost",JSON.stringify(json))
+                    this.$root.$emit('showPost', true);
                 })
+                
             }}).catch((r) => alert(r));
         },
 

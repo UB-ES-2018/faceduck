@@ -56,9 +56,9 @@
         if (text != null) {
           this.isVisible = true;
           this.post.text = "";
-          this.post.text = text;
-          this.post.user = JSON.parse(localStorage.getItem("user"))["username"];
-          //  alert(this.post.user)
+          this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
+          this.post.user = JSON.parse(localStorage.getItem("lastPost"))["author"]["username"];
+          //alert(this.post.user)
           
         }
       })
