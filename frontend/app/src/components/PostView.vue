@@ -147,7 +147,8 @@
 </style>
 
 <script>
-    var apiPostFormUrl = 'http://localhost:5000/post';
+    var host = window.location.hostname;
+    var apiPostFormUrl = '//'+host +':5000/post';
     
     export default {
     
@@ -190,7 +191,8 @@
     
         methods: {
     
-            showPost() {
+            
+            showPostLast() {
                 e.preventDefault();
                 fetch(apiGetPost, {
                         method: "GET",
@@ -198,20 +200,21 @@
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify(localStorage.getItem("lastPost"))
-                    }).catch((r) => this.failedSignup = true)
+                    }).catch((r) => alert(r))
                     .then((response) => {
                         if (response.ok) {
                             response.json().then((json) => {
                                 localStorage.setItem("post",
                                     JSON.stringify(json));
+                                //alert(JSON.stringify(json))
                             });
-                            this.isVisible = !this.isVisible;
                         } else {
                             // ToDo: highlight bad fields
                         }
-                        alert(this.post)
+                        //alert(JSON.stringify(this.post))
                     });
     
+            },
             },
     
         }

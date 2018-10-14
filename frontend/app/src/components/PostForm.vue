@@ -93,53 +93,39 @@ fieldset
 </style>
 
 <script>
-    var apiPostFormUrl = 'http://localhost:5000/post';
+    var host = window.location.hostname;
+    var apiPostFormUrl = '//'+host+':5000/post';
     export default {
         name: 'PostForm',
         data() {
             return {
                 post: {
                     text: "",
-                    user: "", //localStorage.getItem(user), //localStorage.user, // To Do Not shure i
-                    created_at: "",
                 }
             }
         },
         methods: {
             submitPost(e) {
-                this.$root.$emit('showPost', this.post.text);
-                Number.prototype.padLeft = function(base, chr) {
-                    var len = (String(base || 10).length - String(this).length) + 1;
-                    return len > 0 ? new Array(len).join(chr || '0') + this : this;
-                }
-                var d = new Date,
-                    dformat = [(d.getMonth() + 1).padLeft(),
-                        d.getDate().padLeft(),
-                        d.getFullYear()
-                    ].join('/') + ' ' + [d.getHours().padLeft(),
-                        d.getMinutes().padLeft(),
-                        d.getSeconds().padLeft()
-                    ].join(':');
-                e.preventDefault();
-                this.post.created_at = dformat;
-                this.post.user = localStorage.getItem(user);
-                
-
+    
+                //alert("acess-token: "+localStorage.getItem("access-token"))
                 fetch(apiPostFormUrl, {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Authorization": localStorage.getItem("access-token"),
+                        "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(this.post)
+                    body: JSON.stringify({
+                        "text": this.post.text,
+                        "author-id": JSON.parse(localStorage.getItem("user"))["id"],
+                    })
                 }).then((response) => {
-    
+                    alert(response.ok)
                     if (response.ok) {
-                        localStorage.setItem("isPostVisible", true);
-                    } else {
-                        // ToDo: highlight bad fields
-                        localStorage.setItem("isPostVisible", false);
-                    }
-                }).catch((r) => this.failedPost = true);
+                      this.$root.$emit('showPost', this.post.text);
+                     response.json().then((json) => {
+                        alert(json["text"])
+                    })
+                }}).catch((r) => alert(r));
             },
     
         },
