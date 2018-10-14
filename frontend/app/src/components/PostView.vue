@@ -76,7 +76,7 @@
           .then((response) => {
             if (response.ok) {
               response.json().then((json) => {
-                localStorage.setItem("post",
+                localStorage.setItem("lastPost",
                   JSON.stringify(json));
                 //alert(JSON.stringify(json))
               });
