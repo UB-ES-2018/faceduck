@@ -203,7 +203,5 @@
   
             .sub 
               transition-delay: .1s
-              
-              overflow-y: scroll
-  
+                
 </style>
