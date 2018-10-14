@@ -25,4 +25,4 @@ def get_post(post_id):
         raise FaceduckError("001")
     
     return post
-        
+

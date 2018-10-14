@@ -1,6 +1,4 @@
-from faceduck.core.user import create_user, get_user
-from faceduck.models.post import Post
-from faceduck.models.user import User
+from faceduck.core.user import get_user
 
 ERRORS = {
     "001": {"error-id": "001", "error-message": "Invalid data"},
