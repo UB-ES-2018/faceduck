@@ -1,3 +1,7 @@
+from faceduck.core.user import create_user, get_user
+from faceduck.models.post import Post
+from faceduck.models.user import User
+
 ERRORS = {
     "001": {"error-id": "001", "error-message": "Invalid data"},
     "002": {"error-id": "002", "error-message": "Already existing username"},
@@ -11,10 +15,25 @@ def user_mapper(user):
 
     for attr in dir(user):
         key = attr.replace("_", "-")
-
+        
         if attr != "password":
             user_dict[key] = getattr(user, attr)
 
     return user_dict
 
+
+def post_mapper(post):
+    post_dict = {"id": post.meta.id}
+    
+    for attr in dir(post):
+        key = attr.replace("_", "-")
+        
+        if attr == "author":
+            user = get_user(getattr(post, attr))
+            user_dict = user_mapper(user)
+            post_dict[key] = user_dict
+        else:
+            post_dict[key] = getattr(post, attr)
+
+    return post_dict
 

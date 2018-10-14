@@ -1,10 +1,10 @@
-from flask import make_response, request
-from flask import jsonify
+from flask import make_response, request, jsonify
 from faceduck.blueprints import api
 from faceduck import core
-from .mappers import ERRORS, user_mapper
 from faceduck.utils import FaceduckError
 from werkzeug.security import generate_password_hash
+from flask_jwt_extended import jwt_required
+from .mappers import ERRORS, user_mapper, post_mapper
 
 
 def client_error(error_id):
@@ -52,3 +52,36 @@ def login():
         })
     except FaceduckError as e:
         return client_error(e.id)
+
+
+@api.route("/post", methods=["POST"])
+@jwt_required
+def create_post():
+    if not request.is_json:
+        return client_error("001")
+    
+    try:
+        text = request.json["text"]
+        author_id = request.json["author-id"]
+    except ValueError:
+        return client_error("001")
+
+    try:
+        post = core.create_post(text, author_id)
+        response = post_mapper(post)
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return jsonify(response)
+
+
+@api.route("/post/<post_id>")
+@jwt_required
+def get_post(post_id):
+    try:
+        post = core.get_post(post_id)
+        response = post_mapper(post)
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return jsonify(response)
