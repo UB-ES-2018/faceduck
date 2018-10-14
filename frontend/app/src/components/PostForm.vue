@@ -3,15 +3,52 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
                 <fieldset class="inputs">
-                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
+                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="postText" placeholder="Say Something..."></textarea>
                 </fieldset>
                 <fieldset class="actions">
-                    <button type="submit" v-on:click='submitPost'> Post </button>
+                    <button type="submit">Post</button>
                 </fieldset>
             </form>
         </div>
     </div>
 </template>
+
+<script>
+var host = window.location.hostname;
+var apiPostFormUrl = '//'+host+':5000/post';
+export default {
+    name: 'PostForm',
+    data() {
+        return {
+            postText: "",
+        }
+    },
+    methods: {
+        submitPost(e) {
+            e.preventDefault();
+            //alert("acess-token: "+localStorage.getItem("access-token"))
+            fetch(apiPostFormUrl, {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "text": this.postText,
+                    "author-id": JSON.parse(localStorage.getItem("user"))["id"],
+                })
+            }).then((response) => {
+                if (response.ok) {
+                  this.$root.$emit('showPost', this.post.text);
+                 response.json().then((json) => {
+                    alert(json["text"])
+                })
+            }}).catch((r) => alert(r));
+        },
+
+    },
+}
+</script>
 
 <style lang="sass" scoped>
 
@@ -91,43 +128,3 @@ fieldset
   left: 40% 
   cursor: pointer
 </style>
-
-<script>
-    var host = window.location.hostname;
-    var apiPostFormUrl = '//'+host+':5000/post';
-    export default {
-        name: 'PostForm',
-        data() {
-            return {
-                post: {
-                    text: "",
-                }
-            }
-        },
-        methods: {
-            submitPost(e) {
-    
-                //alert("acess-token: "+localStorage.getItem("access-token"))
-                fetch(apiPostFormUrl, {
-                    method: "POST",
-                    headers: {
-                        "Authorization": localStorage.getItem("access-token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        "text": this.post.text,
-                        "author-id": JSON.parse(localStorage.getItem("user"))["id"],
-                    })
-                }).then((response) => {
-                    alert(response.ok)
-                    if (response.ok) {
-                      this.$root.$emit('showPost', this.post.text);
-                     response.json().then((json) => {
-                        alert(json["text"])
-                    })
-                }}).catch((r) => alert(r));
-            },
-    
-        },
-    }
-</script>

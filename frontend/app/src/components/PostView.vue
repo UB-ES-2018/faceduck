@@ -1,222 +1,209 @@
 <template>
-    <div class="options">
-        <!-- The below v-on:click and v-bind are not working right now, the idea was to open and close the post -->
-    
-        <div class="option active" v-if="isVisible">
-    
-            <div class="shadow"></div>
-            <!--Closing shadow-->
-    
-            <div class="label">
-    
-                <div class="icon"> </div>
-                <!--Closing icon-->
-    
-                <div class="info">
-    
-                    <div class="main">{{this.post.user}}</div>
-    
-                    <div class="sub">{{this.post.text}}</div>
-    
-                </div>
-                <!--Closing info-->
-    
-            </div>
-            <!--Closing lavel-->
-    
+  <div class="options">
+    <!-- The below v-on:click and v-bind are not working right now, the idea was to open and close the post -->
+  
+    <div class="option active" v-if="isVisible">
+      <div class="shadow"></div>
+      <!--Closing shadow-->
+  
+      <div class="label">
+        <div class="icon"></div>
+        <!--Closing icon-->
+  
+        <div class="info">
+          <div class="main">{{this.post.user}}</div>
+          <div class="sub">{{this.post.text}}</div>
         </div>
-        <!--Closing .option 0-->
-    
+        <!--Closing info-->
+      </div>
+      <!--Closing lavel-->
     </div>
-    <!--Closing .options-->
+    <!--Closing .option 0-->
+  </div>
+  <!--Closing .options-->
 </template>
+
+<script>
+  var host = window.location.hostname;
+  var apiPostFormUrl = '//'+host +':5000/post';
+  
+  export default {
+  
+    name: 'PostView',
+  
+    data() {
+      return {
+        isVisible: false,
+        post: {
+          user:"",
+          text:"",
+        },
+
+        message: "",
+      }  
+    },
+    created: function() {
+      if (localStorage.getItem("isPostVisible") != null) {
+        this.isVisible = localStorage.getItem("isPostVisible")
+      }
+  
+      //alert(this.isVisible)
+  
+    },
+    mounted: function() {
+      this.$root.$on('showPost', (text) => { // here you need to use the arrow function
+        //alert(text)
+        if (text != null) {
+          this.isVisible = true;
+          this.post.text = "";
+          this.post.text = text;
+          this.post.user = JSON.parse(localStorage.getItem("user"))["username"];
+          //  alert(this.post.user)
+          
+        }
+      })
+    },
+  
+    methods: {
+      showPostLast() {
+        fetch(apiGetPost, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(localStorage.getItem("lastPost"))
+          }).catch((r) => alert(r))
+          .then((response) => {
+            if (response.ok) {
+              response.json().then((json) => {
+                localStorage.setItem("post",
+                  JSON.stringify(json));
+                //alert(JSON.stringify(json))
+              });
+            } else {
+              // ToDo: highlight bad fields
+            }
+            //alert(JSON.stringify(this.post))
+          });
+  
+      },
+    },
+
+  }
+</script>
+
 
 <style lang="sass" scoped>
 
-    body
+  body
 
-        .options
+    .options
 
-            width: 61%
-            .option 
-                position: relative
-                overflow: hidden
-    
-                background: white
-    
-                &.active 
-                    overflow-y: scroll
-                    margin: 4%
-                    
-                    height: 15em
+      width: 61%
+      .option 
+        position: relative
+        overflow: hidden
+  
+        background: white
+  
+        &.active 
+          overflow-y: scroll
+          margin: 4%
+          
+          height: 15em
 
-                    border-radius: 20px
+          border-radius: 20px
 
-                    .shadow 
-    
-                        box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black
-    
-                    .label 
-                        width: 100%
+          .shadow 
+  
+            box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black
+  
+          .label 
+            width: 100%
 
-                        .info>div 
-    
-                            width: 95%
+            .info>div 
+  
+              width: 95%
 
-                            opacity: 1
-    
-                            text-align: justify
-    
-                            text-justify: inter-word
+              opacity: 1
+  
+              text-align: justify
+  
+              text-justify: inter-word
 
-                            color: #000
-                        
-                &:not(.active) 
-    
-                    flex-grow: 10
-    
-                    background-size: auto 1000%
-    
-                    border-radius: 30px
-    
-                    .shadow 
-    
-                        bottom: -40px
-    
-                        box-shadow: inset 0 -120px 0px -120px black, inset 0 -120px 0px -100px black
-    
-                    .label 
-    
-                        bottom: 10px
-    
-                        left: 10px
-    
-                        .info>div 
-    
-                            left: 20px
-    
-                            opacity: 0
-    
-                .shadow 
-    
-                    position: absolute
-    
-                    bottom: 0vh
-    
-                    left: 0px
-    
-                    right: 0px
-    
-                    height: 120px
-    
-                    transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95) 
-    
-                .label 
-    
-                    display: flex
-
-                    text-align: center
-    
-                    .icon 
-    
-                        min-width: 40px
-    
-                        max-width: 40px
-    
-                        height: 40px
-    
-                        border-radius: 100%
-    
-                        background-color: gray
-
-                    .info 
-    
-                        margin-left: 10px
-    
-                        .main 
-    
-                            font-weight: bold
-    
-                            font-size: 1.2rem
-    
-                        .sub 
-                            transition-delay: .1s
-                            
-                            overflow-y: scroll
-    
-</style>
-
-<script>
-    var host = window.location.hostname;
-    var apiPostFormUrl = '//'+host +':5000/post';
-    
-    export default {
-    
-        name: 'PostView',
-    
-        data() {
-            return {
-                isVisible: false,
-                post: {
-                    user:"",
-                    text:"",
-                },
-
-                message: "",
-            }
-    
-    
-        },
-        created: function() {
-            if (localStorage.getItem("isPostVisible") != null) {
-                this.isVisible = localStorage.getItem("isPostVisible")
-            }
-    
-            //alert(this.isVisible)
-    
-        },
-        mounted: function() {
-            this.$root.$on('showPost', (text) => { // here you need to use the arrow function
-                //alert(text)
-                if (text != null) {
-                    this.isVisible = true;
-                    this.post.text = "";
-                    this.post.text = text;
-                    this.post.user = JSON.parse(localStorage.getItem("user"))["username"];
-                  //  alert(this.post.user)
-                    
-                }
-            })
-        },
-    
-        methods: {
-    
+              color: #000
             
-            showPostLast() {
-                e.preventDefault();
-                fetch(apiGetPost, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(localStorage.getItem("lastPost"))
-                    }).catch((r) => alert(r))
-                    .then((response) => {
-                        if (response.ok) {
-                            response.json().then((json) => {
-                                localStorage.setItem("post",
-                                    JSON.stringify(json));
-                                //alert(JSON.stringify(json))
-                            });
-                        } else {
-                            // ToDo: highlight bad fields
-                        }
-                        //alert(JSON.stringify(this.post))
-                    });
-    
-            },
-            },
-    
-        }
-    }
-</script>
+        &:not(.active) 
+  
+          flex-grow: 10
+  
+          background-size: auto 1000%
+  
+          border-radius: 30px
+  
+          .shadow 
+  
+            bottom: -40px
+  
+            box-shadow: inset 0 -120px 0px -120px black, inset 0 -120px 0px -100px black
+  
+          .label 
+  
+            bottom: 10px
+  
+            left: 10px
+  
+            .info>div 
+  
+              left: 20px
+  
+              opacity: 0
+  
+        .shadow 
+  
+          position: absolute
+  
+          bottom: 0vh
+  
+          left: 0px
+  
+          right: 0px
+  
+          height: 120px
+  
+          transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95) 
+  
+        .label 
+  
+          display: flex
+
+          text-align: center
+  
+          .icon 
+  
+            min-width: 40px
+  
+            max-width: 40px
+  
+            height: 40px
+  
+            border-radius: 100%
+  
+            background-color: gray
+
+          .info 
+  
+            margin-left: 10px
+  
+            .main 
+  
+              font-weight: bold
+  
+              font-size: 1.2rem
+  
+            .sub 
+              transition-delay: .1s
+              
+              overflow-y: scroll
+  
+</style>
