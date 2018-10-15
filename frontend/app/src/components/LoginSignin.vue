@@ -35,6 +35,7 @@
         <div class="signup" v-if="!loginVisible">
           <h2>SIGN UP</h2>
           <form class="inputbox" v-on:submit="submitSignup" v-if="!successfulSignup">
+            <input type="text" name="username" v-model="signup.username" placeholder= " USERNAME" required>
             <div class="inline-input">
               <input type="text" name="name" v-model="signup.name"
                 placeholder="  NAME" required>
@@ -71,8 +72,9 @@
 
 <script>
 
-var apiSignupUrl = 'http://localhost:5000/user';
-var apiLoginUrl  = 'http://localhost:5000/session';
+var host = window.location.hostname;
+var apiSignupUrl = '//' + host + ':5000/user';
+var apiLoginUrl  = '//' + host + ':5000/session';
 
 export default {
   name: 'LoginSignin',
@@ -87,6 +89,7 @@ export default {
         password: ""
       },
       signup: {
+        username:"",
         name: "",
         surname: "",
         email: "",
@@ -138,10 +141,13 @@ export default {
       }).catch((r) => this.failedSignup = true)
       .then((response) => {
         if (response.ok) {
-          localStorage.set("access-token",
-            response.json()["access-token"]);
-          localStorage.set("user",
-            response.json()["user"]);
+          response.json().then((json) => {
+            localStorage.setItem("access-token",
+              json["access-token"]);
+            localStorage.setItem("user",
+              JSON.stringify(json["user"]));
+            this.$router.push("/wall");
+          });
         } else {
           // ToDo: highlight bad fields
           this.failedLogin = true;
@@ -159,7 +165,7 @@ export default {
   width: 600px
   height: 350px
   position: absolute
-  top: 50%
+  top: 45%
   left: 50%
   transform: translate(-50%, -50%)
   display: inline-flex
@@ -176,7 +182,7 @@ export default {
 .frontbox
   background-color: white
   border-radius: 20px
-  height: 125%
+  height: 150%
   width: 50%
   z-index: 10
   position: absolute
