@@ -3,15 +3,54 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
                 <fieldset class="inputs">
-                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
+                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="postText" placeholder="Say Something..."></textarea>
                 </fieldset>
                 <fieldset class="actions">
-                    <button type="submit" v-on:click='submitPost'> Post </button>
+                    <button type="submit">Post</button>
                 </fieldset>
             </form>
         </div>
     </div>
 </template>
+
+<script>
+var host = window.location.hostname;
+var apiPostFormUrl = '//'+host+':5000/post';
+export default {
+    name: 'PostForm',
+    data() {
+        return {
+            postText: "",
+        }
+    },
+    methods: {
+        submitPost(e) {
+            e.preventDefault();
+            //alert("acess-token: "+localStorage.getItem("access-token"))
+            fetch(apiPostFormUrl, {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "text": this.postText,
+                    "author-id": JSON.parse(localStorage.getItem("user"))["id"],
+                })
+            }).then((response) => {
+                if (response.ok) {
+                  
+                 response.json().then((json) => {
+                    localStorage.setItem("lastPost",JSON.stringify(json))
+                    this.$root.$emit('showPost', true);
+                })
+                
+            }}).catch((r) => alert(r));
+        },
+
+    },
+}
+</script>
 
 <style lang="sass" scoped>
 
@@ -91,52 +130,3 @@ fieldset
   left: 40% 
   cursor: pointer
 </style>
-
-<script>
-    var apiPostFormUrl = 'http://localhost:5000/post';
-    export default {
-        name: 'PostForm',
-        data() {
-            return {
-                post: {
-                    text: "",
-                    user: "Admin", //localStorage.user, // To Do Not shure i
-                    created_at: "",
-                }
-            }
-        },
-        methods: {
-            submitPost(e) {
-                Number.prototype.padLeft = function(base, chr) {
-                    var len = (String(base || 10).length - String(this).length) + 1;
-                    return len > 0 ? new Array(len).join(chr || '0') + this : this;
-                }
-                var d = new Date,
-                    dformat = [(d.getMonth() + 1).padLeft(),
-                        d.getDate().padLeft(),
-                        d.getFullYear()
-                    ].join('/') + ' ' + [d.getHours().padLeft(),
-                        d.getMinutes().padLeft(),
-                        d.getSeconds().padLeft()
-                    ].join(':');
-                e.preventDefault();
-                this.post.created_at = dformat;
-                fetch(apiPostFormUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(this.post)
-                }).then((response) => {
-                    if (response.ok) {
-                        this.successfulPost = true;
-                    } else {
-                        // ToDo: highlight bad fields
-                        this.failedPost = true;
-                    }
-                }).catch((r) => this.failedPost = true);
-            },
-    
-        },
-    }
-</script>
