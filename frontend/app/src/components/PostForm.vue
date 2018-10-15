@@ -3,8 +3,9 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
                 <fieldset class="inputs">
-                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="postText" placeholder="Say Something..."></textarea>
+                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="this.post.text" placeholder="Say Something..."></textarea>
                 </fieldset>
+                <ImageUploader uploader-id="post-image-uploader"/>
                 <fieldset class="actions">
                     <button type="submit">Post</button>
                 </fieldset>
@@ -14,14 +15,28 @@
 </template>
 
 <script>
+
+import ImageUploader from "./ImageUploader.vue";
+
 var host = window.location.hostname;
 var apiPostFormUrl = '//'+host+':5000/post';
 export default {
     name: 'PostForm',
     data() {
         return {
-            postText: "",
+            post: {
+              "author-id": JSON.parse(localStorage.getItem("user"))["id"],
+              text: '',
+              image: ''
+            }
         }
+    },
+    beforeCreate() {
+      this.$root.$on("imageUpload", (event) => {
+        if (event.emitter === "post-image-uploader") {
+          this.post.image = event.url;
+        }
+      });
     },
     methods: {
         submitPost(e) {
@@ -33,13 +48,9 @@ export default {
                     "Authorization": "Bearer " + localStorage.getItem("access-token"),
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    "text": this.postText,
-                    "author-id": JSON.parse(localStorage.getItem("user"))["id"],
-                })
+                body: JSON.stringify(this.post)
             }).then((response) => {
                 if (response.ok) {
-                  
                  response.json().then((json) => {
                     localStorage.setItem("lastPost",JSON.stringify(json))
                     this.$root.$emit('showPost', true);
@@ -47,8 +58,10 @@ export default {
                 
             }}).catch((r) => alert(r));
         },
-
     },
+    components: {
+      ImageUploader
+    }
 }
 </script>
 

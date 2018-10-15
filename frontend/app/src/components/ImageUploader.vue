@@ -33,7 +33,7 @@ export default {
             .then((response) => {
                 if (response.ok) {
                     response.json().then((json) => {
-                        this.$root.$emit("imageUploaded", {
+                        this.$root.$emit("imageUpload", {
                             emitter: this["uploader-id"],
                             url: json.url
                         });
@@ -42,9 +42,6 @@ export default {
                     // try again?
                 }
             });
-        },
-        dispatchEvent(url) {
-            this.$root.$emit("imageUploaded", url);
         }
     }
 }
