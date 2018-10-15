@@ -3,7 +3,7 @@
     <!-- The below v-on:click and v-bind are not working right now, the idea was to open and close the post -->
   
     <div class="option active" v-if="isVisible">
-      <div class="shadow"></div>
+      <div class="shadowy"></div>
       <!--Closing shadow-->
   
       <div class="label">
@@ -95,113 +95,69 @@
 
 <style lang="sass" scoped>
 
-  body
+.options
+  width: 61%
+  .option 
+    position: relative
+    overflow: hidden
+    background: white
+    &.active 
+      overflow-y: scroll
+      margin: 4%
+      
+      height: 15em
 
-    .options
+      border-radius: 20px
+      .label 
+        width: 100%
 
-      width: 61%
-      .option 
-        position: relative
-        overflow: hidden
-  
-        background: white
-  
-        &.active 
-          overflow-y: scroll
-          margin: 4%
-          
-          height: 15em
+        .info>div 
+          width: 95%
 
-          border-radius: 20px
+          opacity: 1
+          text-align: justify
+          text-justify: inter-word
 
-          .shadow 
-  
-            box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black
-  
-          .label 
-            width: 100%
+          color: #000
+        
+    &:not(.active) 
+      flex-grow: 10
+      background-size: auto 1000%
+      border-radius: 30px
+      .shadowy 
+        bottom: -40px
+      .label 
+        bottom: 10px
+        left: 10px
+        .info>div 
+          left: 20px
+          opacity: 0
 
-            .info>div 
-  
-              width: 95%
+    .shadowy
+      position: absolute
+      bottom: 0vh
+      left: 0px
+      right: 0px
+      height: 120px
+      transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95) 
 
-              opacity: 1
-  
-              text-align: justify
-  
-              text-justify: inter-word
+    .label 
+      display: flex
+      text-align: center
 
-              color: #000
+      .icon 
+        min-width: 40px
+        max-width: 40px
+        height: 40px
+        border-radius: 100%
+        background-color: gray
+
+      .info 
+        margin-left: 10px
+        .main 
+          font-weight: bold
+          font-size: 1.2rem
+        .sub 
+          transition-delay: .1s
             
-        &:not(.active) 
-  
-          flex-grow: 10
-  
-          background-size: auto 1000%
-  
-          border-radius: 30px
-  
-          .shadow 
-  
-            bottom: -40px
-  
-            box-shadow: inset 0 -120px 0px -120px black, inset 0 -120px 0px -100px black
-  
-          .label 
-  
-            bottom: 10px
-  
-            left: 10px
-  
-            .info>div 
-  
-              left: 20px
-  
-              opacity: 0
-  
-        .shadow 
-  
-          position: absolute
-  
-          bottom: 0vh
-  
-          left: 0px
-  
-          right: 0px
-  
-          height: 120px
-  
-          transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95) 
-  
-        .label 
-  
-          display: flex
-
-          text-align: center
-  
-          .icon 
-  
-            min-width: 40px
-  
-            max-width: 40px
-  
-            height: 40px
-  
-            border-radius: 100%
-  
-            background-color: gray
-
-          .info 
-  
-            margin-left: 10px
-  
-            .main 
-  
-              font-weight: bold
-  
-              font-size: 1.2rem
-  
-            .sub 
-              transition-delay: .1s
-                
 </style>
