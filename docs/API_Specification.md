@@ -546,9 +546,17 @@
 
 #### - Request headers
 
-| Property     | Required | Values           |
-|--------------|:--------:|:----------------:|
-| Content-Type | Yes      | application/json |
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
 
 #### - Request body
 
@@ -656,7 +664,7 @@
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Login error",
+    "title": "Search user error",
     "type": "object",
     "properties": {
         "error-id": {
@@ -692,9 +700,17 @@
 
 #### - Request headers
 
-| Property     | Required | Values           |
-|--------------|:--------:|:----------------:|
-| Content-Type | Yes      | application/json |
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
 
 #### - Request body
 
@@ -733,7 +749,7 @@
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Search user success",
+    "title": "Search post success",
     "type": "array",
     "items": {
         "type": "object",
@@ -809,8 +825,6 @@
 ]
 ```
 
-
-
 ### Response: client error
 
 `400 Bad Request`
@@ -826,7 +840,7 @@
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Login error",
+    "title": "Search post error",
     "type": "object",
     "properties": {
         "error-id": {
