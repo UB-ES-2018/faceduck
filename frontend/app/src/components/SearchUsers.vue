@@ -26,7 +26,8 @@
 </template>
 
 <script>
-var apiUsersSearchUrl  = 'http://localhost:5000/user/search'; //Backend ip
+var host = window.location.hostname
+var apiUsersSearchUrl  = 'http://'+ host +':5000/user/search'; //Backend ip
 
 export default {
     data() {
