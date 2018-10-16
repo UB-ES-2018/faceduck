@@ -35,11 +35,11 @@ export default {
                     response.json().then((json) => {
                         this.$root.$emit("imageUpload", {
                             emitter: this["uploader-id"],
-                            url: json.url
+                            url: json["media-url"]
                         });
                     });
                 } else {
-                    // try again?
+                    // try again? cry?
                 }
             });
         }
