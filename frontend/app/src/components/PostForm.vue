@@ -56,12 +56,12 @@
 	                },
 
 
-                    //body: JSON.stringify(this.post)
+                    body: JSON.stringify(this.post)
 
-		            body: JSON.stringify({
-		                    "text": this.postText,
-		                    "author-id": JSON.parse(localStorage.getItem("user"))["id"],
-		            })
+		            //body: JSON.stringify({
+		            //        "text": this.postText,
+		            //        "author-id": JSON.parse(localStorage.getItem("user"))["id"],
+		            //})
 
 
 		        }).then((response) => {
