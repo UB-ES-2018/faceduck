@@ -63,11 +63,12 @@ def create_post():
     try:
         text = request.json["text"]
         author_id = request.json["author-id"]
+        image_url = request.json.get("image-url", None)
     except ValueError:
         return client_error("001")
 
     try:
-        post = core.create_post(text, author_id)
+        post = core.create_post(text, author_id, image_url)
         response = post_mapper(post)
     except FaceduckError as e:
         return client_error(e.id)
