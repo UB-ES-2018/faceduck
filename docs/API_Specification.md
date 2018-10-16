@@ -191,11 +191,11 @@
             },
             "required": [
                 "id",
-                "username", 
+                "username",
                 "email",
-                "name", 
-                "surname", 
-                "birthday", 
+                "name",
+                "surname",
+                "birthday",
                 "gender"
             ]
         }
@@ -294,10 +294,11 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "text": {"type": "string"},
-        "author-id": {"type": "string"}
+        "author-id": {"type": "string"},
+        "image-url": {"type": "string"}
     },
     "required": [
-        "text", 
+        "text",
         "author-id"
     ]
 }
@@ -308,7 +309,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "text": "Hello this is a post.",
-    "author-id": "32"
+    "author-id": "32",
+    "image-url": "http://localhost:5000/media/1.jpg"
 }
 ```
 
@@ -333,6 +335,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "id": {"type": "string"},
         "text": {"type": "string"},
         "created-at": {"type": "string"},
+        "image-url": {"type": "string"},
         "author": {
             "type": "object",
             "properties": {
@@ -349,19 +352,19 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
             },
             "required": [
                 "id",
-                "username", 
+                "username",
                 "email",
-                "name", 
-                "surname", 
-                "birthday", 
+                "name",
+                "surname",
+                "birthday",
                 "gender"
             ]
         }
     },
     "required": [
         "id",
-        "text", 
-        "created-at", 
+        "text",
+        "created-at",
         "author"
     ]
 }
@@ -382,7 +385,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "surname": "Master",
         "birthday": "1984-10-01",
         "gender": "male"
-    }
+    },
+    "image-url": "http://localhost:5000/media/1.jpg"
 }
 ```
 
@@ -484,19 +488,19 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
             },
             "required": [
                 "id",
-                "username", 
+                "username",
                 "email",
-                "name", 
-                "surname", 
-                "birthday", 
+                "name",
+                "surname",
+                "birthday",
                 "gender"
             ]
         }
     },
     "required": [
         "id",
-        "text", 
-        "created-at", 
+        "text",
+        "created-at",
         "author"
     ]
 }
@@ -639,11 +643,11 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         },
         "required": [
             "id",
-            "username", 
+            "username",
             "email",
-            "name", 
-            "surname", 
-            "birthday", 
+            "name",
+            "surname",
+            "birthday",
             "gender"
         ]
     }
@@ -798,18 +802,18 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
                 },
                 "required": [
                     "id",
-                    "username", 
+                    "username",
                     "email",
-                    "name", 
-                    "surname", 
-                    "birthday", 
+                    "name",
+                    "surname",
+                    "birthday",
                     "gender"
                 ]
             }
         },
         "required": [
-            "text", 
-            "created-at", 
+            "text",
+            "created-at",
             "author"
         ]
     }
@@ -887,6 +891,108 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 {
     "error-id": "001",
     "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Create Media (Upload)
+
+### Request
+
+**POST** `/media`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | multipart/form-data   |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: multipart/form-data
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+Multipart fields:
+* `file`: type `file`, contains binary data of image.
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create Media success",
+    "type": "object",
+    "properties": {
+        "media-url": {"type": "string"}
+    },
+    "required": [
+        "media-url"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "media-url": "http://localhost:5000/media/1.jpg"
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create media error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "010"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "010",
+    "error-message": "Media is too big"
 }
 ```
 

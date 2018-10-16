@@ -1,9 +1,11 @@
-from elasticsearch_dsl import Document, Date, Nested, Boolean, Text, Integer, InnerDoc
+from elasticsearch_dsl import Document, Date, Text
+
 
 class Post(Document):
         text = Text()
         created_at = Date()
         author = Text()
+        image_url = Text()
 
         class Index:
                 name = 'post'
