@@ -3,7 +3,7 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
                 <fieldset class="inputs">
-                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="this.post.text" placeholder="Say Something..."></textarea>
+                    <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
                 </fieldset>
                 <ImageUploader uploader-id="post-image-uploader"/>
                 <fieldset class="actions">
@@ -27,14 +27,14 @@ export default {
             post: {
               "author-id": JSON.parse(localStorage.getItem("user"))["id"],
               text: '',
-              image: ''
+              "image-url": ''
             }
         }
     },
     beforeCreate() {
       this.$root.$on("imageUpload", (event) => {
         if (event.emitter === "post-image-uploader") {
-          this.post.image = event.url;
+          this.post["image-url"] = event.url;
         }
       });
     },
