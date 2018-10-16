@@ -60,7 +60,7 @@ def create_post():
         text = request.json["text"]
         author_id = request.json["author-id"]
         image_url = request.json.get("image-url", None)
-    except ValueError:
+    except KeyError:
         return client_error("001")
 
     try:
@@ -91,7 +91,7 @@ def search_users():
 
     try:
         query = content['query']
-    except ValueError:
+    except KeyError:
         return client_error("001")
 
     users = core.search_users(query)
