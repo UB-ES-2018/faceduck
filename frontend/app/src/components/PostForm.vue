@@ -30,10 +30,6 @@
 		            "image-url": ''
 		        }
             }
-
-            return {
-		        postText: "",
-		    }
         },
 
         beforeCreate() {
@@ -66,7 +62,7 @@
 
 		        }).then((response) => {
 		            if (response.ok) {
-		                 response.json().then((json) => {
+		                response.json().then((json) => {
 		                    localStorage.setItem("lastPost",JSON.stringify(json))
                             this.$root.$emit('showPost', true);
                         })

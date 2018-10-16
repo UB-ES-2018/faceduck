@@ -42,7 +42,7 @@
 <script>
 
     var host = window.location.hostname;
-      var apiPostFormUrl = '//'+host +':5000/post';
+    var apiPostFormUrl = '//' + host + ':5000/post';
       
     export default {
 
@@ -76,8 +76,8 @@
               		this.post.text = lastPost["text"];
               		this.post.user = lastPost["author"]["username"];
 
-    		    	this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
-		            this.post.user = JSON.parse(localStorage.getItem("lastPost"))["author"]["username"];
+    		    	//this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
+		            //this.post.user = JSON.parse(localStorage.getItem("lastPost"))["author"]["username"];
 
               		this.post.image = lastPost["image-url"];
               		console.log(this.post)
