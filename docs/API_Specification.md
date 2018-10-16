@@ -18,6 +18,7 @@
 | 002      | Already existing username         |
 | 003      | Already existing email            |
 | 004      | This email or password is invalid |
+| 010      | Media is too big                  |
 
 ## Sign up
 
@@ -472,6 +473,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "id": {"type": "string"},
         "text": {"type": "string"},
         "created-at": {"type": "string"},
+        "image-url": {"type": "string"},
         "author": {
             "type": "object",
             "properties": {
@@ -521,7 +523,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "surname": "Master",
         "birthday": "1984-10-01",
         "gender": "male"
-    }
+    },
+    "image-url": "http://localhost:5000/media/1.jpg"
 }
 ```
 
@@ -978,6 +981,7 @@ Multipart fields:
         "error-id": {
             "type": "integer",
             "enum": [
+                "001",
                 "010"
             ]
         },
