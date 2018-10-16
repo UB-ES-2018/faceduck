@@ -273,9 +273,17 @@
 
 #### - Request headers
 
-| Property     | Required | Values           |
-|--------------|:--------:|:----------------:|
-| Content-Type | Yes      | application/json |
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
 
 #### - Request body
 
@@ -322,6 +330,7 @@
     "title": "Create post success",
     "type": "object",
     "properties": {
+        "id": {"type": "string"},
         "text": {"type": "string"},
         "created-at": {"type": "string"},
         "author": {
@@ -350,6 +359,7 @@
         }
     },
     "required": [
+        "id",
         "text", 
         "created-at", 
         "author"
@@ -361,6 +371,7 @@
 
 ```json
 {
+    "id": "42",
     "text": "Hello this is a post.",
     "created-at": "12-01-2018, 03:45:34",
     "author": {
@@ -424,6 +435,18 @@
 
 **GET** `/post/{post_id}`
 
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
 ### Response: success
 
 `200 Ok`
@@ -442,6 +465,7 @@
     "title": "Get post success",
     "type": "object",
     "properties": {
+        "id": {"type": "string"},
         "text": {"type": "string"},
         "created-at": {"type": "string"},
         "author": {
@@ -470,6 +494,7 @@
         }
     },
     "required": [
+        "id",
         "text", 
         "created-at", 
         "author"
@@ -481,6 +506,7 @@
 
 ```json
 {
+    "id": "42",
     "text": "Hello this is a post.",
     "created-at": "12-01-2018, 03:45:34",
     "author": {
@@ -510,7 +536,7 @@
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Login error",
+    "title": "Get post error",
     "type": "object",
     "properties": {
         "error-id": {
@@ -530,7 +556,7 @@
 ```json
 {
     "error-id": "001",
-    "error-message": "Invalid data",
+    "error-message": "Invalid data"
 }
 ```
 
