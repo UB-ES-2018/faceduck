@@ -88,6 +88,11 @@ def get_post(post_id):
 @jwt_required
 def search_users():
     content = request.get_json()
-    query = content['query']
+
+    try:
+        query = content['query']
+    except ValueError:
+        return client_error("001")
+
     users = core.search_users(query)
     return jsonify([user_mapper(u) for u in users])
