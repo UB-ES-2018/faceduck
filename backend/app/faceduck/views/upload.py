@@ -3,12 +3,14 @@ from faceduck.views.view_utils import client_error
 from flask import request, jsonify, current_app, send_from_directory
 from faceduck import core
 from flask_jwt_extended import jwt_required
-
+import sys
 
 @upload.route('/media', methods=["POST"])
 @jwt_required
 def upload_media():
-    file = request.files['file']
+    file = None
+    if 'file' in request.files:
+        file = request.files['file']
 
     if file is None:
         return client_error("001")
