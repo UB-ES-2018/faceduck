@@ -10,6 +10,7 @@ from faceduck import config # Needed for autoconfiguration
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = '1234567'
+app.config['UPLOAD_FOLDER'] = './uploads'
 jwt = JWTManager(app)
 
 

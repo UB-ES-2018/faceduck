@@ -2,13 +2,9 @@ from flask import make_response, request, jsonify
 from faceduck.blueprints import api
 from faceduck import core
 from faceduck.utils import FaceduckError
-from werkzeug.security import generate_password_hash
 from flask_jwt_extended import jwt_required
-from .mappers import ERRORS, user_mapper, post_mapper
-
-
-def client_error(error_id):
-    return make_response(jsonify(**ERRORS[error_id]), 400)
+from .mappers import user_mapper, post_mapper
+from faceduck.views.view_utils import client_error
 
 
 @api.route('/user', methods=["POST"])
