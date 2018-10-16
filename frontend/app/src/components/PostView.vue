@@ -1,92 +1,168 @@
 <template>
 
-    <div class="options"> <!-- The below v-on:click and v-bind are not working right now, the idea was to open and close the post -->
+    <div class="options"> 
+    <!-- The below v-on:click and v-bind are not working right now, the idea was to open and close the post -->
 
-        <div class="option active" v-on:click= "showPost = !showPost" v-bind:class="{ active: isActive }">
+        <div class="option active" v-if="isVisible">
             
-            <div class="shadow"></div> <!--Closing shadow-->
+            <div class="shadowy"></div>
+            <!--Closing shadow-->
             
             <div class="label">
             
-                <div class="icon"> </div> <!--Closing icon-->
+                <div class="icon"></div>
+                <!--Closing icon-->
             
                 <div class="info">
             
-                    <div class="main">Nickname</div>
+                    <div class="main">{{post.user}}</div>
             
-                    <div class="sub">Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                        Post: Omuke trughte a otuftaaegae rgioaeg earg eaori aegeirg aerka erigjk eargoae gaekjg aerig roinikun kj iuj jiukj ik ik liu i ikjhj ivyghj jtryhjkn tyiubin tufyvgubhin ertyguihoi cfyvgubhinj rtyvubnij tyuboinjo tyuybinjomk tvuybinj tvyubinj tvuybiunjomk ytvubinj tytvubinj ytvubino rcytvubhnij cyvgubhinj cryvtgubhnij tcyvtgbuhnij rtcyvtubyhinj tcyvgbuhj rcttyvgubhj cfyvgubhjn cyvbuhnj f yvgbuhnj ybuinjmok tyvbuonimjo tyubnimo tvyubnimo tybunimo vtybuonij cvtybuonij cvytbuoni tvbuynimo vtybunim ybuinm bnijmk yuobnij tvubynijpm vtbuynijmo vuybinjom yyuo hij tyuyohi jy ghjyvg uhj
-                    </div>
+                    <div class="sub">{{post.text}}</div>
+
+                    <div class="image" v-if="post.image">
+
+      	        		<img v-bind:src="post.image"/>
+
+        			</div>
             
-                </div> <!--Closing info-->
+                </div>
+                <!--Closing info-->
             
-            </div> <!--Closing lavel-->
+            </div>
+            <!--Closing lavel-->
         
-        </div> <!--Closing .option 0-->
+        </div>
+        <!--Closing .option -->
     
-    </div> <!--Closing .options-->
+    </div>
+    <!--Closing .options-->
 
 </template>
 
+<script>
+
+    var host = window.location.hostname;
+      var apiPostFormUrl = '//'+host +':5000/post';
+      
+    export default {
+
+        name: 'PostView',
+
+        data(){
+            return{
+                isVisible: false,
+        		post: {
+          			user:"",
+	          		text:"",
+        	  		image:""
+        		},
+	        	message: "",
+            }
+        },
+
+        created: function() {
+      		if (localStorage.getItem("isPostVisible") != null) {
+        		this.isVisible = localStorage.getItem("isPostVisible")
+      		}
+      		//alert(this.isVisible)
+    	},
+    	mounted: function() {
+      		this.$root.$on('showPost', (text) => { // here you need to use the arrow function
+        	    //alert(text)
+        	    if (text != null) {
+          		    var lastPost = JSON.parse(localStorage.getItem("lastPost"));
+              		this.isVisible = true;
+
+              		this.post.text = lastPost["text"];
+              		this.post.user = lastPost["author"]["username"];
+
+    		    	this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
+		            this.post.user = JSON.parse(localStorage.getItem("lastPost"))["author"]["username"];
+
+              		this.post.image = lastPost["image-url"];
+              		console.log(this.post)
+              		//alert(this.post.user)  
+        	    }
+            })
+        },
+
+        methods: {
+    
+            showPostLast() {
+                fetch(apiGetPost, {
+            		method: "GET",
+            		headers: {
+              			"Content-Type": "application/json"
+            		},
+            		body: JSON.stringify(localStorage.getItem("lastPost"))
+          	    }).catch((r) => alert(r))
+          	    .then((response) => {
+            		if (response.ok) {
+              			response.json().then((json) => {
+                			localStorage.setItem("lastPost",
+               		   		JSON.stringify(json));
+                			//alert(JSON.stringify(json))
+              			});
+            		} else {
+              			// ToDo: highlight bad fields
+            		}
+            		//alert(JSON.stringify(this.post))
+       		    });
+    
+            },
+   
+        },
+    
+    }
+
+</script>
+
 <style lang="sass" scoped>
 
-    body
+    .options
 
-        .options
+        width: 61%
 
-            width: 61%
-            .option 
+        .option
+            position: relative
+            overflow: hidden
+            background: white
+            overflow-y: scroll
+            
+            &.active 
                 overflow-y: scroll
-                position: relative
-                overflow: hidden
-    
-                background: white
-    
-                &.active 
-                    overflow-y: scroll
-                    margin: 4%
+                margin: 4%
                     
-                    height: 15em
+                height: 15em
 
-                    border-radius: 20px
+                border-radius: 20px
 
-                    .shadow 
-    
-                        box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black
-    
-                    .label 
-                        width: 100%
+                .label 
+                    width: 100%
 
-                        .info>div 
+                    .info>div 
     
-                            width: 95%
+                        width: 95%
 
-                            opacity: 1
+                        opacity: 1
     
-                            text-align: justify
+                        text-align: justify
     
-                            text-justify: inter-word
+                        text-justify: inter-word
 
-                            color: #000
+                        color: #000
                         
-                &:not(.active) 
+            &:not(.active) 
     
-                    flex-grow: 10
+                flex-grow: 10
     
-                    background-size: auto 1000%
+                background-size: auto 1000%
     
-                    border-radius: 30px
+                border-radius: 30px
     
-                    .shadow 
+                .shadowy 
     
-                        bottom: -40px
-    
-                        box-shadow: inset 0 -120px 0px -120px black, inset 0 -120px 0px -100px black
+                    bottom: -40px
     
                     .label 
     
@@ -100,77 +176,49 @@
     
                             opacity: 0
     
-                .shadow 
+            .shadowy 
     
-                    position: absolute
+                position: absolute
     
-                    bottom: 0vh
+                bottom: 0vh
     
-                    left: 0px
+                left: 0px
     
-                    right: 0px
+                right: 0px
     
-                    height: 120px
+                height: 120px
     
-                    transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95) 
+                transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95) 
     
-                .label 
+            .label 
     
-                    display: flex
+                display: flex
 
-                    text-align: center
+                text-align: center
     
-                    .icon 
+                .icon 
     
-                        min-width: 40px
+                    min-width: 40px
     
-                        max-width: 40px
+                    max-width: 40px
     
-                        height: 40px
+                    height: 40px
     
-                        border-radius: 100%
+                    border-radius: 100%
     
-                        background-color: gray
+                    background-color: gray
 
-                    .info 
+                .info 
     
-                        margin-left: 10px
+                    margin-left: 10px
     
-                        .main 
+                    .main 
     
-                            font-weight: bold
+                        font-weight: bold
     
-                            font-size: 1.2rem
+                        font-size: 1.2rem
     
-                        .sub 
-                            transition-delay: .1s
+                    .sub 
+                        transition-delay: .1s
     
 </style>
-
-<script>
-
-    export default {
-
-        name: 'PostView',
-
-        data(){
-            return{
-                isActive: false,
-            }
-            
-
-        },
-
-        methods: {
-    
-            showPost() {
-    
-                this.isActive = !this.isActive;
-    
-            }
-   
-        },
-    
-    };
-
-</script>
