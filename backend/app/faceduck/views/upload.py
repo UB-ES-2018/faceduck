@@ -2,9 +2,11 @@ from faceduck.blueprints import upload
 from faceduck.views.view_utils import client_error
 from flask import request, jsonify, current_app, send_from_directory
 from faceduck import core
+from flask_jwt_extended import jwt_required
 
 
 @upload.route('/media', methods=["POST"])
+@jwt_required
 def upload_media():
     file = request.files['file']
 
