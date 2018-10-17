@@ -37,7 +37,7 @@ export default {
   width: 50%
   transform: translate(-50%, -50%)
   position: absolute
-  top: 15%
+  top: 10%
   left: 50%
   padding: 40px 0
   border-radius: 10px
