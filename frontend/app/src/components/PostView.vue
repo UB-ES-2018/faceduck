@@ -11,8 +11,11 @@
         <!--Closing icon-->
   
         <div class="info">
-          <div class="main">{{this.post.user}}</div>
-          <div class="sub">{{this.post.text}}</div>
+          <div class="main">{{post.user}}</div>
+          <div class="sub">{{post.text}}</div>
+          <div class="image" v-if="post.image">
+            <img v-bind:src="post.image"/>
+          </div>
         </div>
         <!--Closing info-->
       </div>
@@ -37,6 +40,7 @@
         post: {
           user:"",
           text:"",
+          image:""
         },
 
         message: "",
@@ -54,10 +58,12 @@
       this.$root.$on('showPost', (text) => { // here you need to use the arrow function
         //alert(text)
         if (text != null) {
+          var lastPost = JSON.parse(localStorage.getItem("lastPost"));
           this.isVisible = true;
-          this.post.text = "";
-          this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
-          this.post.user = JSON.parse(localStorage.getItem("lastPost"))["author"]["username"];
+          this.post.text = lastPost["text"];
+          this.post.user = lastPost["author"]["username"];
+          this.post.image = lastPost["image-url"];
+          console.log(this.post)
           //alert(this.post.user)
           
         }

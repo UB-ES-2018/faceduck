@@ -17,8 +17,7 @@ export default {
   name: 'PersonalWall',
   components: {
     PostForm,
-    PostView,
-
+    PostView
   },
   data() {
 		return {}
