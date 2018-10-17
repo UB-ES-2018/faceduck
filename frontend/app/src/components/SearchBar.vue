@@ -20,6 +20,10 @@ export default {
             searchQuery: ""
         };
     },
+    mounted() {
+      this.searchQuery = this.$route.query.query;
+      this.getUsers();
+    },
     methods: {
         //wip
         submitQuery(e) {
@@ -27,10 +31,10 @@ export default {
           if (this.redirect) {
             this.$router.push("/search?query=" + this.searchQuery);
           } else {
-            getUsers()
+            this.getUsers();
           }
         },
-        getUsers(e) {
+        getUsers() {
           fetch(apiUsersSearchUrl, {
             method: "POST",
             headers: {

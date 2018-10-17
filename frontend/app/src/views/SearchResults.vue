@@ -1,30 +1,29 @@
 <template>
     <div id='SearchResults'>
-        <SearchBar/>
-        <template v-if="nores">
-            <h3>Nothing found</h3>
-        </template>
-        <div class="results-list" v-else>
-            <div class="results-item" v-for="result in results" :key="result.username">
-                <div class="border-b-1">
-                <div class="results-item-text">
-                    <h3><a href="#"> {{result.name}} {{result.surname}}</a></h3>
-                    <h4>{{result.email}}</h4>
-                    <p>{{result.gender}}, born: {{result.birthday}}</p>
-                </div>
-                </div>
+      <h1>Search results</h1>
+      <SearchBar/>
+      <template v-if="nores">
+          <h3>Nothing found</h3>
+      </template>
+      <div class="results-list" v-else>
+          <div class="results-item" v-for="result in results" :key="result.username">
+              <div class="border-b-1">
+              <div class="results-item-text">
+                  <h3><a href="#"> {{result.name}} {{result.surname}}</a></h3>
+                  <h4>{{result.email}}</h4>
+                  <p>{{result.gender}}, born: {{result.birthday}}</p>
+              </div>
+              </div>
 
-            </div>
-            
-        </div>   
+          </div>
+          
+      </div>   
     </div>   
 </template>
 
 <script>
 
 import SearchBar from "../components/SearchBar.vue";
-
-console.log(1);
 
 export default {
     name: "SearchResults",
@@ -34,10 +33,11 @@ export default {
             nores: false,//ugly way to hide nothing found message
         };
     },
-    create() {
+    mounted() {
       this.$root.$on("getResults", (event) => {
+        console.log(event)
         this.results = event.results;
-        this.nores = (results.length === 0);
+        this.nores = (event.results.length === 0);
       });
     },
     components: {
