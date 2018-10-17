@@ -21,7 +21,7 @@
 
                     <div class="image" v-if="post.image">
 
-      	        		<img v-bind:src="post.image"/>
+      	        		<img v-bind:src="post.image" width="110%" height="100%"/>
 
         			</div>
             
@@ -220,3 +220,4 @@
     
                     .sub 
                         transition-delay: .1s
+</style>

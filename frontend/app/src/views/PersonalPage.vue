@@ -8,11 +8,11 @@
             <button class="button" v-on:click='logout'> Log Out </button>
           </form>
     </nav>
-    <div class="container" align="center">
+    <div class="containerPhoto" align="center">
         <div class="photo"></div>
         <div class="username">Patata</div>
     </div>
-    <div align="center">
+    <div class="container" align="center">
        <PostForm/>
        <PostView/>
     </div>
@@ -45,7 +45,7 @@
   left: 40% 
   cursor: pointer
 
-.container
+.containerPhoto
     min-width: 100%
     background: #ffb511
     height: 25vh
