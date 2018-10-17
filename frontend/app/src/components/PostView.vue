@@ -123,6 +123,7 @@
           opacity: 1
           text-align: justify
           text-justify: inter-word
+          word-wrap: break-word
 
           color: #000
         
@@ -160,6 +161,9 @@
 
       .info 
         margin-left: 10px
+        margin-right: 10px
+        width: calc(100% - 60px)
+        white-space: pre-line
         .main 
           font-weight: bold
           font-size: 1.2rem
