@@ -2,6 +2,8 @@ version: '3.1'
 
 services:
   api:
+    depends_on:
+      - elasticsearch
     build: backend/
     ports:
       - "5000:5000"
@@ -12,6 +14,8 @@ services:
       - elasticsearch:elasticsearch
   frontend:
     build: frontend/
+    depends_on:
+      - api
     ports:
       - "8080:8080"
     volumes:
@@ -27,6 +31,15 @@ services:
     environment:
       - "discovery.type=single-node"
       - "xpack.security.enabled=false"
+  test_runner:
+    links:
+      - elasticsearch:elasticsearch
+      - frontend:frontend
+      - api:api
+    depends_on:
+      - frontend
+    image: willwill/wait-for-it
+    entrypoint: "bash -c '/wait-for-it.sh elasticsearch:9200 && /wait-for-it.sh api:5000 && /wait-for-it.sh frontend:8080 && exit 0'"
 
 volumes:
   node_modules:
