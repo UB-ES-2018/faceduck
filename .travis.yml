@@ -7,4 +7,4 @@ install:
 
 script:
   - docker-compose build
-  - docker-compose up test_runner --abort-on-container-exit
+  - docker-compose up --abort-on-container-exit test_runner
