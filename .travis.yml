@@ -3,6 +3,9 @@ sudo: required
 services:
   - docker
 
+env:
+  - DOCKER_RESTART="no"
+
 install:
 
 script:
