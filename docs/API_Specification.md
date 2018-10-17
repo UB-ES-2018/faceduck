@@ -191,11 +191,11 @@
             },
             "required": [
                 "id",
-                "username", 
+                "username",
                 "email",
-                "name", 
-                "surname", 
-                "birthday", 
+                "name",
+                "surname",
+                "birthday",
                 "gender"
             ]
         }
@@ -273,9 +273,17 @@
 
 #### - Request headers
 
-| Property     | Required | Values           |
-|--------------|:--------:|:----------------:|
-| Content-Type | Yes      | application/json |
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
 
 #### - Request body
 
@@ -286,10 +294,11 @@
     "type": "object",
     "properties": {
         "text": {"type": "string"},
-        "author-id": {"type": "string"}
+        "author-id": {"type": "string"},
+        "image-url": {"type": "string"}
     },
     "required": [
-        "text", 
+        "text",
         "author-id"
     ]
 }
@@ -300,7 +309,8 @@
 ```json
 {
     "text": "Hello this is a post.",
-    "author-id": "32"
+    "author-id": "32",
+    "image-url": "http://localhost:5000/media/1.jpg"
 }
 ```
 
@@ -322,8 +332,10 @@
     "title": "Create post success",
     "type": "object",
     "properties": {
+        "id": {"type": "string"},
         "text": {"type": "string"},
         "created-at": {"type": "string"},
+        "image-url": {"type": "string"},
         "author": {
             "type": "object",
             "properties": {
@@ -340,18 +352,19 @@
             },
             "required": [
                 "id",
-                "username", 
+                "username",
                 "email",
-                "name", 
-                "surname", 
-                "birthday", 
+                "name",
+                "surname",
+                "birthday",
                 "gender"
             ]
         }
     },
     "required": [
-        "text", 
-        "created-at", 
+        "id",
+        "text",
+        "created-at",
         "author"
     ]
 }
@@ -361,6 +374,7 @@
 
 ```json
 {
+    "id": "42",
     "text": "Hello this is a post.",
     "created-at": "12-01-2018, 03:45:34",
     "author": {
@@ -371,7 +385,8 @@
         "surname": "Master",
         "birthday": "1984-10-01",
         "gender": "male"
-    }
+    },
+    "image-url": "http://localhost:5000/media/1.jpg"
 }
 ```
 
@@ -424,6 +439,18 @@
 
 **GET** `/post/{post_id}`
 
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
 ### Response: success
 
 `200 Ok`
@@ -442,6 +469,7 @@
     "title": "Get post success",
     "type": "object",
     "properties": {
+        "id": {"type": "string"},
         "text": {"type": "string"},
         "created-at": {"type": "string"},
         "author": {
@@ -460,18 +488,19 @@
             },
             "required": [
                 "id",
-                "username", 
+                "username",
                 "email",
-                "name", 
-                "surname", 
-                "birthday", 
+                "name",
+                "surname",
+                "birthday",
                 "gender"
             ]
         }
     },
     "required": [
-        "text", 
-        "created-at", 
+        "id",
+        "text",
+        "created-at",
         "author"
     ]
 }
@@ -481,6 +510,7 @@
 
 ```json
 {
+    "id": "42",
     "text": "Hello this is a post.",
     "created-at": "12-01-2018, 03:45:34",
     "author": {
@@ -510,7 +540,7 @@
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Login error",
+    "title": "Get post error",
     "type": "object",
     "properties": {
         "error-id": {
@@ -530,7 +560,439 @@
 ```json
 {
     "error-id": "001",
-    "error-message": "Invalid data",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Search user
+
+### Request
+
+**POST** `/user/search`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Search user",
+    "type": "object",
+    "properties": {
+        "query": {"type": "string"}
+    },
+    "required": ["query"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "query": "scrum master"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Search user success",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {"type": "string"},
+            "username": {"type": "string"},
+            "email": {
+                "type": "string",
+                "format": "email"
+            },
+            "name": {"type": "string"},
+            "surname": {"type": "string"},
+            "birthday": {"type": "string"},
+            "gender": {"type": "string"}
+        },
+        "required": [
+            "id",
+            "username",
+            "email",
+            "name",
+            "surname",
+            "birthday",
+            "gender"
+        ]
+    }
+}
+```
+
+*Examples:*
+
+```json
+[
+    {
+        "id": "32",
+        "username": "test123",
+        "email": "test@faceduck.com",
+        "name": "Scrum",
+        "surname": "Master",
+        "birthday": "1984-10-01",
+        "gender": "male"
+    },
+    {
+        "id": "34",
+        "username": "test2",
+        "email": "test2@faceduck.com",
+        "name": "Scrum",
+        "surname": "Master2",
+        "birthday": "1986-10-01",
+        "gender": "female"
+    }
+]
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Search user error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Search post
+
+### Request
+
+**POST** `/post/search`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Search post",
+    "type": "object",
+    "properties": {
+        "query": {"type": "string"}
+    },
+    "required": ["query"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "query": "hello"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Search post success",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "text": {"type": "string"},
+            "created-at": {"type": "string"},
+            "author": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "username": {"type": "string"},
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "name": {"type": "string"},
+                    "surname": {"type": "string"},
+                    "birthday": {"type": "string"},
+                    "gender": {"type": "string"}
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "name",
+                    "surname",
+                    "birthday",
+                    "gender"
+                ]
+            }
+        },
+        "required": [
+            "text",
+            "created-at",
+            "author"
+        ]
+    }
+}
+```
+
+*Examples:*
+
+```json
+[
+    {
+        "id": "45",
+        "text": "Hello this is a post.",
+        "created-at": "12-01-2018, 03:45:34",
+        "author": {
+            "id": "32",
+            "username": "test123",
+            "email": "test@faceduck.com",
+            "name": "Scrum",
+            "surname": "Master",
+            "birthday": "1984-10-01",
+            "gender": "male"
+        }
+    },
+    {
+        "id": "34",
+        "text": "Hello this is another post.",
+        "created-at": "13-01-2018, 03:45:34",
+        "author": {
+            "id": "34",
+            "username": "test2",
+            "email": "test2@faceduck.com",
+            "name": "Scrum",
+            "surname": "Master2",
+            "birthday": "1986-10-01",
+            "gender": "female"
+        }
+    }
+]
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Search post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Create Media (Upload)
+
+### Request
+
+**POST** `/media`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | multipart/form-data   |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: multipart/form-data
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+Multipart fields:
+* `file`: type `file`, contains binary data of image.
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create Media success",
+    "type": "object",
+    "properties": {
+        "media-url": {"type": "string"}
+    },
+    "required": [
+        "media-url"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "media-url": "http://localhost:5000/media/1.jpg"
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create media error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "010"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "010",
+    "error-message": "Media is too big"
 }
 ```
 

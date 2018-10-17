@@ -48,6 +48,32 @@
       }
     }
   }
+=======
+import PostForm from "../components/PostForm.vue";
+import PostView from "../components/PostView.vue";
+
+export default {
+  name: 'PersonalWall',
+  components: {
+    PostForm,
+    PostView
+  },
+  data() {
+		return {}
+	},
+	beforeCreate: function() {
+		if (!localStorage.getItem("access-token")) {
+			this.$router.push("/");
+		}
+	},
+	methods: {
+		logout: function() {
+			localStorage.removeItem("access-token");
+			this.$router.push("/");
+		}
+	}
+}
+>>>>>>> US6-ImageUploader-Component
 
 </script>
 
