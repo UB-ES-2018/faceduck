@@ -163,11 +163,12 @@
         margin-left: 10px
         margin-right: 10px
         width: calc(100% - 60px)
-        white-space: pre-line
+       
         .main 
           font-weight: bold
           font-size: 1.2rem
         .sub 
           transition-delay: .1s
+          white-space: pre-line
             
 </style>
