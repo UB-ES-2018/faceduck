@@ -16,7 +16,7 @@
 
 <script>
 
-import ImageUploader from "./ImageUploader.vue";
+import ImageUploader from "../components/ImageUploader.vue";
 
 var host = window.location.hostname;
 var apiPostFormUrl = '//'+host+':5000/post';

@@ -2,8 +2,10 @@
     <div id='SearchUsers'>
         <form class="inputbox"   v-on:submit.prevent="send">
         <div>
-            <input type="text" placeholder="username" v-model="searchQuery"  v-on:keyup.enter="getUsers">
-            <button type="button" v-on:click="getUsers">Searh</button>
+            <form v-on:submit="getUsers">
+              <input type="text" placeholder="username" v-model="searchQuery">
+              <button type="submit">Search</button>
+            </form>
         </div>
         </form>
         <template v-if="nores">
@@ -39,13 +41,15 @@ export default {
     },
     methods: {
         //wip
-        getUsers() {
+        getUsers(e) {
+            e.preventDefault();
             this.nores=false;
             this.results=[];
             fetch(apiUsersSearchUrl, {
                 method: "POST",
                 headers: {
-                "Content-Type": "application/json"
+                  "Content-Type": "application/json",
+                  "Authorization": "Bearer " + localStorage.getItem("access-token"),
                 },
                 body: JSON.stringify({query: this.searchQuery})
             }).then(res => res.json())

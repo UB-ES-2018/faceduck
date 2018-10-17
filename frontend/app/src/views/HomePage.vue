@@ -11,20 +11,17 @@
     </div>
   </div>
   <LoginSignin/>
-  <SearchUsers/>
-    </div>
+  </div>
   
 </template>
 
 <script>
 import LoginSignin from "../components/LoginSignin.vue";
-import SearchUsers from "../components/SearchUsers.vue";
 
 export default {
   name: 'HomePage',
   components: {
     LoginSignin,
-    SearchUsers,
   },
 };
 </script>
