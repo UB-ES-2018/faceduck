@@ -39,7 +39,7 @@ services:
     depends_on:
       - frontend
     image: willwill/wait-for-it
-    entrypoint: "bash -c '/wait-for-it.sh elasticsearch:9200 && /wait-for-it.sh api:5000 && /wait-for-it.sh frontend:8080 && exit 0'"
+    entrypoint: "bash -c '/wait-for-it.sh --timeout 60 elasticsearch:9200 && /wait-for-it.sh --timeout 60 api:5000 && /wait-for-it.sh --timeout 60 frontend:8080 && exit 0'"
 
 volumes:
   node_modules:
