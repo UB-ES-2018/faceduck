@@ -9,10 +9,12 @@ from flask_jwt_extended import (
 from faceduck import config # Needed for autoconfiguration
 
 app = Flask(__name__)
-jwt = JWTManager(app)
+
 app.config['JWT_SECRET_KEY'] = '1234567'
 app.config['UPLOAD_FOLDER'] = './uploads'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
+
+jwt = JWTManager(app)
 
 
 @jwt.user_loader_callback_loader

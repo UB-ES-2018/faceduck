@@ -60,7 +60,7 @@ def create_post():
         text = request.json["text"]
         author_id = request.json["author-id"]
         image_url = request.json.get("image-url", None)
-    except ValueError:
+    except KeyError:
         return client_error("001")
 
     try:
@@ -82,3 +82,17 @@ def get_post(post_id):
         return client_error(e.id)
     
     return jsonify(response)
+
+
+@api.route('/user/search', methods=["POST"])
+@jwt_required
+def search_users():
+    content = request.get_json()
+
+    try:
+        query = content['query']
+    except KeyError:
+        return client_error("001")
+
+    users = core.search_users(query)
+    return jsonify([user_mapper(u) for u in users])
