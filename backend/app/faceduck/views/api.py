@@ -88,7 +88,7 @@ def get_post(post_id):
 @jwt_required
 def search_users():
     content = request.get_json()
-
+    
     try:
         query = content['query']
     except KeyError:
@@ -96,3 +96,17 @@ def search_users():
 
     users = core.search_users(query)
     return jsonify([user_mapper(u) for u in users])
+
+
+@api.route('/post/search', methods=["POST"])
+@jwt_required
+def search_posts():
+    content = request.get_json()
+
+    try:
+        query = content['query']
+    except KeyError:
+        return client_error("001")
+
+    posts = core.search_posts(query)
+    return jsonify([post_mapper(p) for p in posts])
