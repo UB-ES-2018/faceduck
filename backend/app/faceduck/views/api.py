@@ -109,4 +109,9 @@ def search_posts():
         return client_error("001")
 
     posts = core.search_posts(query)
-    return jsonify([post_mapper(p) for p in posts])
+    
+    try:
+        return jsonify([post_mapper(p) for p in posts])
+    except FaceduckError as e:
+        return client_error(e.id)
+
