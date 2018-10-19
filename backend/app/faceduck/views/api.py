@@ -102,31 +102,15 @@ def search_users():
 @jwt_required
 def search_posts():
     content = request.get_json()
-
-    try:
-        query = content['query']
-    except KeyError:
-        return client_error("001")
-
-    posts = core.search_posts(query)
     
-    try:
-        return jsonify([post_mapper(p) for p in posts])
-    except FaceduckError as e:
-        return client_error(e.id)
-
-
-@api.route('/post/search/author', methods=["POST"])
-@jwt_required
-def search_posts_by_author():
-    content = request.get_json()
-
-    try:
-        author_id = content['query']
-    except KeyError:
+    if "query" in content.keys():
+        query = content["query"]
+        posts = core.search_posts(query)
+    elif "author-id" in content.keys():
+        author_id = content["author-id"]
+        posts = core.search_posts_by_author(author_id)
+    else:
         return client_error("001")
-    
-    posts = core.search_posts_by_author(author_id)
     
     try:
         return jsonify([post_mapper(p) for p in posts])
