@@ -1003,3 +1003,378 @@ Multipart fields:
 ### Response: server error
 
 `500 Internal Server Error`
+
+## Create Friendship
+
+### Request
+
+**POST** `/user/friends`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create friendship",
+    "type": "object",
+    "properties": {
+        "user_id": {"type": "string"},
+        "target_id": {"type": "string"},
+    },
+    "required": [
+        "user_id",
+        "target_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "user_id" : "45",
+    "target_id" : "23"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create friendship success",
+    "type": "object",
+    "properties": {
+        "state": {"type": "string"},
+        "target_id": {"type": "string"},
+        "user_id": {"type": "string"},
+    },
+    "required": [
+        "state",
+        "target_id",
+        "user_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "state": "pending",
+    "target_id": "34",
+    "user_id": "23"
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Update Friendship
+
+### Request
+
+**POST** `/user/friendship`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create friendship",
+    "type": "object",
+    "properties": {
+        "user_id": {"type": "string"},
+        "target_id": {"type": "string"},
+        "state": {"type": "string"}
+    },
+    "required": [
+        "user_id",
+        "target_id",
+        "state"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "user_id" : "45",
+    "target_id" : "23"
+    "state" : "friends"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create friendship success",
+    "type": "object",
+    "properties": {
+        "state": {"type": "string"},
+        "target_id": {"type": "string"},
+        "user_id": {"type": "string"},
+    },
+    "required": [
+        "state",
+        "target_id",
+        "user_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "state": "pending",
+    "target_id": "34",
+    "user_id": "23"
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Get Friends
+
+### Request
+
+**GET** `/user/friends/{user_id}`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get post success",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "state": {"type": "string"},
+        "target_id": {"type": "string"},
+        "user_id": {"type": "string"},
+    },
+    "required": [
+        "id",
+        "state",
+        "target_id",
+        "user_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+[
+    {
+        "id": "12345",
+        "state": "friends",
+        "target-id": "42",
+        "user-id": "23"
+    },
+    {
+        "id": "54321",
+        "state": "friends",
+        "target-id": "32",
+        "user-id": "23"
+    }
+]
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`

@@ -115,3 +115,51 @@ def search_posts():
     except FaceduckError as e:
         return client_error(e.id)
 
+
+@api.route('/user/friends', methods=["POST"])
+@jwt_required
+def create_friendship():
+
+    try:
+        user_id = request.json["user_id"]
+        target_id = request.json["target_id"]
+    except KeyError:
+        return client_error("001")
+
+    friendship = core.create_friendship(user_id,target_id)
+
+    try:
+        return jsonify(user_id=friendship.user_id, target_id=friendship.target_id,state=friendship.state)
+    except FaceduckError as e:
+        return client_error(e.id)
+
+@api.route('/user/friendship', methods=["POST"])
+@jwt_required
+def update_friendship():
+
+    try:
+        user_id = request.json["user_id"]
+        target_id = request.json["target_id"]
+        state = request.json["state"]
+    except KeyError:
+        return client_error("001")
+
+    friendship = core.update_friendship(user_id,target_id,state)
+
+    try:
+        return jsonify(user_id=friendship.user_id, target_id=friendship.target_id,state=friendship.state)
+    except FaceduckError as e:
+        return client_error(e.id)
+
+@api.route('/user/friends/<user_id>')
+@jwt_required
+def get_friends(user_id):
+    try:
+        friends = core.get_friends(user_id)
+    except FaceduckError as e:
+        return client_error(e.id)
+
+    try:
+        return jsonify([user_mapper(f) for f in friends])
+    except FaceduckError as e:
+        return client_error(e.id)
