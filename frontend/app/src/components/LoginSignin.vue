@@ -38,9 +38,9 @@
             <input type="text" name="username" v-model="signup.username" placeholder= " USERNAME" required>
             <div class="inline-input">
               <input type="text" name="name" v-model="signup.name"
-                placeholder="  NAME" required style="width: 49%">
+                placeholder="  NAME" required>
               <input type="text" name="surname" v-model="signup.surname"
-                placeholder="  SURNAME" required style="width: 49%">
+                placeholder="  SURNAME" required>
             </div>
             <input type="email" name="email" v-model="signup.email"
               placeholder="  EMAIL" required>
@@ -279,9 +279,9 @@ button.login-now
   display: flex
   & input:not(:last-child)
     margin-right: 5px
-.name input
-  width: 49%
-  height: 40px
+  & input
+    width: 49%
+
 
 .success
   color: #008000
