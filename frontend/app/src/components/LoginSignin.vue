@@ -257,7 +257,6 @@ export default {
   padding: 10px
   border-radius: 10px
   width: 60px
-  right: -100%
   bottom: -10%
  
   cursor: pointer
