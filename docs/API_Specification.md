@@ -1164,7 +1164,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "properties": {
         "user_id": {"type": "string"},
         "target_id": {"type": "string"},
-        "state": {"type": "string"}
+        "state": {
+                    "type": "string",
+                    "enum": ["pending", "friends"]
+                 }
     },
     "required": [
         "user_id",
