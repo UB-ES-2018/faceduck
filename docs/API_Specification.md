@@ -1176,7 +1176,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 
 ```json
 {
-    "target_id" : "23"
+    "target_id" : "23",
     "state" : "friends"
 }
 ```
