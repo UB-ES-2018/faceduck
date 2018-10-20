@@ -258,7 +258,6 @@ export default {
   border-radius: 10px
   width: 60px
   bottom: -10%
- 
   cursor: pointer
 
 button.login-now 
