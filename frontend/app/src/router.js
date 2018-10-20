@@ -25,17 +25,17 @@ export default new Router({
                 import ( /* webpackChunkName: "wall" */ './views/PersonalWall.vue')
         },
         {
-<<<<<<< HEAD
             path: '/profile',
             name: 'profile',
             component: () =>
                 import ( /* webpackCunkName: "profile" */ './views/PersonalPage.vue')
-=======
+        },
+        {
             path: '/search',
             name: 'search',
             component: () =>
                 import ( /* webpackChunkName: "search" */ './views/SearchResults.vue')
->>>>>>> US-07-Endpoint-get-user-posts
+
         },
     ]
 })

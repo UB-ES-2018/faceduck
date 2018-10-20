@@ -23,7 +23,8 @@
 
       	        		<img v-bind:src="post.image" width="110%" height="100%"/>
 
-        			</div>
+        			      </div>
+                    <!--Closing image-->
             
                 </div>
                 <!--Closing info-->
@@ -76,7 +77,7 @@
               		this.post.text = lastPost["text"];
               		this.post.user = lastPost["author"]["username"];
 
-    		    	//this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
+    		    	  //this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
 		            //this.post.user = JSON.parse(localStorage.getItem("lastPost"))["author"]["username"];
 
               		this.post.image = lastPost["image-url"];
@@ -135,7 +136,6 @@
                     
                 height: 15em
 
-<<<<<<< HEAD
                 border-radius: 20px
 
                 .label 
