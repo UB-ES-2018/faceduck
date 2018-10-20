@@ -10,11 +10,12 @@
     </nav>
     <div class="containerPhoto" align="center">
         <div class="photo"></div>
-        <div class="username">Patata</div>
+        <div class="username">User</div>
     </div>
     <div class="container" align="center">
        <PostForm/>
        <PostView/>
+       <PostsView/>
     </div>
   </div>
 </template>
@@ -66,12 +67,17 @@
 <script>
 import PostForm from "../components/PostForm.vue";
 import PostView from "../components/PostView.vue";
+import PostsView from "../components/PostsView.vue";
+
+var host = window.location.hostname;
+var apiSearchPost = '//' + host + ':5000/post/search';
 
 export default {
   name: 'PersonalPage',
   components: {
     PostForm,
     PostView,
+    PostsView
 
   },
   data() {
@@ -80,20 +86,41 @@ export default {
 	beforeCreate: function() {
 		if (!localStorage.getItem("access-token")) {
 			this.$router.push("/");
-		}
-	},
+    }
+  },
+  created() {
+    this.getPost()
+  },
 	methods: {
-        profile () {
+    profile () {
 			this.$router.push("/profile");
-        },
-        wall () {
+    },
+    wall () {
 			this.$router.push("/wall");
 		},
 		logout () {
 			localStorage.removeItem("access-token");
 			this.$router.push("/");
-		}
+    },
+      getPost() {
+        fetch(apiSearchPost, {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("access-token"),
+            },
+            body: JSON.stringify({"author-id": JSON.parse(localStorage.getItem("user"))["id"]})
+        }).then(res => res.json())
+        .then(data => {
+            this.$root.$emit("getPosts", {
+            results: data,
+            });
+            
+        }); 
+        },
+        
+  }
 	}
-}
+
 
 </script>

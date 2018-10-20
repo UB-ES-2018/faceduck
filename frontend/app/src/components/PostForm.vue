@@ -66,7 +66,6 @@
 		                    localStorage.setItem("lastPost",JSON.stringify(json))
                             this.$root.$emit('showPost', true);
                         })
-                
 		            }}).catch((r) => alert(r));
 		    },
 		},
