@@ -135,6 +135,7 @@
                     
                 height: 15em
 
+<<<<<<< HEAD
                 border-radius: 20px
 
                 .label 

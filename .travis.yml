@@ -1,0 +1,14 @@
+language: c
+sudo: required
+
+services:
+  - docker
+
+env:
+  - DOCKER_RESTART="no"
+
+install:
+
+script:
+  - docker-compose build
+  - docker-compose up --abort-on-container-exit test_runner

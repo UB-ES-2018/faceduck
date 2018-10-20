@@ -60,7 +60,7 @@ def create_post():
         text = request.json["text"]
         author_id = request.json["author-id"]
         image_url = request.json.get("image-url", None)
-    except ValueError:
+    except KeyError:
         return client_error("001")
 
     try:
@@ -82,3 +82,37 @@ def get_post(post_id):
         return client_error(e.id)
     
     return jsonify(response)
+
+
+@api.route('/user/search', methods=["POST"])
+@jwt_required
+def search_users():
+    content = request.get_json()
+    
+    try:
+        query = content['query']
+    except KeyError:
+        return client_error("001")
+
+    users = core.search_users(query)
+    return jsonify([user_mapper(u) for u in users])
+
+
+@api.route('/post/search', methods=["POST"])
+@jwt_required
+def search_posts():
+    content = request.get_json()
+    
+    if "query" in content.keys():
+        query = content["query"]
+        posts = core.search_posts(query)
+    elif "author-id" in content.keys():
+        author_id = content["author-id"]
+        posts = core.search_posts_by_author(author_id)
+    else:
+        return client_error("001")
+    
+    try:
+        return jsonify([post_mapper(p) for p in posts])
+    except FaceduckError as e:
+        return client_error(e.id)

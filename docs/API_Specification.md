@@ -18,6 +18,7 @@
 | 002      | Already existing username         |
 | 003      | Already existing email            |
 | 004      | This email or password is invalid |
+| 010      | Media is too big                  |
 
 ## Sign up
 
@@ -472,6 +473,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "id": {"type": "string"},
         "text": {"type": "string"},
         "created-at": {"type": "string"},
+        "image-url": {"type": "string"},
         "author": {
             "type": "object",
             "properties": {
@@ -521,7 +523,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "surname": "Master",
         "birthday": "1984-10-01",
         "gender": "male"
-    }
+    },
+    "image-url": "http://localhost:5000/media/1.jpg"
 }
 ```
 
@@ -750,17 +753,37 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Search post",
     "type": "object",
     "properties": {
-        "query": {"type": "string"}
+        "query": {"type": "string"},
+        "author-id": {"type": "string"}
     },
-    "required": ["query"]
+    "oneOf": [
+        {
+            "required": [
+                "query"
+            ]
+        },
+        {
+            "required": [
+                "author-id"
+            ]
+        }
+    ]
 }
 ```
 
 *Examples:*
 
+Search by post matching content:
 ```json
 {
     "query": "hello"
+}
+```
+
+Search by the author:
+```json
+{
+    "author-id": "34"
 }
 ```
 
@@ -978,6 +1001,7 @@ Multipart fields:
         "error-id": {
             "type": "integer",
             "enum": [
+                "001",
                 "010"
             ]
         },
