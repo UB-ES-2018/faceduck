@@ -753,17 +753,37 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Search post",
     "type": "object",
     "properties": {
-        "query": {"type": "string"}
+        "query": {"type": "string"},
+        "author-id": {"type": "string"}
     },
-    "required": ["query"]
+    "oneOf": [
+        {
+            "required": [
+                "query"
+            ]
+        },
+        {
+            "required": [
+                "author-id"
+            ]
+        }
+    ]
 }
 ```
 
 *Examples:*
 
+Search by post matching content:
 ```json
 {
     "query": "hello"
+}
+```
+
+Search by the author:
+```json
+{
+    "author-id": "34"
 }
 ```
 
