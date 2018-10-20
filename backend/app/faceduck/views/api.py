@@ -165,7 +165,7 @@ def delete_friendship():
     friendship = core.delete_friendship(user_id,target_id)
 
     try:
-        return jsonify(status="Friendship deleted")
+        return ("", 204)
     except FaceduckError as e:
         return client_error(e.id)
 

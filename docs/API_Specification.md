@@ -1103,7 +1103,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create post error",
+    "title": "Create friendship error",
     "type": "object",
     "properties": {
         "error-id": {
@@ -1156,14 +1156,14 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create friendship",
+    "title": "Update friendship",
     "type": "object",
     "properties": {
         "target_id": {"type": "string"},
-        "state": {
-                    "type": "string",
-                    "enum": ["pending", "friends"]
-                 }
+        "state":{
+            "type": "string",
+            "enum": ["pending", "friends"]
+        }
     },
     "required": [
         "target_id",
@@ -1196,12 +1196,12 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create friendship success",
+    "title": "Update friendship success",
     "type": "object",
     "properties": {
         "state": {"type": "string"},
         "target_id": {"type": "string"},
-        "user_id": {"type": "string"},
+        "user_id": {"type": "string"}
     },
     "required": [
         "state",
@@ -1303,7 +1303,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "id": {"type": "string"},
         "state": {"type": "string"},
         "target_id": {"type": "string"},
-        "user_id": {"type": "string"},
+        "user_id": {"type": "string"}
     },
     "required": [
         "id",
@@ -1423,37 +1423,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 
 ### Response: success
 
-`200 Ok`
-
-#### - Response headers
-
-| Property     | Values           |
-|--------------|:----------------:|
-| Content-Type | application/json |
-
-#### - Response body
-
-```json
-{
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create friendship success",
-    "type": "object",
-    "properties": {
-        "status": {"type": "string"}
-    },
-    "required": [
-        "status"
-    ]
-}
-```
-
-*Examples:*
-
-```json
-{
-    "status": "Friendship deleted",
-}
-```
+`204 No Content`
 
 ### Response: client error
 
