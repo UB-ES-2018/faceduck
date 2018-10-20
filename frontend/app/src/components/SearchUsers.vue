@@ -1,15 +1,23 @@
 <template>
     <div id='SearchUsers'>
+        <form class="inputbox"   v-on:submit.prevent="send">
+        <div>
+            <form v-on:submit="getUsers">
+              <input type="text" placeholder="username" v-model="searchQuery">
+              <button type="submit">Search</button>
+            </form>
+        </div>
+        </form>
         <template v-if="nores">
-                <h3>No Users found</h3>
-</template>
+            <h3>Nothing found</h3>
+        </template>
         <div class="results-list" v-else>
             <div class="results-item" v-for="result in results" :key="result.username">
                 <div class="border-b-1">
                 <div class="results-item-text">
                     <h3><a href="#"> {{result.name}} {{result.surname}}</a></h3>
                     <h4>{{result.email}}</h4>
-                    <p>Gender: {{result.gender}}, born: {{result.birthday}}</p>
+                    <p>{{result.gender}}, born: {{result.birthday}}</p>
                 </div>
                 </div>
 
@@ -20,76 +28,41 @@
 </template>
 
 <script>
-    var host = window.location.hostname
-    var apiUsersSearchUrl = 'http://' + host + ':5000/user/search'; //Backend ip
+var host = window.location.hostname
+var apiUsersSearchUrl  = 'http://'+ host +':5000/user/search'; //Backend ip
 
-    
-    export default {
-        data() {
-            return {
-                results: [],
-                searchQuery: "",
-                nores: false, //ugly way to hide nothing found message
-            };
+export default {
+    data() {
+        return{
+            results: [],
+            searchQuery: "",
+            nores: false,//ugly way to hide nothing found message
+        };
+    },
+    methods: {
+        //wip
+        getUsers(e) {
+            e.preventDefault();
+            this.nores=false;
+            this.results=[];
+            fetch(apiUsersSearchUrl, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                },
+                body: JSON.stringify({query: this.searchQuery})
+            }).then(res => res.json())
+            .then(data => this.results = data);
+            console.log(Object.keys(this.results).length);
+            var vm = this;
+            
+            setTimeout(function() {if (Object.keys(vm.results).length < 1){ vm.nores=true;}}, 500);
         },
-    
-    
-        mounted() {
-            this.$root.$on("getUserResults", (event) => {
-                console.log(event)
-                this.results = event.results;
-                this.nores = (event.results.length === 0);
-            });
-        },
-        methods: {
-            //wip
-            getUsers(e) {
-                e.preventDefault();
-                this.nores = false;
-                this.results = [];
-                fetch(apiUsersSearchUrl, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                        },
-                        body: JSON.stringify({
-                            query: this.searchQuery
-                        })
-                    }).then(res => res.json())
-                    .then(data => this.userResults = data);
-                console.log(Object.keys(this.userResults).length);
-                var vm = this;
-    
-                setTimeout(function() {
-                    if (Object.keys(vm.userResults).length < 1) {
-                        vm.userNores = true;
-                    }
-                }, 500);
-                fetch(apiPostsSearchUrl, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                        },
-                        body: JSON.stringify({
-                            query: this.searchQuery
-                        })
-                    }).then(res => res.json())
-                    .then(data => this.results = data);
-                console.log(Object.keys(this.results).length);
-                var vm = this;
-    
-                setTimeout(function() {
-                    if (Object.keys(vm.results).length < 1) {
-                        vm.nores = true;
-                    }
-                }, 500);
-            },
-    
-    
-        }
+
+        
     }
+}
 </script>
 
 <style lang="sass" scoped>

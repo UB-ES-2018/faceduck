@@ -10,7 +10,6 @@
 <script>
 var host = window.location.hostname
 var apiUsersSearchUrl  = 'http://'+ host +':5000/user/search'; //Backend ip
-var apiPostsSearchUrl  = 'http://'+ host +':5000/post/search'; //Backend ip
 
 export default {
     props: {
@@ -24,7 +23,6 @@ export default {
     mounted() {
       this.searchQuery = this.$route.query.query;
       this.getUsers();
-      this.getPosts();
     },
     methods: {
         //wip
@@ -34,7 +32,6 @@ export default {
             this.$router.push("/search?query=" + this.searchQuery);
           } else {
             this.getUsers();
-            this.getPosts();
           }
         },
         getUsers() {
@@ -47,22 +44,7 @@ export default {
             body: JSON.stringify({query: this.searchQuery})
           }).then(res => res.json())
           .then(data => {
-            this.$root.$emit("getUserResults", {
-              results: data
-            });
-          });
-        },
-        getPosts() {
-          fetch(apiPostsSearchUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + localStorage.getItem("access-token"),
-            },
-            body: JSON.stringify({query: this.searchQuery})
-          }).then(res => res.json())
-          .then(data => {
-            this.$root.$emit("getPostResults", {
+            this.$root.$emit("getResults", {
               results: data
             });
           });
