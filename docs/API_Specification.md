@@ -1138,7 +1138,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 
 ### Request
 
-**POST** `/user/friendship`
+**PUT** `/user/friends`
 
 #### - Request headers
 
@@ -1218,7 +1218,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 
 ```json
 {
-    "state": "pending",
+    "state": "friends",
     "target_id": "34",
     "user_id": "23"
 }
@@ -1352,6 +1352,131 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Get post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+
+## Delete Friendship
+
+### Request
+
+**DELETE** `/user/friends`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create friendship",
+    "type": "object",
+    "properties": {
+        "user_id": {"type": "string"},
+        "target_id": {"type": "string"}
+    },
+    "required": [
+        "user_id",
+        "target_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "user_id" : "45",
+    "target_id" : "23"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create friendship success",
+    "type": "object",
+    "properties": {
+        "status": {"type": "string"}
+    },
+    "required": [
+        "status"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "status": "Friendship deleted",
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create post error",
     "type": "object",
     "properties": {
         "error-id": {

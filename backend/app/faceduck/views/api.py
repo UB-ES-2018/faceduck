@@ -133,7 +133,7 @@ def create_friendship():
     except FaceduckError as e:
         return client_error(e.id)
 
-@api.route('/user/friendship', methods=["POST"])
+@api.route('/user/friends', methods=["PUT"])
 @jwt_required
 def update_friendship():
 
@@ -150,6 +150,25 @@ def update_friendship():
         return jsonify(user_id=friendship.user_id, target_id=friendship.target_id,state=friendship.state)
     except FaceduckError as e:
         return client_error(e.id)
+
+@api.route('/user/friends', methods=["DELETE"])
+@jwt_required
+def delete_friendship():
+
+    try:
+        user_id = request.json["user_id"]
+        target_id = request.json["target_id"]
+    except KeyError:
+        return client_error("001")
+
+    friendship = core.delete_friendship(user_id,target_id)
+
+    try:
+        return jsonify(status="Friendship deleted")
+    except FaceduckError as e:
+        return client_error(e.id)
+
+
 
 @api.route('/user/friends/<user_id>')
 @jwt_required
