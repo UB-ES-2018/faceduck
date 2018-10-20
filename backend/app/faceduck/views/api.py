@@ -2,7 +2,7 @@ from flask import make_response, request, jsonify
 from faceduck.blueprints import api
 from faceduck import core
 from faceduck.utils import FaceduckError
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, current_user
 from .mappers import user_mapper, post_mapper
 from faceduck.views.view_utils import client_error
 
@@ -121,7 +121,8 @@ def search_posts():
 def create_friendship():
 
     try:
-        user_id = request.json["user_id"]
+        user_id = current_user.meta.id
+
         target_id = request.json["target_id"]
     except KeyError:
         return client_error("001")
@@ -138,7 +139,7 @@ def create_friendship():
 def update_friendship():
 
     try:
-        user_id = request.json["user_id"]
+        user_id = current_user.meta.id
         target_id = request.json["target_id"]
         state = request.json["state"]
     except KeyError:
@@ -156,7 +157,7 @@ def update_friendship():
 def delete_friendship():
 
     try:
-        user_id = request.json["user_id"]
+        user_id = current_user.meta.id
         target_id = request.json["target_id"]
     except KeyError:
         return client_error("001")

@@ -1032,11 +1032,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Create friendship",
     "type": "object",
     "properties": {
-        "user_id": {"type": "string"},
         "target_id": {"type": "string"},
     },
     "required": [
-        "user_id",
         "target_id"
     ]
 }
@@ -1046,7 +1044,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 
 ```json
 {
-    "user_id" : "45",
     "target_id" : "23"
 }
 ```
@@ -1162,7 +1159,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Create friendship",
     "type": "object",
     "properties": {
-        "user_id": {"type": "string"},
         "target_id": {"type": "string"},
         "state": {
                     "type": "string",
@@ -1170,7 +1166,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
                  }
     },
     "required": [
-        "user_id",
         "target_id",
         "state"
     ]
@@ -1181,7 +1176,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 
 ```json
 {
-    "user_id" : "45",
     "target_id" : "23"
     "state" : "friends"
 }
@@ -1411,11 +1405,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Create friendship",
     "type": "object",
     "properties": {
-        "user_id": {"type": "string"},
         "target_id": {"type": "string"}
     },
     "required": [
-        "user_id",
         "target_id"
     ]
 }
@@ -1425,7 +1417,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 
 ```json
 {
-    "user_id" : "45",
     "target_id" : "23"
 }
 ```
