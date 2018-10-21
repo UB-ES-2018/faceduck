@@ -1,5 +1,6 @@
 from datetime import datetime
 import uuid
+import string
 from elasticsearch.exceptions import NotFoundError
 from faceduck.models.post import Post
 from faceduck.models.user import User
@@ -12,6 +13,7 @@ def create_post(text, author_id, image_url):
     split_post = text.split(' ')
     tags = []
     for word in split_post:
+        word = remove_punct(word)
         if word[0] == '#':
             tags.append(word)
     if User.get(id=author_id, ignore=404) is None:
@@ -30,4 +32,11 @@ def get_post(post_id):
         raise FaceduckError("001")
     
     return post
+
+def remove_punct(word):
+    new_word = ""
+    for i in word:
+        if i not in string.punctuation:
+            new_word += i
+    return new_word
 

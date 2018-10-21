@@ -26,12 +26,12 @@ def search_posts_by_author(author):
     return [d for d in response.hits]
 
 def search_posts_by_tag(tag):
-response = Post.search().from_dict({
-    "query": {
-        "match_phrase": {
-            "tags": tag
+    response = Post.search().from_dict({
+        "query": {
+            "match_phrase": {
+                "tags": tag
+            }
         }
-    }
-}).doc_type(Post).execute()
+    }).doc_type(Post).execute()
 
-return [d for d in response.hits]
+    return [d for d in response.hits]
