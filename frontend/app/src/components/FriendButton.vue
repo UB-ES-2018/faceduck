@@ -49,14 +49,16 @@
 export default {
 	name: "FriendButton",
 	props: {
-		name: String,
-		friends: Boolean,
-		requested: Boolean,
-		requester: Boolean
+		userId: String,
+		name: String
 	},
 	data() {
 		return {
-			unfriendHover: false
+			friends: false,
+			requested: false,
+			requester: false,
+			unfriendHover: false,
+			user: JSON.parse(localStorage.getItem("user"))
 		}
 	},
 	methods: {
