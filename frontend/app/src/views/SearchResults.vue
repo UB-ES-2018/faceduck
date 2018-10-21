@@ -1,9 +1,15 @@
 <template>
     <div id='SearchResults'>
       <h1>Search results</h1>
-      <SearchBar/>
-      <SearchUsers/>
-      <SearchPosts/>
+      <div class="container">
+        <SearchBar/>
+        <div class="row justify-content-center">
+          <SearchUsers class="col-8"/>
+        </div>
+        <div class="row justify-content-center">
+          <SearchPosts class="col-8"/>
+        </div>
+      </div>
     </div>   
 </template>
 
@@ -41,7 +47,10 @@ h3
   font-size: 18px;
 h4
   font-size: 16px;
-  
+</style>
+
+<style lang="sass">
+    
 .results-item
   border: 10px
   color: white
@@ -51,12 +60,11 @@ h4
   padding: 10px
   position: relative 
   cursor: pointer
-  //text-align: left
+  text-align: left
   //width: 200px
 
 .results-list
 
 .border-b-1
   border-bottom: 1px solid rgba(225,225,225,.16)
-
 </style>

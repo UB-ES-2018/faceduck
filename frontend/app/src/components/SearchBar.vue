@@ -1,7 +1,7 @@
 <template>
     <div id="search-bar">
         <form class="inputbox" v-on:submit="submitQuery">
-          <input type="text" placeholder="username" v-model="searchQuery">
+          <input type="text" placeholder="Type to search…" v-model="searchQuery">
           <button type="submit">Search</button>
         </form>
     </div>
@@ -22,7 +22,9 @@ export default {
         };
     },
     mounted() {
-      this.searchQuery = this.$route.query.query;
+      if (this.$route.query.query !== undefined) {
+        this.searchQuery = this.$route.query.query;
+      }
       this.getUsers();
       this.getPosts();
     },
@@ -30,9 +32,8 @@ export default {
         //wip
         submitQuery(e) {
           e.preventDefault();
-          if (this.redirect) {
-            this.$router.push("/search?query=" + this.searchQuery);
-          } else {
+          this.$router.push("/search?query=" + this.searchQuery);
+          if (!this.redirect) {
             this.getUsers();
             this.getPosts();
           }
