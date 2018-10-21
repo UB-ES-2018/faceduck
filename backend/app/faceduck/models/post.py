@@ -6,6 +6,7 @@ class Post(Document):
         created_at = Date()
         author = Text()
         image_url = Text()
+        tags = []
 
         class Index:
                 name = 'post'
