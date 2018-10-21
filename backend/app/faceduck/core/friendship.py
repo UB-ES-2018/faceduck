@@ -25,51 +25,7 @@ def exists_friendship(user_id,target_id):
             }
     }).doc_type(Friendship).execute()
 
-    if len(friendship) == 0:
-        return False
-    return True
-
-
-def create_friendship(user_id, target_id, state='pending'):
-    id = uuid.uuid4()
-    if User.get(id=user_id, ignore=404) is None or User.get(id=target_id, ignore=404) is None:
-        raise FaceduckError("001")
-
-    if exists_friendship(user_id,target_id):
-        raise FaceduckError("001")
-
-    friendship = Friendship(meta={'id': user_id},user_id=user_id, target_id=target_id, state=state)
-    friendship.save()
-    
-    return friendship
-
-
-def delete_friendship(user_id,target_id):
-    if not exists_friendship(user_id, target_id):
-        raise FaceduckError("001")
-
-    friendship = Friendship.search().from_dict({
-            "query": {
-            "bool": {
-              "must": [
-                {
-                  "match": {
-                    "user_id": user_id
-                  }
-                },
-                {
-                  "match": {
-                    "target_id": target_id
-                  }
-                }
-              ]
-            }
-            }
-    }).doc_type(Friendship).execute().hits[0]
-
-    
-    if friendship.state == 'friends':
-        friendship2 = Friendship.search().from_dict({
+    friendship2 = Friendship.search().from_dict({
             "query": {
             "bool": {
               "must": [
@@ -86,20 +42,30 @@ def delete_friendship(user_id,target_id):
               ]
             }
             }
-        }).doc_type(Friendship).execute().hits[0]
+    }).doc_type(Friendship).execute()
 
-        friendship2.delete()
+    if len(friendship) == 0:
+      if len(friendship2) == 0:
+        return False
+      return friendship2.hits[0]
+    else:
+      return friendship.hits[0]
 
-    friendship.delete()
 
-def update_friendship(user_id,target_id,state):
-    states = ['pending','friends', 'not-friends']
-    if state not in states:
-        raise FaceduckError("001")
-
+def create_friendship(user_id, target_id, state='pending'):
     if User.get(id=user_id, ignore=404) is None or User.get(id=target_id, ignore=404) is None:
         raise FaceduckError("001")
 
+    if exists_friendship(user_id,target_id):
+        raise FaceduckError("001")
+
+    friendship = Friendship(meta={'id': uuid.uuid4()},user_id=user_id, target_id=target_id, state=state)
+    friendship.save()
+
+    return friendship
+
+
+def delete_friendship(user_id,target_id):
     friendship = Friendship.search().from_dict({
             "query": {
             "bool": {
@@ -117,15 +83,51 @@ def update_friendship(user_id,target_id,state):
               ]
             }
             }
-    }).doc_type(Friendship).execute().hits[0]
+    }).doc_type(Friendship).execute()
 
-    friendship.state = state
-    friendship.save()
+    if len(friendship) != 0:
+      for entry in friendship:
+        entry.delete()
+    
+    friendship2 = Friendship.search().from_dict({
+        "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "user_id": target_id
+              }
+            },
+            {
+              "match": {
+                "target_id": user_id
+              }
+            }
+          ]
+        }
+        }
+    }).doc_type(Friendship).execute()
 
-    if state == 'friends':
-        create_friendship(target_id,user_id,'friends')
-        
-    return friendship
+    if len(friendship2) != 0:
+      for entry in friendship2:
+        entry.delete()
+
+def update_friendship(user_id,target_id,state):
+    states = ['friends']
+    if state not in states:
+        raise FaceduckError("001")
+
+    if User.get(id=user_id, ignore=404) is None or User.get(id=target_id, ignore=404) is None:
+        raise FaceduckError("001")
+
+    friendship = exists_friendship(target_id, user_id)
+    if friendship:
+      friendship.state = state
+      friendship.save()
+
+      return friendship
+    else:
+      raise FaceduckError("001")
 
 def get_friends(user_id):
     try:
