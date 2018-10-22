@@ -28,7 +28,7 @@ def search_posts_by_author(author):
 def search_posts_by_tag(tag):
     response = Post.search().from_dict({
         "query": {
-            "exists":{
+            "terms":{
                 "tags" : tag
             } 
         }
