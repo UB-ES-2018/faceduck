@@ -21,7 +21,7 @@
 
                     <div class="image" v-if="post.image">
 
-      	        		<img v-bind:src="post.image" width="110%" height="100%"/>
+      	        		<img v-bind:src="post.image" width="100%" height="100%"/>
 
         			      </div>
                     <!--Closing image-->

@@ -3,14 +3,16 @@
     <nav class="navbar navbar-light" style="background-color: pale-sky;">
         <h1 class="title">Faceduck</h1>
           <form class="form-inline">
-            <div class="page mr-sm-2" v-on:click='profile'> User </div>
+            <div class="page mr-sm-2" v-on:click='profile' :userName="setJson()"> {{ userName }} </div>
             <div class="page my-2 mr-sm-2" v-on:click='wall'>Wall</div>
             <button class="button" v-on:click='logout'> Log Out </button>
           </form>
     </nav>
     <div class="containerPhoto" align="center">
         <div class="photo"></div>
-        <div class="username">User</div>
+        <div class="username" :userName="setJson()">
+          {{ userName }}
+        </div>
     </div>
     <div class="container" align="center">
        <PostForm/>
@@ -60,7 +62,7 @@
 
 .username
     color: black
-    font-size: 5vh
+    font-size: 4vh
 
 </style>
 
@@ -80,8 +82,8 @@ export default {
     PostsView
 
   },
-  data() {
-		return {}
+  data: {
+    userName: {}
 	},
 	beforeCreate: function() {
 		if (!localStorage.getItem("access-token")) {
@@ -102,25 +104,26 @@ export default {
 			localStorage.removeItem("access-token");
 			this.$router.push("/");
     },
-      getPost() {
-        fetch(apiSearchPost, {
-            method: "POST",
-            headers: {
+    getPost() {
+      fetch(apiSearchPost, {
+          method: "POST",
+          headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + localStorage.getItem("access-token"),
-            },
-            body: JSON.stringify({"author-id": JSON.parse(localStorage.getItem("user"))["id"]})
-        }).then(res => res.json())
-        .then(data => {
-            this.$root.$emit("getPosts", {
+          },
+          body: JSON.stringify({"author-id": JSON.parse(localStorage.getItem("user"))["id"]})
+      }).then(res => res.json())
+      .then(data => {
+          this.$root.$emit("getPosts", {
             results: data,
-            });
+          });
             
-        }); 
-        },
-        
+      }); 
+    },
+    setJson() {
+      this.userName = JSON.parse(localStorage.getItem("user"))["username"]
+    }     
   }
-	}
-
+}
 
 </script>
