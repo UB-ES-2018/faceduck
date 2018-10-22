@@ -109,9 +109,11 @@ def search_posts():
     elif "author-id" in content.keys():
         author_id = content["author-id"]
         posts = core.search_posts_by_author(author_id)
+    elif "tag" in content.keys():
+        tag = content["tag"]
+        posts = core.search_posts_by_tag(tag)
     else:
         return client_error("001")
-    
     try:
         return jsonify([post_mapper(p) for p in posts])
     except FaceduckError as e:
