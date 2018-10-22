@@ -20,7 +20,7 @@
 
                     <div class="image" v-if="result['image-url']">
 
-      	        		<img v-bind:src="result['image-url']" width="100%" height="100%"/>
+      	        		<img v-bind:src="result['image-url']" width="100%"/>
 
         			</div>
                     <!--Closing image-->

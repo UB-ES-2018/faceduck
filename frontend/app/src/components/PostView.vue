@@ -21,9 +21,9 @@
 
                     <div class="image" v-if="post.image">
 
-      	        		<img v-bind:src="post.image" width="100%" height="100%"/>
+      	        		<img v-bind:src="post.image" width="100%"/>
 
-        			      </div>
+        			</div>
                     <!--Closing image-->
             
                 </div>
@@ -77,18 +77,17 @@
               		this.post.text = lastPost["text"];
               		this.post.user = lastPost["author"]["username"];
 
-    		    	  //this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
+    		    	//this.post.text = JSON.parse(localStorage.getItem("lastPost"))["text"];
 		            //this.post.user = JSON.parse(localStorage.getItem("lastPost"))["author"]["username"];
 
               		this.post.image = lastPost["image-url"];
-              		console.log(this.post)
-              		//alert(this.post.user)  
+              		console.log(this.post);
+                    //alert(this.post.user)
         	    }
             })
         },
 
         methods: {
-    
             showPostLast() {
                 fetch(apiGetPost, {
             		method: "GET",
