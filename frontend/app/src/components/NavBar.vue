@@ -24,6 +24,7 @@ export default {
     methods: {
         logout: function() {
             localStorage.removeItem("access-token");
+            localStorage.removeItem("user");
             this.$router.push("/");
         },
     }
