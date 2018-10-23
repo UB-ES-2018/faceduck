@@ -1,6 +1,0 @@
-diff a/frontend/app/src/components/PostForm.vue b/frontend/app/src/components/PostForm.vue	(rejected hunks)
-@@ -157,3 +157,4 @@
-   left: 40% 
-   cursor: pointer
- </style>
-+>>>>>>> US6-ImageUploader-Component

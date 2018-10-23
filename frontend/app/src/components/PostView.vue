@@ -1,43 +1,27 @@
 <template>
-
     <div class="options"> 
     <!-- The below v-on:click and v-bind are not working right now, the idea was to open and close the post -->
-
         <div class="option active" v-if="isVisible">
-            
             <div class="shadowy"></div>
             <!--Closing shadow-->
-            
             <div class="label">
-            
                 <div class="icon"></div>
                 <!--Closing icon-->
-            
                 <div class="info">
-            
                     <div class="main">{{post.user}}</div>
-            
                     <div class="sub">{{post.text}}</div>
-
                     <div class="image" v-if="post.image">
-
       	        		<img v-bind:src="post.image" width="100%"/>
-
         			</div>
                     <!--Closing image-->
-            
                 </div>
                 <!--Closing info-->
-            
             </div>
             <!--Closing lavel-->
-        
         </div>
         <!--Closing .option -->
-    
     </div>
     <!--Closing .options-->
-
 </template>
 
 <script>
@@ -120,7 +104,6 @@
 <style lang="sass" scoped>
 
     .options
-
         width: 61%
 
         .option
@@ -132,90 +115,59 @@
             &.active 
                 overflow-y: scroll
                 margin: 4%
-                    
                 height: 15em
-
                 border-radius: 20px
 
                 .label 
                     width: 100%
 
                     .info>div 
-    
                         width: 95%
-
                         opacity: 1
-    
                         text-align: justify
-    
                         text-justify: inter-word
-
                         color: #000
                         
             &:not(.active) 
-    
                 flex-grow: 10
-    
                 background-size: auto 1000%
-    
                 border-radius: 30px
     
                 .shadowy 
-    
                     bottom: -40px
     
                     .label 
-    
                         bottom: 10px
-    
                         left: 10px
-    
+
                         .info>div 
-    
                             left: 20px
-    
                             opacity: 0
     
             .shadowy 
-    
                 position: absolute
-    
                 bottom: 0vh
-    
                 left: 0px
-    
                 right: 0px
-    
                 height: 120px
-    
                 transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95) 
     
             .label 
-    
                 display: flex
-
                 text-align: center
     
                 .icon 
-    
                     min-width: 40px
-    
                     max-width: 40px
-    
                     height: 40px
-    
                     border-radius: 100%
-    
                     background-color: gray
 
                 .info 
-    
                     margin-left: 10px
     
                     .main 
-    
                         font-weight: bold
-    
                         font-size: 1.2rem
     
                     .sub 
