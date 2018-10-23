@@ -246,6 +246,7 @@ export default {
   margin-bottom: 20px
   font-size: 12px
 
+
 .inputbox button[type="submit"]
   background-color: #ffb511
   border: none
@@ -256,9 +257,7 @@ export default {
   padding: 10px
   border-radius: 10px
   width: 60px
-  position: absolute
-  right: 30px
-  bottom: 30px
+  bottom: -10%
   cursor: pointer
 
 button.login-now 
@@ -278,6 +277,9 @@ button.login-now
   display: flex
   & input:not(:last-child)
     margin-right: 5px
+  & input
+    width: 49%
+
 
 .success
   color: #008000
