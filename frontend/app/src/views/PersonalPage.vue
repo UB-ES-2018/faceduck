@@ -1,17 +1,10 @@
 <template>
   <div id="PersonalPage" >
-    <nav class="navbar navbar-light" style="background-color: pale-sky;">
-        <h1 class="title">Faceduck</h1>
-          <form class="form-inline">
-            <div class="page mr-sm-2" v-on:click='profile' :userName="setJson()"> {{ userName }} </div>
-            <div class="page my-2 mr-sm-2" v-on:click='wall'>Wall</div>
-            <button class="button" v-on:click='logout'> Log Out </button>
-          </form>
-    </nav>
+    <NavBar/>
     <div class="containerPhoto" align="center">
         <div class="photo"></div>
-        <div class="username" :userName="setJson()">
-          {{ userName }}
+        <div class="username" v-bind:userName="user.username">
+          {{ user.username }}
         </div>
     </div>
     <div class="container" align="center">
@@ -22,6 +15,61 @@
   </div>
 </template>
 
+<script>
+import NavBar from "../components/NavBar.vue";
+import PostForm from "../components/PostForm.vue";
+import PostView from "../components/PostView.vue";
+import PostsView from "../components/PostsView.vue";
+
+var host = window.location.hostname;
+var apiSearchPost = '//' + host + ':5000/post/search';
+
+export default {
+  name: 'PersonalPage',
+  components: {
+    NavBar,
+    PostForm,
+    PostView,
+    PostsView
+
+  },
+  data() {
+    return {
+      user: JSON.parse(localStorage.getItem("user"))
+    }
+  },
+	beforeCreate: function() {
+		if (!localStorage.getItem("access-token")) {
+			this.$router.push("/");
+    }
+  },
+  created() {
+    this.getPost()
+  },
+  updated() {
+    this.getPost()
+  },
+	methods: {
+    getPost() {
+      fetch(apiSearchPost, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("access-token"),
+          },
+          body: JSON.stringify({"author-id": JSON.parse(localStorage.getItem("user"))["id"]})
+      }).then(res => res.json())
+      .then(data => {
+          this.$root.$emit("getPosts", {
+            results: data,
+          }); 
+      }); 
+    }
+  }
+}
+
+</script>
+
 <style lang="sass" scoped>
 
 .title
@@ -30,10 +78,6 @@
   color: #ffb511
   text-shadow: 3px 3px #555
   font-size: 25px
-
-.page
-  color: #ffb511
-  cursor: pointer
 
 .button
   background-color: #ffb511
@@ -65,68 +109,3 @@
     font-size: 4vh
 
 </style>
-
-<script>
-import PostForm from "../components/PostForm.vue";
-import PostView from "../components/PostView.vue";
-import PostsView from "../components/PostsView.vue";
-
-var host = window.location.hostname;
-var apiSearchPost = '//' + host + ':5000/post/search';
-
-export default {
-  name: 'PersonalPage',
-  components: {
-    PostForm,
-    PostView,
-    PostsView
-
-  },
-  data: {
-    userName: {}
-	},
-	beforeCreate: function() {
-		if (!localStorage.getItem("access-token")) {
-			this.$router.push("/");
-    }
-  },
-  created() {
-    this.getPost()
-  },
-  updated() {
-    this.getPost()
-  },
-	methods: {
-    profile () {
-			this.$router.push("/profile");
-    },
-    wall () {
-			this.$router.push("/wall");
-		},
-		logout () {
-			localStorage.removeItem("access-token");
-			this.$router.push("/");
-    },
-    getPost() {
-      fetch(apiSearchPost, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("access-token"),
-          },
-          body: JSON.stringify({"author-id": JSON.parse(localStorage.getItem("user"))["id"]})
-      }).then(res => res.json())
-      .then(data => {
-          this.$root.$emit("getPosts", {
-            results: data,
-          });
-            
-      }); 
-    },
-    setJson() {
-      this.userName = JSON.parse(localStorage.getItem("user"))["username"]
-    }     
-  }
-}
-
-</script>

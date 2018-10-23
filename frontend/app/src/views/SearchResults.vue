@@ -1,13 +1,6 @@
 <template>
-    <div id='SearchResults'>
-      <nav class="navbar navbar-light" style="background-color: pale-sky;">
-        <h1 class="title">Faceduck</h1>
-          <form class="form-inline">
-            <div class="page mr-sm-2" v-on:click='profile' :userName="setJson()"> {{ userName }} </div>
-            <div class="page my-2 mr-sm-2" v-on:click='wall'>Wall</div>
-            <button class="button" v-on:click='logout'> Log Out </button>
-          </form>
-      </nav>
+    <div id="SearchResults">
+      <NavBar/>
       <h1>Search results</h1>
       <div class="container">
         <SearchBar/>
@@ -23,6 +16,7 @@
 
 <script>
 
+import NavBar from "../components/NavBar.vue";
 import SearchBar from "../components/SearchBar.vue";
 import SearchUsers from "../components/SearchUsers.vue";
 import SearchPosts from "../components/SearchPosts.vue";
@@ -30,7 +24,6 @@ import SearchPosts from "../components/SearchPosts.vue";
 export default {
     name: "SearchResults",
     data() {
-        userName: {};
         return{
             results: [],
             nores: false,//ugly way to hide nothing found message
@@ -44,6 +37,7 @@ export default {
       });
     },
     components: {
+      NavBar,
       SearchBar,
       SearchUsers,
       SearchPosts
