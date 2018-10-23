@@ -1,5 +1,6 @@
 <template>
-    <div id='SearchResults'>
+    <div id="SearchResults">
+      <NavBar/>
       <h1>Search results</h1>
       <div class="container">
         <SearchBar/>
@@ -15,6 +16,7 @@
 
 <script>
 
+import NavBar from "../components/NavBar.vue";
 import SearchBar from "../components/SearchBar.vue";
 import SearchUsers from "../components/SearchUsers.vue";
 import SearchPosts from "../components/SearchPosts.vue";
@@ -35,6 +37,7 @@ export default {
       });
     },
     components: {
+      NavBar,
       SearchBar,
       SearchUsers,
       SearchPosts

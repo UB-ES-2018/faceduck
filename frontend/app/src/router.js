@@ -25,10 +25,17 @@ export default new Router({
                 import ( /* webpackChunkName: "wall" */ './views/PersonalWall.vue')
         },
         {
+            path: '/profile',
+            name: 'profile',
+            component: () =>
+                import ( /* webpackCunkName: "profile" */ './views/PersonalPage.vue')
+        },
+        {
             path: '/search',
             name: 'search',
             component: () =>
                 import ( /* webpackChunkName: "search" */ './views/SearchResults.vue')
+
         },
     ]
 })
