@@ -35,8 +35,9 @@ def get_post(post_id):
 
 def remove_punct(word):
     new_word = ""
+    punct = ['.',',','!','¡', '?', '¿']
     for i in word:
-        if i not in string.punctuation:
+        if i not in punct:
             new_word += i
     return new_word
 
