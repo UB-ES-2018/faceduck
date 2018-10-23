@@ -16,25 +16,29 @@ export default new Router({
             path: '/about',
             name: 'about',
             component: () =>
-                import ( /* webpackChunkName: "about" */ './views/AboutUs.vue')
+                import ( /* webpackChunkName: "about" */ './views/AboutUs.vue'),
+            meta: { requiresAuth: true }
         },
         {
             path: '/wall',
             name: 'wall',
             component: () =>
-                import ( /* webpackChunkName: "wall" */ './views/PersonalWall.vue')
+                import ( /* webpackChunkName: "wall" */ './views/PersonalWall.vue'),
+            meta: { requiresAuth: true }
         },
         {
             path: '/profile',
             name: 'profile',
             component: () =>
-                import ( /* webpackCunkName: "profile" */ './views/PersonalPage.vue')
+                import ( /* webpackCunkName: "profile" */ './views/PersonalPage.vue'),
+            meta: { requiresAuth: true }
         },
         {
             path: '/search',
             name: 'search',
             component: () =>
-                import ( /* webpackChunkName: "search" */ './views/SearchResults.vue')
+                import ( /* webpackChunkName: "search" */ './views/SearchResults.vue'),
+            meta: { requiresAuth: true }
 
         },
     ]

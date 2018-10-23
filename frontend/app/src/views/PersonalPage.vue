@@ -38,11 +38,6 @@ export default {
       user: JSON.parse(localStorage.getItem("user"))
     }
   },
-	beforeCreate: function() {
-		if (!localStorage.getItem("access-token")) {
-			this.$router.push("/");
-    }
-  },
   created() {
     this.getPost()
   },
