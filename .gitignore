@@ -1,3 +1,5 @@
 __pycache__
 .DS_Store
 .idea
+!backend/app/uploads/.emptyfile
+backend/app/uploads/

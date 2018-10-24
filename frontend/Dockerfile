@@ -1,7 +1,7 @@
-FROM ubuntu
+FROM node:slim
+ADD /app/package.json /app/package.json
+WORKDIR /app
+RUN npm install
 
-RUN apt-get update && apt-get install -y npm
-
-CMD cd /app; npm install; npm run serve
-
+CMD cd /app && npm run build && if [ ! $CI ]; then npm run serve; fi
 EXPOSE 8080
