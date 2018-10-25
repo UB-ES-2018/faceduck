@@ -1,4 +1,4 @@
-from elasticsearch_dsl import Document, Date, Text
+from elasticsearch_dsl import Document, Date, Text, Keyword
 
 
 class Post(Document):
@@ -6,7 +6,7 @@ class Post(Document):
         created_at = Date()
         author = Text()
         image_url = Text()
-        tags = []
+        tags = Keyword(multi=True)
 
         class Index:
                 name = 'post'

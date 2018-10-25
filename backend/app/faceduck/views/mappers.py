@@ -30,6 +30,8 @@ def post_mapper(post):
             user = get_user(getattr(post, attr))
             user_dict = user_mapper(user)
             post_dict[key] = user_dict
+        elif attr == "tags":
+            post_dict[key] = list(getattr(post, attr))
         else:
             post_dict[key] = getattr(post, attr)
 
