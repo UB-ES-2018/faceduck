@@ -1,7 +1,7 @@
 <template>
 <nav class="navbar navbar-light" style="background-color: pale-sky;">
     <h1 class="title">Faceduck</h1>
-    <SearchBar redirect/>
+    <SearchBar v-bind:redirect="!searchPage"/>
     <form class="form-inline">
       <div class="mr-sm-2"> 
           <router-link to="/profile">{{user.username}}</router-link>
@@ -21,7 +21,8 @@ export default {
     name: "NavBar",
     data() {
       return {
-        user: JSON.parse(localStorage.getItem("user"))
+        user: JSON.parse(localStorage.getItem("user")),
+        searchPage: (this.$route.name === "search")
       }
     },
     methods: {

@@ -17,11 +17,12 @@ export default {
       "redirect": Boolean
     },
     data() {
-        return{
+        return {
             searchQuery: ""
         };
     },
     mounted() {
+      if (this.$route.name !== "search") return;
       if (this.$route.query.query !== undefined) {
         this.searchQuery = this.$route.query.query;
       }

@@ -28,13 +28,14 @@ export default {
     data() {
         return {
             list: [],
-            timeout: false
+            timeout: false,
+            _query: ""
         };
     },
     created() {
         this.fetchPosts();
         this.$root.$on("postEvent", (event) => {
-            if (event && event.query) this.query = event.query;
+            if (event && event.query) this._query = event.query;
             this.fetchPosts();
         });
     },
@@ -58,7 +59,8 @@ export default {
                 else
                 */
                 body["query"] = this.query;
-            }
+            } else if (this._query) 
+                body["query"] = this._query;
 
             fetch(api, {
                 "method": "POST",

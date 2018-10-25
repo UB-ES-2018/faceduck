@@ -55,7 +55,7 @@ export default {
                     this.post["text"] = "";
                     this.post["image-url"] = "";
                     this.$root.$emit("clearImageUpload");
-                    setTimeout(() => this.$root.$emit("postEvent"), 200);
+                    setTimeout(() => this.$root.$emit("postEvent"), 500);
                 }
             }).catch((r) => alert(r));
         },

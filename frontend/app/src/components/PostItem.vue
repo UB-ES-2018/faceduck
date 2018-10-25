@@ -30,6 +30,7 @@ export default {
     computed: {
         richText() {
             var text = this.post.text;
+            text = text.replace(/<.*script/, "&lt;script");
             var tags = text.match(/#[^\s]+/g);
 
             if (!tags) return text;
