@@ -41,16 +41,21 @@ export default {
     methods: {
         submitPost(e) {
             e.preventDefault();
+            var post = this.post;
+
             fetch(apiPostFormUrl, {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem("access-token"),
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(this.post)
+                body: JSON.stringify(post)
             }).then((response) => {
                 if (response.ok) {
-                    this.$root.$emit("postEvent");
+                    this.post["text"] = "";
+                    this.post["image-url"] = "";
+                    this.$root.$emit("clearImageUpload");
+                    setTimeout(() => this.$root.$emit("postEvent"), 200);
                 }
             }).catch((r) => alert(r));
         },

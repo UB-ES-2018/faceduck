@@ -32,7 +32,7 @@ export default {
         //wip
         submitQuery(e) {
           e.preventDefault();
-          this.$router.push("/search?query=" + this.searchQuery);
+          this.$router.push("/search?query=" + encodeURIComponent(this.searchQuery));
           if (!this.redirect) {
             this.getUsers();
             this.getPosts();

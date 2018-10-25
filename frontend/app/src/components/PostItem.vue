@@ -7,9 +7,9 @@
                 </a>
                 <span v-else>{{post.author.username}}</span>
             </div>
-            <div class="post-text">{{post.text}}</div>
+            <div class="post-text" v-html="richText"></div>
             <div class="post-image" v-if="post['image-url']">
-                <img v-bind:src="post['image-url']" width="100%" />
+                <img v-bind:src="post['image-url']"/>
             </div>
             <!-- FUTURE: reaction counts -->
             <EmotionButtons v-bind:post="post" v-if="!post.special"/>
@@ -27,23 +27,32 @@ export default {
     data() {
         return { interval: false }
     },
-    created() {
-        this.check();
+    computed: {
+        richText() {
+            var text = this.post.text;
+            var tags = text.match(/#[^\s]+/g);
+
+            if (!tags) return text;
+
+            for (var i = 0; i < tags.length; i++) {
+                var tokens = text.split(tags[i]);
+                tokens[0] += '<a href="/search?query=';
+                tokens[0] += encodeURIComponent(tags[i]);
+                tokens[0] += '">';
+                tokens[1] = '</a>' + tokens[1];
+                text = tokens.join(tags[i]);
+            }
+            return text;
+        }
+    },
+    mounted() {
+        this.special();
     },
     updated() {
-        this.check();
+        this.special();
     },
     methods: {
-        check() {
-            if (this.post["image-url"]) {
-                fetch(this.post["image-url"])
-                .then(response => {
-                    if (!response.ok) 
-                        this.post["image-url"] = "";
-                })
-                .catch(err => {});
-            }
-
+        special() {
             clearInterval(this.interval);
             if (this.post.special == "duckload") {
                 this.interval = setInterval(() => {
@@ -68,12 +77,12 @@ export default {
     border-radius: 3px
     webkit-border-radius: 2px
     border: 1px #666 solid
-    padding: 10px
+    padding: 10px 20px
     
     background-color: #eee
     color: #333
     text-align: left
-    max-height: 50rem
+    max-height: 30rem
     
     overflow-y: scroll
     overflow-wrap: break-word;
@@ -86,4 +95,12 @@ export default {
 
 .post-image
     margin: 10px 0
+    text-align: center
+
+img
+    max-width: 100%
+    border: 1px #aaa solid
+    padding: 4px
+    border-radius: 3px
+    
 </style>

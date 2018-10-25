@@ -23,7 +23,6 @@ export default {
     props: {
         "authorId": String,
         "query": String,
-        "tag": String,
         "newsfeed": Boolean
     },
     data() {
@@ -35,7 +34,7 @@ export default {
     created() {
         this.fetchPosts();
         this.$root.$on("postEvent", (event) => {
-            if (event.query) this.query = event.query;
+            if (event && event.query) this.query = event.query;
             this.fetchPosts();
         });
     },
@@ -50,10 +49,16 @@ export default {
                 body["author-id"] = this.authorId;
             else if (this.newsfeed)
                 body["author-id"] = JSON.parse(localStorage.getItem("user")).id;
-            else if (this.query)
+            else if (this.query) {
+                // activate this when we have tags API
+                /*
+                if (this.query.indexOf(" ") == -1 
+                    && this.query.lastIndexOf("#") == 0)
+                    body["tag"] = this.query.slice(1);
+                else
+                */
                 body["query"] = this.query;
-            else if (this.tag)
-                body["tag"] = this.tag;
+            }
 
             fetch(api, {
                 "method": "POST",
