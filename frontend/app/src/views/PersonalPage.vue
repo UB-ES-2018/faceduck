@@ -9,8 +9,7 @@
     </div>
     <div class="container" align="center">
        <PostForm/>
-       <PostView/>
-       <PostsView/>
+       <PostList v-bind:authorId="user.id"/>
     </div>
   </div>
 </template>
@@ -18,8 +17,7 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import PostForm from "../components/PostForm.vue";
-import PostView from "../components/PostView.vue";
-import PostsView from "../components/PostsView.vue";
+import PostList from "../components/PostList.vue";
 
 var host = window.location.hostname;
 var apiSearchPost = '//' + host + ':5000/post/search';
@@ -29,9 +27,7 @@ export default {
   components: {
     NavBar,
     PostForm,
-    PostView,
-    PostsView
-
+    PostList
   },
   data() {
     return {

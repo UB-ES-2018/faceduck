@@ -15,72 +15,55 @@
 </template>
 
 <script>
+import ImageUploader from "./ImageUploader.vue";
 
-    import ImageUploader from "./ImageUploader.vue";
+var host = window.location.hostname;
+var apiPostFormUrl = '//'+host+':5000/post';
 
-    var host = window.location.hostname;
-    var apiPostFormUrl = '//'+host+':5000/post';
-    export default {
-        name: 'PostForm',
-        data() {
-            return {
-                post: {
-		            "author-id": JSON.parse(localStorage.getItem("user"))["id"],
-		            text: '',
-		            "image-url": ''
-		        }
+export default {
+    name: 'PostForm',
+    data() {
+        return {
+            post: {
+                "author-id": JSON.parse(localStorage.getItem("user"))["id"],
+                text: '',
+                "image-url": ''
             }
+        }
+    },
+    beforeCreate() {
+        this.$root.$on("imageUpload", (event) => {
+            if (event.emitter === "post-image-uploader") {
+                this.post["image-url"] = event.url;
+            }
+        });
+    },
+    methods: {
+        submitPost(e) {
+            e.preventDefault();
+            fetch(apiPostFormUrl, {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(this.post)
+            }).then((response) => {
+                if (response.ok) {
+                    this.$root.$emit("postEvent");
+                }
+            }).catch((r) => alert(r));
         },
-
-        beforeCreate() {
-	        this.$root.$on("imageUpload", (event) => {
-	            if (event.emitter === "post-image-uploader") {
-                    this.post["image-url"] = event.url;
-	            }
-	        });
-        },
-            
-        methods: {
-		    submitPost(e) {
- 		        e.preventDefault();
-	            //alert("acess-token: "+localStorage.getItem("access-token"))
-	            fetch(apiPostFormUrl, {
-                    method: "POST",
-		            headers: {
-		                "Authorization": "Bearer " + localStorage.getItem("access-token"),
-	                    "Content-Type": "application/json",
-	                },
-
-
-                    body: JSON.stringify(this.post)
-
-		            //body: JSON.stringify({
-		            //        "text": this.postText,
-		            //        "author-id": JSON.parse(localStorage.getItem("user"))["id"],
-		            //})
-
-
-		        }).then((response) => {
-		            if (response.ok) {
-		                response.json().then((json) => {
-		                    localStorage.setItem("lastPost",JSON.stringify(json))
-                            this.$root.$emit('showPost', true);
-                        })
-		            }}).catch((r) => alert(r));
-		    },
-		},
-        
-        components: {
-		    ImageUploader
-	    }
-		
+    },
+    components: {
+        ImageUploader
     }
+};
 </script>
 
 <style lang="sass" scoped>
 
     .container 
-        margin-top: 80px
         margin-left: auto
         margin-right: auto
         width: 700px

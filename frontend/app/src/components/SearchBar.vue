@@ -54,22 +54,10 @@ export default {
           });
         },
         getPosts() {
-          fetch(apiPostsSearchUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + localStorage.getItem("access-token"),
-            },
-            body: JSON.stringify({query: this.searchQuery})
-          }).then(res => res.json())
-          .then(data => {
-            this.$root.$emit("getPostResults", {
-              results: data
-            });
+          this.$root.$emit("postEvent", {
+            "query": this.searchQuery
           });
         },
-
-        
     }
 }
 </script>
