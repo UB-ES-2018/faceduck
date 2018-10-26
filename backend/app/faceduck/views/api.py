@@ -80,7 +80,7 @@ def get_post(post_id):
         response = post_mapper(post)
     except FaceduckError as e:
         return client_error(e.id)
-    
+
     return jsonify(response)
 
 
@@ -202,3 +202,15 @@ def get_friends(user_id):
     except FaceduckError as e:
         return client_error(e.id)
 
+@api.route("/post/<post_id>/reactions", methods=["POST"])
+@jwt_required
+def add_reactions(post_id):
+    try:
+        user_id = current_user.meta.id
+        reaction = request.json["reaction"]
+        core.set_reaction(post_id,user_id,reaction)
+        post = get_post(post_id)
+        response = post_mapper(post)
+    except FaceduckError as e:
+        return client_error(e.id)
+    return jsonify(response)
