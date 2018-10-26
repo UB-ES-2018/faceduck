@@ -37,11 +37,13 @@ export default {
 
             for (var i = 0; i < tags.length; i++) {
                 var tokens = text.split(tags[i]);
-                tokens[0] += '<a href="/search?query=';
-                tokens[0] += encodeURIComponent(tags[i]);
-                tokens[0] += '">';
-                tokens[1] = '</a>' + tokens[1];
-                text = tokens.join(tags[i]);
+                for (var j = 0; j < tokens.length - 1; j++) {
+                    tokens[j] += '<a href="/search?query=';
+                    tokens[j] += encodeURIComponent(tags[i]);
+                    tokens[j] += '">';
+                    tokens[j+1] = '</a>' + tokens[1];
+                    text = tokens.join(tags[i]);
+                }
             }
             return text;
         }
