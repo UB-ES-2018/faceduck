@@ -39,7 +39,7 @@ services:
       - api:api
     depends_on:
       - frontend
-    image: willwill/wait-for-it
+    build: tests/api
 
 volumes:
   node_modules:
