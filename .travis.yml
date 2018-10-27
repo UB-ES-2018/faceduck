@@ -13,3 +13,4 @@ script:
   - docker-compose build
   - docker-compose up -d
   - docker-compose run --entrypoint "bash -c '/wait-for-it.sh --timeout=60 elasticsearch:9200 && /wait-for-it.sh --timeout=15 api:5000 && /wait-for-it.sh --timeout=15 frontend:8080 && exit 0'" test_runner
+  - docker-compose run --entrypoint "bash -c 'newman run /API.postman_collection.json -e /TRAVIS_ENV.json'" test_runner
