@@ -50,12 +50,18 @@ export default {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(post)
-            }).then((response) => {
+            })
+            .then((response) => {
                 if (response.ok) {
                     this.post["text"] = "";
                     this.post["image-url"] = "";
                     this.$root.$emit("clearImageUpload");
-                    setTimeout(() => this.$root.$emit("postEvent"), 500);
+
+                    response.json().then((post) => {
+                        this.$root.$emit("addPost", {
+                            post: post
+                        });
+                    })
                 }
             }).catch((r) => alert(r));
         },

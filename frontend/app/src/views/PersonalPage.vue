@@ -40,23 +40,7 @@ export default {
   updated() {
     this.getPost()
   },
-	methods: {
-    getPost() {
-      fetch(apiSearchPost, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("access-token"),
-          },
-          body: JSON.stringify({"author-id": JSON.parse(localStorage.getItem("user"))["id"]})
-      }).then(res => res.json())
-      .then(data => {
-          this.$root.$emit("getPosts", {
-            results: data,
-          }); 
-      }); 
-    }
-  }
+	methods: {}
 }
 
 </script>

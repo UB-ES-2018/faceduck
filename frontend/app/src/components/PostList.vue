@@ -18,6 +18,9 @@ var ducklist = [{
     "special": "duckload"
 }];
 
+var host = window.location.hostname;
+var api = '//' + host + ':5000/post/search';
+
 export default {
     name: "PostList",
     props: {
@@ -29,7 +32,8 @@ export default {
         return {
             list: [],
             timeout: false,
-            _query: ""
+            _query: "",
+            fetch_options: ""
         };
     },
     created() {
@@ -38,12 +42,14 @@ export default {
             if (event && event.query) this._query = event.query;
             this.fetchPosts();
         });
+        this.$root.$on("addPost", (event) => {
+            if (event && event.post)
+                // unshift: push to position 0
+                this.list.unshift(event.post);
+        });
     },
     methods: {
-        fetchPosts() {
-            this.list = ducklist;
-            var host = window.location.hostname;
-            var api = '//' + host + ':5000/post/search';
+        configure() {
             var body = {};
 
             if (this.authorId)
@@ -62,14 +68,23 @@ export default {
             } else if (this._query) 
                 body["query"] = this._query;
 
-            fetch(api, {
+            this.fetch_options = {
                 "method": "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + localStorage.getItem("access-token"),
                 },
                 body: JSON.stringify(body)
-            }).then(res => res.json())
+            };
+        },
+        fetchPosts() {
+            this.configure();
+
+            if (this.list.length === 0)
+                this.list = ducklist;
+            
+            fetch(api, this.fetch_options)
+            .then(res => res.json())
             .then(res => {
                 if (res.length > 0)
                     this.list = res;

@@ -77,8 +77,8 @@ export default {
 
 <style lang="sass" scoped>
 .post-item
-    border-radius: 3px
-    webkit-border-radius: 2px
+    border-radius: 8px
+    webkit-border-radius: 8px
     border: 1px #666 solid
     padding: 10px 20px
     
