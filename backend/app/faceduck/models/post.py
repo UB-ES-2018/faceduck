@@ -1,18 +1,16 @@
-from elasticsearch_dsl import Document, Date, Text, InnerDoc,Nested, Object
+from elasticsearch_dsl import Document, Date, Text, InnerDoc,Nested, Object,Integer
 
 class Reaction(InnerDoc):
     user_id = Text()
     reaction = Text()
-    def save(self, ** kwargs):
-        return super().save(** kwargs)
-        
+
 class Post(Document):
     text = Text()
     created_at = Date()
     author = Text()
     image_url = Text()
     user_reaction = Nested(Reaction)
-    #reaction_count = Object()
+    #reactions_count = Object()
 
     class Index:
         name = 'post'
@@ -24,8 +22,13 @@ class Post(Document):
         self.user_reaction.append(
             Reaction(user_id=user_id, reaction=reaction)
         )
-        #if reaction_count:
-        #    reaction_count[reaction] += 1
-        #else:
-        #    reaction_count[reaction] = 1
 
+    def update_reaction(self, user_id, reaction):
+        for r in self.user_reaction:
+            if r.user_id == user_id:
+                r.reaction = reaction
+                
+    def remove_reaction(self,user_id):
+        for r in self.user_reaction:
+            if r.user_id == user_id:
+                self.user_reaction.remove(r)

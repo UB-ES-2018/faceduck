@@ -213,3 +213,13 @@ def add_reactions(post_id):
     except FaceduckError as e:
         return client_error(e.id)
     return jsonify(response)
+
+@api.route("/post/<post_id>/reactions", methods=["DELETE"])
+@jwt_required
+def delete_reactions(post_id):
+    try:
+        user_id = current_user.meta.id
+        core.delete_reaction(post_id,user_id)
+    except FaceduckError as e:
+        return client_error(e.id)
+    return ("",204)

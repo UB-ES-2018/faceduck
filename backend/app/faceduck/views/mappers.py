@@ -25,6 +25,7 @@ def reaction_mapper(reaction):
                     }
     return reaction_dict
 
+
 def post_mapper(post):
     post_dict = {"id": post.meta.id}
     
@@ -39,8 +40,7 @@ def post_mapper(post):
         elif attr == "user_reaction":
             reactions = [reaction_mapper(r) for r in getattr(post, attr)]
             post_dict[key] = reactions
-            #print(post_dict[key], file=sys.stderr)
-        
+
         else:
             post_dict[key] = getattr(post, attr)
 

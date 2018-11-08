@@ -40,8 +40,12 @@ def set_reaction(post_id, user_id, reaction):
     post = get_post(post_id)
     r = search_reaction(post,user_id)
     if len(r):
-        r[0].reaction = reaction
+        post.update_reaction(user_id,reaction)
     else:
         post.add_reaction(user_id, reaction)
     post.save()
 
+def delete_reaction(post_id,user_id):
+    post = get_post(post_id)
+    post.remove_reaction(user_id)
+    post.save()
