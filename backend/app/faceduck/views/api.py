@@ -6,7 +6,6 @@ from flask_jwt_extended import jwt_required, current_user
 from .mappers import user_mapper, post_mapper
 from faceduck.views.view_utils import client_error
 
-
 @api.route('/user', methods=["POST"])
 def signup():
     if not request.is_json:
@@ -210,7 +209,7 @@ def add_reactions(post_id):
         reaction = request.json["reaction"]
         core.set_reaction(post_id,user_id,reaction)
         post = get_post(post_id)
-        response = post_mapper(post)
+        response = post.json["user-reaction"]
     except FaceduckError as e:
         return client_error(e.id)
     return jsonify(response)

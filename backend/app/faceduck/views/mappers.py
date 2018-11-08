@@ -19,6 +19,11 @@ def user_mapper(user):
 
     return user_dict
 
+def reaction_mapper(reaction):
+    reaction_dict = {"user-id" : reaction.user_id,
+                     "reaction" : reaction.reaction
+                    }
+    return reaction_dict
 
 def post_mapper(post):
     post_dict = {"id": post.meta.id}
@@ -30,6 +35,11 @@ def post_mapper(post):
             user = get_user(getattr(post, attr))
             user_dict = user_mapper(user)
             post_dict[key] = user_dict
+
+        elif attr == "user_reaction":
+            reactions = [reaction_mapper(r) for r in getattr(post, attr)]
+            post_dict[key] = reactions
+            #print(post_dict[key], file=sys.stderr)
         
         else:
             post_dict[key] = getattr(post, attr)
