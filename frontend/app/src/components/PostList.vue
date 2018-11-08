@@ -80,7 +80,8 @@ export default {
         fetchPosts() {
             this.configure();
 
-            if (this.list.length === 0)
+            if (this.list.length === 0
+                || this.list[0].special == "no-posts")
                 this.list = ducklist;
             
             fetch(api, this.fetch_options)
