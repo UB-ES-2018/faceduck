@@ -55,10 +55,11 @@ def login():
 def create_post():
     if not request.is_json:
         return client_error("001")
-    
+
+    author_id = current_user.meta.id
+
     try:
         text = request.json["text"]
-        author_id = request.json["author-id"]
         image_url = request.json.get("image-url", None)
     except KeyError:
         return client_error("001")
