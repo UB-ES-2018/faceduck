@@ -5,7 +5,7 @@ from faceduck.models.post import Post
 from faceduck.models.post import Reaction
 from faceduck.models.user import User
 from faceduck.utils import FaceduckError
-
+from elasticsearch_dsl import Search
 
 def create_post(text, author_id, image_url):
     id = uuid.uuid4()
@@ -29,29 +29,19 @@ def get_post(post_id):
 
 
 def search_reaction(post,user_id):
-    response = post.search().from_dict({
-        "query": {
-            "nested": {
-                "path": "user_reaction", 
-                "query": {
-                    "match" : {
-                        "user_reaction.user_id" : user_id
-                    }
-                }
-            }
-            
-        }
-    }).doc_type(Reaction).execute()
 
+    query = Search().query('match', user_reaction__user_id=user_id).to_dict()
+
+    response = post.search().from_dict(query).doc_type(Reaction).execute()
 
     return [d for d in response.hits]
 
 def set_reaction(post_id, user_id, reaction):
     post = get_post(post_id)
-    #if len(search_reaction(post,user_id)):
-    #    post.user_reaction.reaction = reaction
-    #else:
-    
-    post.add_reaction(user_id, reaction)
+    r = search_reaction(post,user_id)
+    if len(r):
+        r[0].reaction = reaction
+    else:
+        post.add_reaction(user_id, reaction)
     post.save()
 

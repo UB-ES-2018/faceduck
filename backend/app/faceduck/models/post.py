@@ -3,7 +3,9 @@ from elasticsearch_dsl import Document, Date, Text, InnerDoc,Nested, Object
 class Reaction(InnerDoc):
     user_id = Text()
     reaction = Text()
-
+    def save(self, ** kwargs):
+        return super().save(** kwargs)
+        
 class Post(Document):
     text = Text()
     created_at = Date()
