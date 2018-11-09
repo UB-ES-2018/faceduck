@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "acf89dff-9b43-49dd-b3f7-60090df58428",
+		"_postman_id": "37f300ea-44a1-46fb-a31e-b5b31222e952",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -113,7 +113,8 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});"
+							"});",
+							"pm.environment.set(\"post_id\", json[\"id\"])"
 						],
 						"type": "text/javascript"
 					}
@@ -152,6 +153,62 @@
 					"port": "{{port}}",
 					"path": [
 						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Reaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e9a9e4e-9663-4246-b4aa-a3204ba37176",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"reaction\" : \"like\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"reactions"
 					]
 				}
 			},

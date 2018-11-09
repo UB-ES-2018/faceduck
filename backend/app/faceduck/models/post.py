@@ -55,8 +55,10 @@ class Post(Document):
             self.reactions_count.append(ReactionCount(reaction=reaction,count=1))
 
     def remove_reaction(self,user_id):
+        reaction = ""
         for r in self.user_reaction:
             if r.user_id == user_id:
+                reaction = r.reaction
                 self.user_reaction.remove(r)
 
         for rc in self.reactions_count:
