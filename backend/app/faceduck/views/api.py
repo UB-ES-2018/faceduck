@@ -208,11 +208,11 @@ def add_reactions(post_id):
         user_id = current_user.meta.id
         reaction = request.json["reaction"]
         core.set_reaction(post_id,user_id,reaction)
-        post = get_post(post_id)
-        response = post.json["user-reaction"]
+        response = get_post(post_id)
+
     except FaceduckError as e:
         return client_error(e.id)
-    return jsonify(response)
+    return response
 
 @api.route("/post/<post_id>/reactions", methods=["DELETE"])
 @jwt_required
