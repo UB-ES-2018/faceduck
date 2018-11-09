@@ -45,9 +45,7 @@ def post_mapper(post):
             post_dict[key] = reactions
 
         elif attr == "reactions_count":
-            
             rc = [rc_mapper(rc) for rc in getattr(post, attr)]
-            print(rc,file=sys.stderr)
             post_dict[key] = rc
 
         else:
