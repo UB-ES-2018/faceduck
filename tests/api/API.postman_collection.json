@@ -109,11 +109,12 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e242ee78-3161-440c-aa57-5afada1027d8",
+						"id": "8269d348-be12-46e4-8769-f83fb6cfd570",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
+							"var json = pm.response.json();",
 							"pm.environment.set(\"post_id\", json[\"id\"])"
 						],
 						"type": "text/javascript"
@@ -159,6 +160,54 @@
 			"response": []
 		},
 		{
+			"name": "Get Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
 			"name": "Add Reaction",
 			"event": [
 				{
@@ -197,6 +246,55 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"reaction\" : \"like\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"reactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Reaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d79e4a2-5ed8-474b-8f22-7ff357449cf2",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
