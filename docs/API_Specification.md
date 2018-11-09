@@ -497,6 +497,18 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
                 "birthday",
                 "gender"
             ]
+        },
+        "reactions-count": {
+            {
+                "count": {"type": "integer"},
+                "reaction": {"type": "string"}
+            }
+        },
+        "user-reaction": {
+            {
+                "reaction": {"type": "string"},
+                "user-id": {"type": "string"}
+            }
         }
     },
     "required": [
@@ -524,7 +536,27 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "birthday": "1984-10-01",
         "gender": "male"
     },
-    "image-url": "http://localhost:5000/media/1.jpg"
+    "image-url": "http://localhost:5000/media/1.jpg",
+    "reactions-count": [
+        {
+            "count": 1,
+            "reaction": "love"
+        },
+        {
+            "count": 1,
+            "reaction": "like"
+        }
+    ],
+    "user-reaction": [
+        {
+            "reaction": "like",
+            "user-id": "32"
+        },
+        {
+            "reaction": "love",
+            "user-id": "42"
+        }
+    ]
 }
 ```
 
@@ -832,6 +864,18 @@ Search by the author:
                     "birthday",
                     "gender"
                 ]
+            },
+            "reactions-count": {
+            {
+                "count": {"type": "integer"},
+                "reaction": {"type": "string"}
+            }
+            },
+            "user-reaction": {
+                {
+                    "reaction": {"type": "string"},
+                    "user-id": {"type": "string"}
+                }
             }
         },
         "required": [
@@ -859,7 +903,23 @@ Search by the author:
             "surname": "Master",
             "birthday": "1984-10-01",
             "gender": "male"
-        }
+        },
+        "reactions-count": [
+            {
+                "count": 2,
+                "reaction": "like"
+            }
+        ],
+        "user-reaction": [
+            {
+                "reaction": "like",
+                "user-id": "32"
+            },
+            {
+                "reaction": "like",
+                "user-id": "42"
+            }
+        ]
     },
     {
         "id": "34",
@@ -873,7 +933,23 @@ Search by the author:
             "surname": "Master2",
             "birthday": "1986-10-01",
             "gender": "female"
-        }
+        },
+        "reactions-count": [
+            {
+                "count": 2,
+                "reaction": "love"
+            }
+        ],
+        "user-reaction": [
+            {
+                "reaction": "love",
+                "user-id": "32"
+            },
+            {
+                "reaction": "love",
+                "user-id": "42"
+            }
+        ]
     }
 ]
 ```
@@ -1487,3 +1563,267 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ### Response: server error
 
 `500 Internal Server Error`
+
+
+## Add Reaction
+
+### Request
+
+**POST** `/post/{post_id}/reactions`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create friendship",
+    "type": "object",
+    "properties": {
+        "reaction": {"type": "string"},
+    },
+    "required": [
+        "reaction"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "reaction" : "like"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get post success",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "text": {"type": "string"},
+        "created-at": {"type": "string"},
+        "image-url": {"type": "string"},
+        "author": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "username": {"type": "string"},
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "birthday": {"type": "string"},
+                "gender": {"type": "string"}
+            },
+            "required": [
+                "id",
+                "username",
+                "email",
+                "name",
+                "surname",
+                "birthday",
+                "gender"
+            ]
+        },
+        "reactions-count": {
+            {
+                "count": {"type": "integer"},
+                "reaction": {"type": "string"}
+            }
+        },
+        "user-reaction": {
+            {
+                "reaction": {"type": "string"},
+                "user-id": {"type": "string"}
+            }
+        }
+    },
+    "required": [
+        "id",
+        "text",
+        "created-at",
+        "author"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "id": "42",
+    "text": "Hello this is a post.",
+    "created-at": "12-01-2018, 03:45:34",
+    "author": {
+        "id": "32",
+        "username": "test123",
+        "email": "test@faceduck.com",
+        "name": "Scrum",
+        "surname": "Master",
+        "birthday": "1984-10-01",
+        "gender": "male"
+    },
+    "image-url": "http://localhost:5000/media/1.jpg",
+    "reactions-count": [
+        {
+            "count": 1,
+            "reaction": "love"
+        },
+        {
+            "count": 1,
+            "reaction": "like"
+        }
+    ],
+    "user-reaction": [
+        {
+            "reaction": "like",
+            "user-id": "32"
+        },
+        {
+            "reaction": "love",
+            "user-id": "42"
+        }
+    ]
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create friendship error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Delete Reaction
+
+### Request
+
+**DELETE** `/post/{post_id}/reactions`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+### Response: success
+
+`204 No Content`
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
