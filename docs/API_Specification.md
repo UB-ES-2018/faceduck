@@ -295,12 +295,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "text": {"type": "string"},
-        "author-id": {"type": "string"},
         "image-url": {"type": "string"}
     },
     "required": [
-        "text",
-        "author-id"
+        "text"
     ]
 }
 ```
@@ -310,7 +308,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "text": "Hello this is a post.",
-    "author-id": "32",
     "image-url": "http://localhost:5000/media/1.jpg"
 }
 ```
