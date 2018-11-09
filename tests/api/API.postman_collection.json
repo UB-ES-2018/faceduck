@@ -433,6 +433,65 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create Post With Social Card Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e242ee78-3161-440c-aa57-5afada1027d8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"API processed correct social image\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"image-url\"]).to.eql(\"https://static01.nyt.com/images/2018/03/20/business/00ZUCKTOWN-8/00ZUCKTOWN-8-facebookJumbo-v2.jpg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Hey Mark, look at that: https://www.nytimes.com/2018/03/21/technology/facebook-zucktown-willow-village.html\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
