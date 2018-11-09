@@ -29,9 +29,7 @@ def get_post(post_id):
 
 
 def search_reaction(post,user_id):
-
     query = Search().query('match', user_reaction__user_id=user_id).to_dict()
-
     response = post.search().from_dict(query).doc_type(Reaction).execute()
 
     return [d for d in response.hits]
