@@ -6,7 +6,6 @@ from flask_jwt_extended import jwt_required, current_user
 from .mappers import user_mapper, post_mapper
 from faceduck.views.view_utils import client_error
 
-
 @api.route('/user', methods=["POST"])
 def signup():
     if not request.is_json:
@@ -81,7 +80,7 @@ def get_post(post_id):
         response = post_mapper(post)
     except FaceduckError as e:
         return client_error(e.id)
-    
+
     return jsonify(response)
 
 
@@ -203,3 +202,27 @@ def get_friends(user_id):
     except FaceduckError as e:
         return client_error(e.id)
 
+@api.route("/post/<post_id>/reactions", methods=["POST"])
+@jwt_required
+def add_reactions(post_id):
+    try:
+        user_id = current_user.meta.id
+        reaction = request.json["reaction"]
+        core.set_reaction(post_id,user_id,reaction)
+        response = get_post(post_id)
+
+    except KeyError:
+            return client_error("001")
+    except FaceduckError as e:
+        return client_error(e.id)
+    return response
+
+@api.route("/post/<post_id>/reactions", methods=["DELETE"])
+@jwt_required
+def delete_reactions(post_id):
+    try:
+        user_id = current_user.meta.id
+        core.delete_reaction(post_id,user_id)
+    except FaceduckError as e:
+        return client_error(e.id)
+    return ("",204)
