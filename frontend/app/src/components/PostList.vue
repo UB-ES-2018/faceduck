@@ -37,9 +37,12 @@ export default {
         };
     },
     created() {
+        if (this.query)
+            this._query = this.query.trim();
+
         this.fetchPosts();
         this.$root.$on("postEvent", (event) => {
-            if (event && event.query) this._query = event.query;
+            if (event && event.query) this._query = event.query.trim();
             this.fetchPosts();
         });
         this.$root.$on("addPost", (event) => {
@@ -56,17 +59,14 @@ export default {
                 body["author-id"] = this.authorId;
             else if (this.newsfeed)
                 body["author-id"] = JSON.parse(localStorage.getItem("user")).id;
-            else if (this.query) {
+            else if (this._query) {
                 // activate this when we have tags API
-                /*
-                if (this.query.indexOf(" ") == -1 
-                    && this.query.lastIndexOf("#") == 0)
-                    body["tag"] = this.query.slice(1);
+                if (this._query.indexOf(" ") == -1 
+                    && this._query.lastIndexOf("#") == 0)
+                    body["tag"] = this._query.slice(1);
                 else
-                */
-                body["query"] = this.query;
-            } else if (this._query) 
-                body["query"] = this._query;
+                    body["query"] = this._query;
+            }
 
             this.fetch_options = {
                 "method": "POST",
