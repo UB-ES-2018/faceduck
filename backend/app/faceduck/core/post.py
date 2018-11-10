@@ -20,7 +20,7 @@ def create_post(text, author_id, image_url):
         raise FaceduckError("001")
     
     post = Post(meta={'id': id}, text=text, created_at=created_at, author=author_id, image_url=image_url, tags=tags)
-    post.save()
+    post.save(refresh=True)
     
     return post
 
