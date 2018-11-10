@@ -1,17 +1,15 @@
 <template>
 	<div>
-		<ul class="emotions" id="emotions"><!--&lt;EmotionButtons/&gt;-->
+		<ul class="emotions" id="emotions" v-bind:class="{'selected': isVisible}"> <!--&lt;EmotionButtons/&gt;-->
 			<li><img src="http://www.northamericangoldwings.com/community/forums/uploads/reactions/facebook-love-png-44003.png" class="react"></li>
 			<li><img src="http://www.freeiconspng.com/uploads/facebook-live-love-png-1.png" class="react"></li>
 			<li><img src="http://clipart.info/images/ccovers/1499793248facebook-haha.png" class="react"></li>
 			<li><img src="https://cdn4.iconfinder.com/data/icons/reaction/32/angry-512.png" class="react"></li>
 			<li><img src="http://clipart.info/images/ccovers/1499793247facebook-sad-emoji-like-png.png" class="react"></li>
 		</ul>
-		<div>
-			<ul class="icons">
-				<li v-on:mouseover="mouseOver"><i class="fa fa-thumbs-up" aria-hidden="true" ><span> Like </span></i></li>
-			</ul>
-		</div>
+		<ul class="icons">
+			<li v-on:click="mouseOver"><i class="fa fa-thumbs-up" aria-hidden="true" ><span> Like </span></i></li>
+		</ul>
 		</div>
 </template>
 
@@ -25,7 +23,9 @@ export default {
 	},
 	methods: {
 		mouseOver: function() {
-			document.getElementById('emotions').style.display = "block";
+			this.isVisible = !isVisible;
+			
+
 		}
 	}
 }
@@ -33,20 +33,19 @@ export default {
 
 <style lang="sass" scoped>
 
-.reactions
-	visibility: false
-
 .emotions
+	display: none
     background-color: #fff
     border: 1px solid #9b9797
     border-radius: 100px
     float: left
-    display: none
     position: absolute
     left: 40px
     width: 264px
     z-index: 1000
     
+.emotions.selected
+	display: block
 
 .emotions li
     padding: 10px
