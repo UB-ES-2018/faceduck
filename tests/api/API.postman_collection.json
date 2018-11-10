@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "acf89dff-9b43-49dd-b3f7-60090df58428",
+		"_postman_id": "1e75ac71-eaf9-4b16-908e-6bf71e2a817f",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -152,6 +152,43 @@
 					"port": "{{port}}",
 					"path": [
 						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sitemap",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7fa91f00-3826-43fe-b184-64240087d3d7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Content-Type is application/xml\", function () {",
+							"    pm.response.to.have.header(\"application/xml\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/sitemap.xml",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"sitemap.xml"
 					]
 				}
 			},
