@@ -17,11 +17,12 @@ export default {
       "redirect": Boolean
     },
     data() {
-        return{
+        return {
             searchQuery: ""
         };
     },
     mounted() {
+      if (this.$route.name !== "search") return;
       if (this.$route.query.query !== undefined) {
         this.searchQuery = this.$route.query.query;
       }
@@ -32,7 +33,7 @@ export default {
         //wip
         submitQuery(e) {
           e.preventDefault();
-          this.$router.push("/search?query=" + this.searchQuery);
+          this.$router.push("/search?query=" + encodeURIComponent(this.searchQuery));
           if (!this.redirect) {
             this.getUsers();
             this.getPosts();
@@ -54,22 +55,10 @@ export default {
           });
         },
         getPosts() {
-          fetch(apiPostsSearchUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + localStorage.getItem("access-token"),
-            },
-            body: JSON.stringify({query: this.searchQuery})
-          }).then(res => res.json())
-          .then(data => {
-            this.$root.$emit("getPostResults", {
-              results: data
-            });
+          this.$root.$emit("postEvent", {
+            "query": this.searchQuery
           });
         },
-
-        
     }
 }
 </script>
