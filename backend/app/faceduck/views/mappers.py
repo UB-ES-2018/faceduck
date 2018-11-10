@@ -29,6 +29,10 @@ def rc_mapper(rc):
     rc_dict = {"reaction" : rc.reaction, "count" : rc.count}
     return rc_dict
 
+def comment_mapper(comment):
+    comment_dict = {"user_id" : comment.user_id, "text" : comment.text, "num" : comment.num}
+    return comment_dict
+
 def post_mapper(post):
     post_dict = {"id": post.meta.id}
     
@@ -48,6 +52,9 @@ def post_mapper(post):
             rc = [rc_mapper(rc) for rc in getattr(post, attr)]
             post_dict[key] = rc
 
+        elif attr == "comments":
+            continue
+            
         else:
             post_dict[key] = getattr(post, attr)
 
