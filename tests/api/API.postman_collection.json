@@ -262,7 +262,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"tag\": \"#postmantest\"\n}"
+					"raw": "{\n\t\"tag\": \"postmantest\"\n}"
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/post/search",
