@@ -160,6 +160,128 @@
 			"response": []
 		},
 		{
+			"name": "Create Post with tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e242ee78-3161-440c-aa57-5afada1027d8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Post object contains tag\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.tags).to.contain(\"#postmantest\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World #postmantest\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search posts by tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5484227b-892f-4ae3-a98d-ecf531e1dcf3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Post object contains tag\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].tags).to.contain(\"#postmantest\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tag\": \"postmantest\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Post",
 			"event": [
 				{

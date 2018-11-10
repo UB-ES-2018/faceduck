@@ -1,4 +1,4 @@
-from elasticsearch_dsl import Document, Date, Text, InnerDoc,Nested, Integer
+from elasticsearch_dsl import Document, Date, Text, Keyword, InnerDoc, Nested, Integer
 
 class Reaction(InnerDoc):
     user_id = Text()
@@ -13,6 +13,7 @@ class Post(Document):
     created_at = Date()
     author = Text()
     image_url = Text()
+    tags = Keyword(multi=True)
     user_reaction = Nested(Reaction)
     reactions_count = Nested(ReactionCount)
 
