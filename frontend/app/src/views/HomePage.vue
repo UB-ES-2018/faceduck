@@ -2,12 +2,7 @@
 <div id="head">
   <div id="HomePage">
     <div>
-      <div>
-        <div>
-          <h1 class="title">Faceduck</h1>
-        </div>
-      </div>
-          
+      <h1 class="title">Faceduck</h1>          
     </div>
   </div>
   <LoginSignin/>
