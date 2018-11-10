@@ -1,0 +1,438 @@
+{
+	"info": {
+		"_postman_id": "37f300ea-44a1-46fb-a31e-b5b31222e952",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c33c1a6f-b3a4-4ee9-8fbc-0fee7d5968d2",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"patata\",\n\t\"email\": \"test@test.com\",\n\t\"password\": \"1234\",\n\t\"name\": \"Test User\",\n\t\"surname\": \"Surname\",\n\t\"birthday\": \"1990-01-01\",\n\t\"gender\": \"male\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/user",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c33c1a6f-b3a4-4ee9-8fbc-0fee7d5968d2",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"var json = pm.response.json();",
+							"",
+							"// TODO: Check has access-token",
+							"",
+							"pm.environment.set(\"token\", json[\"access-token\"])",
+							"pm.environment.set(\"user_id\", json.user[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"1234\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/session",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8269d348-be12-46e4-8769-f83fb6cfd570",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var json = pm.response.json();",
+							"pm.environment.set(\"post_id\", json[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post with tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e242ee78-3161-440c-aa57-5afada1027d8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Post object contains tag\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.tags).to.contain(\"#postmantest\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World #postmantest\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search posts by tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5484227b-892f-4ae3-a98d-ecf531e1dcf3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Post object contains tag\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].tags).to.contain(\"#postmantest\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tag\": \"postmantest\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Reaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e9a9e4e-9663-4246-b4aa-a3204ba37176",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"reaction\" : \"like\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"reactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Reaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d79e4a2-5ed8-474b-8f22-7ff357449cf2",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"reactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
