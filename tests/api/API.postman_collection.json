@@ -163,11 +163,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7fa91f00-3826-43fe-b184-64240087d3d7",
+						"id": "5b8778f9-5b73-4c01-9df0-a985a31b51b0",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Content-Type is application/xml\", function () {",
-							"    pm.response.to.have.header(\"application/xml\");",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/xml\");",
 							"});"
 						]
 					}
