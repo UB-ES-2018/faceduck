@@ -1,6 +1,6 @@
 <template>
-    <div class="row justify-content-md-center">
-        <div class="post-item col-sm-6">
+    <div class="row justify-content-center">
+        <div class="post-item col-xl-7 col-lg-8 col-md-10 col-sm-12">
             <div class="post-username">
                 <a v-bind:href="'/profile/' + post.author.username" v-if="!post.special">
                     {{post.author.username}}
