@@ -211,6 +211,8 @@ def add_reactions(post_id):
         core.set_reaction(post_id,user_id,reaction)
         response = get_post(post_id)
 
+    except KeyError:
+            return client_error("001")
     except FaceduckError as e:
         return client_error(e.id)
     return response
@@ -221,8 +223,6 @@ def delete_reactions(post_id):
     try:
         user_id = current_user.meta.id
         core.delete_reaction(post_id,user_id)
-    except KeyError:
-        return client_error("001")
     except FaceduckError as e:
         return client_error(e.id)
     return ("",204)
