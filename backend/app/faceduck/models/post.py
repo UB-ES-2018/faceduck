@@ -17,8 +17,8 @@ class Post(Document):
     user_reaction = Nested(Reaction)
     reactions_count = Nested(ReactionCount)
 
-class Index:
-    name = 'post'
+    class Index:
+        name = 'post'
 
     def save(self, ** kwargs):
         return super().save(** kwargs)
