@@ -25,7 +25,7 @@ def create_post(text, author_id, image_url):
     if image_url is None:
         image_url = social_card_for_post(text)
 
-    post = Post(meta={'id': id}, text=text, created_at=created_at, author=author_id, image_url=image_url)
+    post = Post(meta={'id': id}, text=text, created_at=created_at, author=author_id, image_url=image_url, tags=tags)
     post.save(refresh=True)
 
     return post
