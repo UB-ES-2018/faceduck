@@ -3,7 +3,7 @@ from faceduck.blueprints import api
 from faceduck import core
 from faceduck.utils import FaceduckError
 from flask_jwt_extended import jwt_required, current_user
-from .mappers import user_mapper, post_mapper
+from .mappers import user_mapper, post_mapper, comment_mapper
 from faceduck.views.view_utils import client_error
 
 @api.route('/user', methods=["POST"])
@@ -214,7 +214,7 @@ def add_reactions(post_id):
         response = get_post(post_id)
 
     except KeyError:
-            return client_error("001")
+        return client_error("001")
     except FaceduckError as e:
         return client_error(e.id)
     return response
@@ -228,3 +228,41 @@ def delete_reactions(post_id):
     except FaceduckError as e:
         return client_error(e.id)
     return ("",204)
+
+@api.route("/post/<post_id>/comments", methods=["GET"])
+def get_comments(post_id):
+    cmts = core.get_comments(post_id)
+    try:
+        return jsonify([comment_mapper(c) for c in cmts])
+    except FaceduckError as e:
+        return client_error(e.id)
+
+@api.route("/post/<post_id>/comments", methods=["POST"])
+@jwt_required
+def add_comment(post_id):
+    try:
+        user_id = current_user.meta.id
+        text = request.json["text"]
+        response = core.add_comment(post_id, user_id, text)
+    except KeyError:
+        return client_error("001")
+    except FaceduckError as e:
+        return client_error(e.id)
+    return jsonify(comment_mapper(response))
+
+@api.route("/post/<post_id>/comments", methods=["DELETE"])
+@jwt_required
+def remove_comment(post_id):
+    try:
+        comment_id = request.json["comment_id"]
+        core.remove_comment(post_id, comment_id)
+    except KeyError:
+        return client_error("001")
+    except FaceduckError as e:
+        return client_error(e.id)
+    return ("",204)
+
+@api.route("/user/<user_id>", methods=["GET"])
+def get_user(user_id):
+    user = core.get_user(user_id)
+    return jsonify(user_mapper(user))

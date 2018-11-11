@@ -1390,7 +1390,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Get post success",
+    "title": "Get friends success",
     "type": "object",
     "properties": {
         "id": {"type": "string"},
@@ -1441,7 +1441,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Get post error",
+    "title": "Get friends error",
     "type": "object",
     "properties": {
         "error-id": {
@@ -1495,7 +1495,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create friendship",
+    "title": "delete friendship",
     "type": "object",
     "properties": {
         "target_id": {"type": "string"}
@@ -1533,7 +1533,310 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create post error",
+    "title": "delete friendship error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Add Comment
+
+### Request
+
+**POST** `/post/{post_id}/comments`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add comment",
+    "type": "object",
+    "properties": {
+        "text": {"type": "string"},
+    },
+    "required": [
+        "text"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "text" : "This is a test comment"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add comment success",
+    "type": "object",
+    "properties": {
+        "comment_id": {"type": "string"},
+        "text": {"type": "string"},
+        "user_id": {"type": "string"},
+    },
+    "required": [
+        "comment_id",
+        "text",
+        "user_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "comment_id": "1",
+    "text": "This is a test comment",
+    "user_id": "42",
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add comment error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Get Post Comments
+
+### Request
+
+**GET** `/post/{post_id}/comments`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+
+
+*Examples:*
+
+```
+Content-Type: application/json
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get comments success",
+    "type": "object",
+    "properties": {
+        "comment_id": {"type": "string"},
+        "text": {"type": "string"},
+        "user_id": {"type": "string"},
+    },
+    "required": [
+        "comment_id",
+        "text",
+        "user_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+[
+    {
+        "comment_id": "1",
+        "text": "This is a test comment",
+        "user_id": "42",
+    },
+    {
+        "comment_id": "2",
+        "text": "This is a test comment",
+        "user_id": "34",
+    }
+]
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get comments error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "integer",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Delete Post Comment
+
+### Request
+
+**DELETE** `/post/{post_id}/comments`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+
+
+*Examples:*
+
+```
+Content-Type: application/json
+```
+
+### Response: success
+
+`204 No Content`
+
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Delete comment error",
     "type": "object",
     "properties": {
         "error-id": {
@@ -1562,6 +1865,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 `500 Internal Server Error`
 
 
+
 ## Add Reaction
 
 ### Request
@@ -1587,7 +1891,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create friendship",
+    "title": "Add reaction",
     "type": "object",
     "properties": {
         "reaction": {"type": "string"},
@@ -1621,7 +1925,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Get post success",
+    "title": "Add reaction success",
     "type": "object",
     "properties": {
         "id": {"type": "string"},
@@ -1729,7 +2033,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create friendship error",
+    "title": "Add reaction error",
     "type": "object",
     "properties": {
         "error-id": {
@@ -1796,7 +2100,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create post error",
+    "title": "Delete reaction error",
     "type": "object",
     "properties": {
         "error-id": {

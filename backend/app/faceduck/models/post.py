@@ -8,6 +8,11 @@ class ReactionCount(InnerDoc):
     reaction = Text()
     count = Integer()
 
+class Comment(InnerDoc):
+    user_id = Text()
+    text = Text()
+    comment_id = Integer()
+
 class Post(Document):
     text = Text()
     created_at = Date()
@@ -16,13 +21,40 @@ class Post(Document):
     tags = Keyword(multi=True)
     user_reaction = Nested(Reaction)
     reactions_count = Nested(ReactionCount)
+    comments = Nested(Comment)
+    comments_count = Integer()
+    comments_id = Integer()
 
     class Index:
         name = 'post'
 
     def save(self, ** kwargs):
+        if self.comments_id is None:
+            self.comments_count = 0
+            self.comments_id = 0
         return super().save(** kwargs)
 
+    '''
+    COMMENTS
+    '''
+    def add_comment(self, user_id, text):
+        self.comments_id = self.comments_id + 1
+        c = Comment(user_id = user_id, text=text,comment_id=self.comments_id)
+        self.comments.append(c)
+        self.comments_count += 1
+        return c
+
+    def get_comments(self):
+        return self.comments
+
+    def remove_comment(self, comment_id):
+        for c in self.comments:
+            if c.comment_id == comment_id:
+                self.comments.remove(c)
+                self.comments_count -= 1
+    '''
+    REACTIONS
+    '''
     def add_reaction(self,user_id, reaction):
         self.user_reaction.append(
             Reaction(user_id=user_id, reaction=reaction)
