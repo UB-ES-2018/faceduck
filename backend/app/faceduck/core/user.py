@@ -10,3 +10,7 @@ def get_user(user_id):
         raise FaceduckError("001")
     
     return user
+
+
+def get_all_users():
+    return User.search().query("match_all").scan()

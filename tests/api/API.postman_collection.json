@@ -160,6 +160,43 @@
 			"response": []
 		},
 		{
+			"name": "Sitemap",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b8778f9-5b73-4c01-9df0-a985a31b51b0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Content-Type is application/xml\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/xml\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/sitemap.xml",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"sitemap.xml"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Post with tag",
 			"event": [
 				{
