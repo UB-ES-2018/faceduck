@@ -252,8 +252,8 @@ def add_comment(post_id):
 @jwt_required
 def remove_comment(post_id):
     try:
-        num = request.json["num"]
-        core.remove_comment(post_id, num)
+        comment_id = request.json["comment_id"]
+        core.remove_comment(post_id, comment_id)
     except KeyError:
         return client_error("001")
     except FaceduckError as e:

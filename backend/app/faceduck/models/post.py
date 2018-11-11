@@ -1,5 +1,5 @@
 from elasticsearch_dsl import Document, Date, Text, InnerDoc,Nested, Integer
-
+import sys
 class Reaction(InnerDoc):
     user_id = Text()
     reaction = Text()
@@ -11,7 +11,7 @@ class ReactionCount(InnerDoc):
 class Comment(InnerDoc):
     user_id = Text()
     text = Text()
-    num = Integer()
+    comment_id = Integer()
 
 class Post(Document):
     text = Text()
@@ -38,7 +38,7 @@ class Post(Document):
     '''
     def add_comment(self, user_id, text):
         self.comments_id = self.comments_id + 1
-        c = Comment(user_id = user_id, text=text,num=self.comments_id)
+        c = Comment(user_id = user_id, text=text,comment_id=self.comments_id)
         self.comments.append(c)
         self.comments_count += 1
         return c
@@ -46,9 +46,10 @@ class Post(Document):
     def get_comments(self):
         return self.comments
 
-    def remove_comment(self, num):
+    def remove_comment(self, comment_id):
         for c in self.comments:
-            if c.num == num:
+            print(comment_id, file=sys.stderr)
+            if c.comment_id == comment_id:
                 self.comments.remove(c)
                 self.comments_count -= 1
     '''

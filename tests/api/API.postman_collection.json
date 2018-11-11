@@ -393,20 +393,27 @@
 			"name": "Delete Comment",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
 				},
-				"method": "GET",
+				"method": "DELETE",
 				"header": [
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"text\" : \"Primer comentario\"\n}"
+					"raw": "{\n\t\"comment_id\" : 2\n}"
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",

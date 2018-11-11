@@ -58,7 +58,7 @@ def get_comments(post_id):
     post = get_post(post_id)
     return post.get_comments()
 
-def remove_comment(post_id, num):
+def remove_comment(post_id, comment_id):
     post = get_post(post_id)
-    post.remove_comment(num)
+    post.remove_comment(comment_id)
     post.save()

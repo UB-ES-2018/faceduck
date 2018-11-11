@@ -30,7 +30,7 @@ def rc_mapper(rc):
     return rc_dict
 
 def comment_mapper(comment):
-    comment_dict = {"user_id" : comment.user_id, "text" : comment.text, "num" : comment.num}
+    comment_dict = {"user_id" : comment.user_id, "text" : comment.text, "comment_id" : comment.comment_id}
     return comment_dict
 
 def post_mapper(post):
