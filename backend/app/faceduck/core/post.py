@@ -1,12 +1,14 @@
 from datetime import datetime
 import uuid
-import string
+import re
 from elasticsearch.exceptions import NotFoundError
 from faceduck.models.post import Post
 from faceduck.models.post import Reaction
 from faceduck.models.user import User
 from faceduck.utils import FaceduckError
 from elasticsearch_dsl import Search
+from .social_card import social_card_image
+
 
 def create_post(text, author_id, image_url):
     id = uuid.uuid4()
@@ -19,11 +21,23 @@ def create_post(text, author_id, image_url):
             tags.append(word)
     if User.get(id=author_id, ignore=404) is None:
         raise FaceduckError("001")
-    
+
+    if image_url is None:
+        image_url = social_card_for_post(text)
+
     post = Post(meta={'id': id}, text=text, created_at=created_at, author=author_id, image_url=image_url, tags=tags)
     post.save(refresh=True)
-    
+
     return post
+
+
+def social_card_for_post(text):
+    urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]| [! * \(\),] | (?: %[0-9a-fA-F][0-9a-fA-F]))+', text)
+    if len(urls) == 0:
+        return
+    # We're going to parse just the first
+    url = urls[0]
+    return social_card_image(url)
 
 
 def get_post(post_id):
