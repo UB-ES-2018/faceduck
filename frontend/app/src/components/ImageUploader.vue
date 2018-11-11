@@ -18,6 +18,11 @@ export default {
     data() {
         return {}
     },
+    created() {
+        this.$root.$on("clearImageUpload", () => {
+            this.$refs.image.files = [];
+        });
+    },
     methods: {
         handleFileUpload() {
             var formData = new FormData();

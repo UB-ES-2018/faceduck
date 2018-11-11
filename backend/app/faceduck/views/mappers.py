@@ -44,6 +44,9 @@ def post_mapper(post):
             user_dict = user_mapper(user)
             post_dict[key] = user_dict
 
+        elif attr == "tags":
+            post_dict[key] = list(getattr(post, attr))
+
         elif attr == "user_reaction":
             reactions = [reaction_mapper(r) for r in getattr(post, attr)]
             post_dict[key] = reactions
