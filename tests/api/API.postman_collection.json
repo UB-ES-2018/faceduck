@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "37f300ea-44a1-46fb-a31e-b5b31222e952",
+		"_postman_id": "d2a327e9-f5c9-4ea3-b176-7e9b0fdf2c70",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -435,6 +435,126 @@
 			"response": []
 		},
 		{
+			"name": "Post Comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"Primer comentario\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comments",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"Primer comentario\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Comment",
+      "request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+        "method": "DELETE",
+        "header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+        "body": {
+					"mode": "raw",
+					"raw": "{\n\t\"comment_id\" : 2\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
+          "protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+            "post",
+						"{{post_id}}",
+						"comments"
+            ]
+				}
+			},
+			"response": []
+		},
+
+    {
 			"name": "Create Post With Social Card Image",
 			"event": [
 				{
@@ -467,6 +587,7 @@
 					]
 				},
 				"method": "POST",
+
 				"header": [
 					{
 						"key": "Content-Type",

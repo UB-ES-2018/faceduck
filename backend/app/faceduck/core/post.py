@@ -75,3 +75,19 @@ def delete_reaction(post_id,user_id):
     post = get_post(post_id)
     post.remove_reaction(user_id)
     post.save()
+
+def add_comment(post_id,user_id,text):
+    post = get_post(post_id)
+    c = post.add_comment(user_id,text)
+    post.save()
+    return c
+
+def get_comments(post_id):
+    post = get_post(post_id)
+    return post.get_comments()
+
+def remove_comment(post_id, comment_id):
+    post = get_post(post_id)
+    post.remove_comment(comment_id)
+    post.save()
+
