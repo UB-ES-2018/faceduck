@@ -1,5 +1,5 @@
 from faceduck.core.user import get_user
-import sys
+
 ERRORS = {
     "001": {"error-id": "001", "error-message": "Invalid data"},
     "002": {"error-id": "002", "error-message": "Already existing username"},
@@ -52,7 +52,7 @@ def post_mapper(post):
             rc = [rc_mapper(rc) for rc in getattr(post, attr)]
             post_dict[key] = rc
 
-        elif attr == "comments":
+        elif attr == "comments" or attr == "comments_id":
             continue
             
         else:
