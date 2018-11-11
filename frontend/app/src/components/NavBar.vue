@@ -1,24 +1,28 @@
 <template>
 <nav class="navbar navbar-light" style="background-color: pale-sky;">
     <h1 class="title">Faceduck</h1>
-      <form class="form-inline">
-        <div class="page mr-sm-2"> 
-            <router-link to="/profile">{{user.username}}</router-link>
-        </div>
-        <div class="page my-2 mr-sm-2">
-            <router-link to="/wall">Wall</router-link>
-        </div>
-        <button class="button" v-on:click="logout">Log Out</button>
+    <SearchBar v-bind:redirect="!searchPage"/>
+    <form class="form-inline">
+      <div class="mr-sm-2"> 
+          <router-link to="/profile">{{user.username}}</router-link>
+      </div>
+      <div class="mr-sm-2">
+          <router-link to="/wall">Wall</router-link>
+      </div>
+      <button class="button" v-on:click="logout">Log Out</button>
     </form>
 </nav>
 </template>
 
 <script>
+import SearchBar from "./SearchBar.vue";
+
 export default {
     name: "NavBar",
     data() {
       return {
-        user: JSON.parse(localStorage.getItem("user"))
+        user: JSON.parse(localStorage.getItem("user")),
+        searchPage: (this.$route.name === "search")
       }
     },
     methods: {
@@ -27,6 +31,9 @@ export default {
             localStorage.removeItem("user");
             this.$router.push("/");
         },
+    },
+    components: {
+      SearchBar
     }
 }
 </script>
