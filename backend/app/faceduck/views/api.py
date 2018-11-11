@@ -259,3 +259,8 @@ def remove_comment(post_id):
     except FaceduckError as e:
         return client_error(e.id)
     return ("",204)
+
+@api.route("/user/<user_id>", methods=["GET"])
+def get_user(user_id):
+    user = core.get_user(user_id)
+    return jsonify(user_mapper(user))
