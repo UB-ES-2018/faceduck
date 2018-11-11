@@ -1,5 +1,5 @@
 from elasticsearch_dsl import Document, Date, Text, InnerDoc,Nested, Integer
-import sys
+
 class Reaction(InnerDoc):
     user_id = Text()
     reaction = Text()
@@ -48,7 +48,6 @@ class Post(Document):
 
     def remove_comment(self, comment_id):
         for c in self.comments:
-            print(comment_id, file=sys.stderr)
             if c.comment_id == comment_id:
                 self.comments.remove(c)
                 self.comments_count -= 1
