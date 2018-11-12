@@ -263,7 +263,7 @@
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001",
                 "004"
@@ -429,7 +429,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -614,7 +614,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -768,7 +768,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1024,7 +1024,7 @@ Search by the author:
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1126,7 +1126,7 @@ Multipart fields:
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001",
                 "010"
@@ -1254,7 +1254,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1387,7 +1387,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1499,7 +1499,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1591,7 +1591,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1718,7 +1718,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1827,7 +1827,7 @@ Content-Type: application/json
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1894,7 +1894,7 @@ Content-Type: application/json
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -2107,7 +2107,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -2174,7 +2174,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
