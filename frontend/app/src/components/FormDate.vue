@@ -94,7 +94,8 @@ export default {
 };
 </script>
 
-<style scooped lang="scss">
+<style lang="scss" scoped>
+
 .FormDate {
   $spacing: 0.25em;
   $color: #eeeeee;
