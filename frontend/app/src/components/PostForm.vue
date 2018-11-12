@@ -2,10 +2,14 @@
     <div id='PostForm'>
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
+                <div class="inline-input">
+                    <div></div>
+                    <VisField/>
+                </div>
                 <fieldset class="inputs">
                     <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
                 </fieldset>
-                <ImageUploader uploader-id="post-image-uploader"/>
+                <ImageUploader uploader-id="post-image-uploader" />
                 <fieldset class="actions">
                     <button type="submit"> Post </button>
                 </fieldset>
@@ -15,61 +19,63 @@
 </template>
 
 <script>
-import ImageUploader from "./ImageUploader.vue";
-
-var host = window.location.hostname;
-var apiPostFormUrl = '//'+host+':5000/post';
-
-export default {
-    name: 'PostForm',
-    data() {
-        return {
-            post: {
-                "author-id": JSON.parse(localStorage.getItem("user"))["id"],
-                text: '',
-                "image-url": ''
-            }
-        }
-    },
-    beforeCreate() {
-        this.$root.$on("imageUpload", (event) => {
-            if (event.emitter === "post-image-uploader") {
-                this.post["image-url"] = event.url;
-            }
-        });
-    },
-    methods: {
-        submitPost(e) {
-            e.preventDefault();
-            var post = this.post;
-
-            fetch(apiPostFormUrl, {
-                method: "POST",
-                headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(post)
-            })
-            .then((response) => {
-                if (response.ok) {
-                    this.post["text"] = "";
-                    this.post["image-url"] = "";
-                    this.$root.$emit("clearImageUpload");
-
-                    response.json().then((post) => {
-                        this.$root.$emit("addPost", {
-                            post: post
-                        });
-                    })
+    import ImageUploader from "./ImageUploader.vue";
+    import VisField from "./VisibilityField.vue";
+    
+    var host = window.location.hostname;
+    var apiPostFormUrl = '//' + host + ':5000/post';
+    
+    export default {
+        name: 'PostForm',
+        data() {
+            return {
+                post: {
+                    "author-id": JSON.parse(localStorage.getItem("user"))["id"],
+                    text: '',
+                    "image-url": ''
                 }
-            }).catch((r) => alert(r));
+            }
         },
-    },
-    components: {
-        ImageUploader
-    }
-};
+        beforeCreate() {
+            this.$root.$on("imageUpload", (event) => {
+                if (event.emitter === "post-image-uploader") {
+                    this.post["image-url"] = event.url;
+                }
+            });
+        },
+        methods: {
+            submitPost(e) {
+                e.preventDefault();
+                var post = this.post;
+    
+                fetch(apiPostFormUrl, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(post)
+                    })
+                    .then((response) => {
+                        if (response.ok) {
+                            this.post["text"] = "";
+                            this.post["image-url"] = "";
+                            this.$root.$emit("clearImageUpload");
+    
+                            response.json().then((post) => {
+                                this.$root.$emit("addPost", {
+                                    post: post
+                                });
+                            })
+                        }
+                    }).catch((r) => alert(r));
+            },
+        },
+        components: {
+            ImageUploader,
+            VisField,
+        }
+    };
 </script>
 
 <style lang="sass" scoped>
