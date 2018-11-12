@@ -20,8 +20,6 @@
 - [Add Reaction](#add-reaction)
 - [Delete Reaction](#delete-reaction)
 
-<a id="summary"/>
-
 ## Summary of codes and ids
 
 - HTTP Codes used
@@ -43,8 +41,6 @@
 | 003      | Already existing email            |
 | 004      | This email or password is invalid |
 | 010      | Media is too big                  |
-
-<a id="sign-up"/>
 
 ## Sign up
 
@@ -143,8 +139,6 @@
 ### Response: server error
 
 `500 Internal Server Error`
-
-<a id="log-in"/>
 
 ## Log in
 
@@ -293,8 +287,6 @@
 ### Response: server error
 
 `500 Internal Server Error`
-
-<a id="create-post"/>
 
 ## Create Post
 
@@ -460,8 +452,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ### Response: server error
 
 `500 Internal Server Error`
-
-<a id="get-post"/>
 
 ## Get Post
 
@@ -631,8 +621,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ### Response: server error
 
 `500 Internal Server Error`
-
-<a id="search-user"/>
 
 ## Search user
 
