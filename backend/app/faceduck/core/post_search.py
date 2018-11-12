@@ -27,3 +27,14 @@ def search_posts_by_author(author, start=START, size=SIZE):
     }).doc_type(Post).sort({"created_at": {"order": "desc"}})[start:size].execute()
     
     return [d for d in response.hits]
+
+def search_posts_by_tag(tag):
+    response = Post.search().from_dict({
+        "query": {
+            "match_phrase":{
+                "tags" : tag
+            } 
+        }
+    }).doc_type(Post).execute()
+
+    return [d for d in response.hits]
