@@ -1,20 +1,22 @@
 <template>
 	<div>
-		<ul class="emotions" id="emotions"
-            v-show="isVisible"><!--&lt;EmotionButtons/&gt;-->
-			<li><img src="http://www.northamericangoldwings.com/community/forums/uploads/reactions/facebook-love-png-44003.png" class="react"></li>
-			<li><img src="http://www.freeiconspng.com/uploads/facebook-live-love-png-1.png" class="react"></li>
-			<li><img src="http://clipart.info/images/ccovers/1499793248facebook-haha.png" class="react"></li>
-			<li><img src="https://cdn4.iconfinder.com/data/icons/reaction/32/angry-512.png" class="react"></li>
-			<li><img src="http://clipart.info/images/ccovers/1499793247facebook-sad-emoji-like-png.png" class="react"></li>
-		</ul>
+        
 		<div>
 			<ul class="icons" v-on:mouseover="isVisible = true;"
                     v-on:mouseout="isVisible = false;">
 				<li><i class="fa fa-thumbs-up" aria-hidden="true"><span> Like </span></i></li>
-			</ul>
+                <ul class="emotions" id="emotions"
+                    v-show="isVisible"><!--&lt;EmotionButtons/&gt;-->
+                    <li><img src="http://www.northamericangoldwings.com/community/forums/uploads/reactions/facebook-love-png-44003.png" class="react"></li>
+                    <li><img src="http://www.freeiconspng.com/uploads/facebook-live-love-png-1.png" class="react"></li>
+                    <li><img src="http://clipart.info/images/ccovers/1499793248facebook-haha.png" class="react"></li>
+                    <li><img src="https://cdn4.iconfinder.com/data/icons/reaction/32/angry-512.png" class="react"></li>
+                    <li><img src="http://clipart.info/images/ccovers/1499793247facebook-sad-emoji-like-png.png" class="react"></li>
+                </ul>
+            </ul>
+            
 		</div>
-		</div>
+	</div>
 </template>
 
 <script>
@@ -36,18 +38,13 @@ export default {
 
 <style lang="sass" scoped>
 
-.reactions
-	visibility: false
-
 .emotions
+    position: absolute
     background-color: #fff
     border: 1px solid #9b9797
+    left: 9%
     border-radius: 100px
-    float: left
-    position: absolute
-    left: 40px
-    width: 264px
-    z-index: 1000
+    width: 300px
     
 
 .emotions li
@@ -66,13 +63,10 @@ export default {
 
 .icons
     display: block
-    position: absolute
-    top: 89%
-    margin: 20px auto
+    height: 26px
 
 .icons li
-    border-top: 1px solid #000
-    padding: 0
+    padding: 10px
     padding-top: 5px
     text-align: center
     cursor: pointer
@@ -85,7 +79,7 @@ ul li
 .fa
 	width: 100px
     height: 100px
-    color: gray
+    color: #ffb511
 
 
 </style>

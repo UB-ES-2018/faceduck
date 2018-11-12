@@ -11,9 +11,11 @@
             <div class="post-image" v-if="post['image-url']">
                 <img v-bind:src="post['image-url']"/>
             </div>
-            <!-- FUTURE: reaction counts -->
-            <EmotionButtons v-bind:post="post" v-if="!post.special"/>
-            <!-- FUTURE: comments -->
+            <div class="emotions">
+                <!-- FUTURE: reaction counts -->
+                <EmotionButtons v-bind:post="post" v-if="!post.special"/>
+                <!-- FUTURE: comments -->
+            </div>
         </div>
     </div>
 </template>
@@ -105,5 +107,8 @@ img
     border: 1px #aaa solid
     padding: 4px
     border-radius: 3px
+
+.emotions
+    border-top: 1px solid #aaa
     
 </style>
