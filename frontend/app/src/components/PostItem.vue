@@ -12,7 +12,9 @@
                 <img v-bind:src="post['image-url']"/>
             </div>
             <div class="emotions">
-                <!-- FUTURE: reaction counts -->
+                <EmotionCounter v-bind:post="post" v-if="!post.special"/>
+            </div>
+            <div class="emotions">
                 <EmotionButtons v-bind:post="post" v-if="!post.special"/>
                 <!-- FUTURE: comments -->
             </div>
@@ -22,6 +24,7 @@
 
 <script>
 import EmotionButtons from "./EmotionButtons.vue";
+import EmotionCounter from "./EmotionCounter.vue";
 
 export default {
     name: "PostItem",
@@ -72,7 +75,8 @@ export default {
         clearInterval(this.interval);
     },
     components: {
-        EmotionButtons
+        EmotionButtons,
+        EmotionCounter
     }
 }
 </script>
