@@ -3,8 +3,9 @@ from faceduck.blueprints import api
 from faceduck import core
 from faceduck.utils import FaceduckError
 from flask_jwt_extended import jwt_required, current_user
-from .mappers import user_mapper, post_mapper, comment_mapper
+from .mappers import user_mapper, post_mapper, comment_mapper, friendship_mapper
 from faceduck.views.view_utils import client_error
+
 
 @api.route('/user', methods=["POST"])
 def signup():
@@ -119,10 +120,10 @@ def search_posts():
     except FaceduckError as e:
         return client_error(e.id)
 
+
 @api.route('/user/friends/<user_id>/<target_id>')
 @jwt_required
 def get_friendship(user_id, target_id):
-
     friendship = core.exists_friendship(user_id,target_id)
 
     try:
@@ -133,32 +134,31 @@ def get_friendship(user_id, target_id):
                 state="not-friends"
             )
         else:
-            return jsonify(user_id=friendship.user_id, target_id=friendship.target_id,state=friendship.state)
+            return jsonify(friendship_mapper(friendship))
     except FaceduckError as e:
         return client_error(e.id)
+
 
 @api.route('/user/friends', methods=["POST"])
 @jwt_required
 def create_friendship():
-
     try:
         user_id = current_user.meta.id
 
         target_id = request.json["target_id"]
     except KeyError:
         return client_error("001")
-
-    friendship = core.create_friendship(user_id,target_id)
-
+    
     try:
-        return jsonify(user_id=friendship.user_id, target_id=friendship.target_id,state=friendship.state)
+        friendship = core.create_friendship(user_id, target_id)
+        return jsonify(friendship_mapper(friendship))
     except FaceduckError as e:
         return client_error(e.id)
+
 
 @api.route('/user/friends', methods=["PUT"])
 @jwt_required
 def update_friendship():
-
     try:
         user_id = current_user.meta.id
         target_id = request.json["target_id"]
@@ -167,42 +167,32 @@ def update_friendship():
         return client_error("001")
 
     try:
-        friendship = core.update_friendship(user_id,target_id,state=state)
-        return jsonify(user_id=friendship.user_id, target_id=friendship.target_id,state=friendship.state)
+        friendship = core.update_friendship(user_id, target_id, state=state)
+        return jsonify(friendship_mapper(friendship))
     except FaceduckError as e:
         return client_error(e.id)
+
 
 @api.route('/user/friends', methods=["DELETE"])
 @jwt_required
 def delete_friendship():
-
     try:
         user_id = current_user.meta.id
         target_id = request.json["target_id"]
     except KeyError:
         return client_error("001")
-
-    friendship = core.delete_friendship(user_id,target_id)
-
-    try:
-        return ("", 204)
-    except FaceduckError as e:
-        return client_error(e.id)
-
+    
+    core.delete_friendship(user_id,target_id)
+    return ("", 204)
 
 
 @api.route('/user/friends/<user_id>')
 @jwt_required
 def get_friends(user_id):
-    try:
-        friends = core.get_friends(user_id)
-    except FaceduckError as e:
-        return client_error(e.id)
+    friends = core.get_friends(user_id)
+    
+    return jsonify([friendship_mapper(f) for f in friends])
 
-    try:
-        return jsonify([user_mapper(f) for f in friends])
-    except FaceduckError as e:
-        return client_error(e.id)
 
 @api.route("/post/<post_id>/reactions", methods=["POST"])
 @jwt_required
@@ -219,6 +209,7 @@ def add_reactions(post_id):
         return client_error(e.id)
     return response
 
+
 @api.route("/post/<post_id>/reactions", methods=["DELETE"])
 @jwt_required
 def delete_reactions(post_id):
@@ -229,6 +220,7 @@ def delete_reactions(post_id):
         return client_error(e.id)
     return ("",204)
 
+
 @api.route("/post/<post_id>/comments", methods=["GET"])
 def get_comments(post_id):
     cmts = core.get_comments(post_id)
@@ -236,6 +228,7 @@ def get_comments(post_id):
         return jsonify([comment_mapper(c) for c in cmts])
     except FaceduckError as e:
         return client_error(e.id)
+
 
 @api.route("/post/<post_id>/comments", methods=["POST"])
 @jwt_required
@@ -250,6 +243,7 @@ def add_comment(post_id):
         return client_error(e.id)
     return jsonify(comment_mapper(response))
 
+
 @api.route("/post/<post_id>/comments", methods=["DELETE"])
 @jwt_required
 def remove_comment(post_id):
@@ -261,6 +255,7 @@ def remove_comment(post_id):
     except FaceduckError as e:
         return client_error(e.id)
     return ("",204)
+
 
 @api.route("/user/<user_id>", methods=["GET"])
 def get_user(user_id):
