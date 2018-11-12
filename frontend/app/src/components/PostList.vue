@@ -55,7 +55,9 @@ export default {
         configure() {
             var body = {};
 
-            if (this.authorId)
+            if (this.newsfeed) {
+                api = '//' + host + ':5000/post/newsfeed';
+            } else if (this.authorId)
                 body["author-id"] = this.authorId;
             else if (this.newsfeed)
                 body["author-id"] = JSON.parse(localStorage.getItem("user")).id;
