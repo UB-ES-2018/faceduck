@@ -46,8 +46,8 @@
               placeholder="  EMAIL" required>
             <input type="password" name="password" v-model="signup.password"
               placeholder="  PASSWORD" required>
-            <input type="date" name="birthday" v-model="signup.birthday"
-             placeholder="  DATE OF BIRTH" required>
+            <!--<datepicker :format="'dd/MM/yyyy'" v-model="signup.birthday"></datepicker>-->
+            <FormDate v-model="signup.birthday" required/>
             <select name="gender" v-model="signup.gender" required>
               <option value="" disabled selected>Select one…</option>
               <option value="male" >Male</option>
@@ -71,13 +71,18 @@
 
 
 <script>
-
+import FormDate from "./FormDate.vue"
+//import Datepicker from "vuejs-datepicker/";
 var host = window.location.hostname;
 var apiSignupUrl = '//' + host + ':5000/user';
 var apiLoginUrl  = '//' + host + ':5000/session';
 
 export default {
   name: 'LoginSignin',
+  components:{
+   //Datepicker,
+   FormDate,
+  },
   data() {
     return {
       loginVisible: false,
