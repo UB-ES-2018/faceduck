@@ -1,5 +1,29 @@
 # API Specification
 
+## Table of contents
+
+- [Summary of codes and ids](#summary-of-codes-and-ids)
+- [Sign up](#sign-up)
+- [Log in](#log-in)
+- [Create Post](#create-post)
+- [Get Post](#get-post)
+- [Search user](#search-user)
+- [Search post](#search-post)
+- [Create Media (Upload)](#create-media-upload)
+- [Create Friendship](#create-friendship)
+- [Update Friendship](#update-friendship)
+- [Get Friends](#get-friends)
+- [Delete Friendship](#delete-friendship)
+- [Add Comment](#add-comment)
+- [Get Post Comments](#get-post-comments)
+- [Delete Post Comment](#delete-post-comment)
+- [Add Reaction](#add-reaction)
+- [Delete Reaction](#delete-reaction)
+
+<a id="summary"/>
+
+## Summary of codes and ids
+
 - HTTP Codes used
 
 | Code | Name                  |
@@ -19,6 +43,8 @@
 | 003      | Already existing email            |
 | 004      | This email or password is invalid |
 | 010      | Media is too big                  |
+
+<a id="sign-up"/>
 
 ## Sign up
 
@@ -117,6 +143,8 @@
 ### Response: server error
 
 `500 Internal Server Error`
+
+<a id="log-in"/>
 
 ## Log in
 
@@ -265,6 +293,8 @@
 ### Response: server error
 
 `500 Internal Server Error`
+
+<a id="create-post"/>
 
 ## Create Post
 
@@ -430,6 +460,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ### Response: server error
 
 `500 Internal Server Error`
+
+<a id="get-post"/>
 
 ## Get Post
 
@@ -599,6 +631,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ### Response: server error
 
 `500 Internal Server Error`
+
+<a id="search-user"/>
 
 ## Search user
 
@@ -2127,4 +2161,3 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ### Response: server error
 
 `500 Internal Server Error`
-
