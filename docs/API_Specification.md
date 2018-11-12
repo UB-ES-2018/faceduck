@@ -518,15 +518,31 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
             ]
         },
         "reactions-count": {
-            {
-                "count": {"type": "integer"},
-                "reaction": {"type": "string"}
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {"type": "integer"},
+                    "reaction": {"type": "string"}
+                },
+                "required": [
+                    "count",
+                    "reaction"
+                ]
             }
         },
         "user-reaction": {
-            {
-                "reaction": {"type": "string"},
-                "user-id": {"type": "string"}
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "reaction": {"type": "string"},
+                    "user-id": {"type": "string"}
+                },
+                "required": [
+                    "reaction",
+                    "user-id"
+                ]
             }
         }
     },
@@ -885,15 +901,31 @@ Search by the author:
                 ]
             },
             "reactions-count": {
-            {
-                "count": {"type": "integer"},
-                "reaction": {"type": "string"}
-            }
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "count": {"type": "integer"},
+                        "reaction": {"type": "string"}
+                    },
+                    "required": [
+                        "count",
+                        "reaction"
+                    ]
+                }
             },
             "user-reaction": {
-                {
-                    "reaction": {"type": "string"},
-                    "user-id": {"type": "string"}
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "reaction": {"type": "string"},
+                        "user-id": {"type": "string"}
+                    },
+                    "required": [
+                        "reaction",
+                        "user-id"
+                    ]
                 }
             }
         },
@@ -1979,15 +2011,31 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
             ]
         },
         "reactions-count": {
-            {
-                "count": {"type": "integer"},
-                "reaction": {"type": "string"}
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {"type": "integer"},
+                    "reaction": {"type": "string"}
+                },
+                "required": [
+                    "count",
+                    "reaction"
+                ]
             }
         },
         "user-reaction": {
-            {
-                "reaction": {"type": "string"},
-                "user-id": {"type": "string"}
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "reaction": {"type": "string"},
+                    "user-id": {"type": "string"}
+                },
+                "required": [
+                    "reaction",
+                    "user-id"
+                ]
             }
         }
     },
