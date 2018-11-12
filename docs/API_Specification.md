@@ -263,7 +263,7 @@
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001",
                 "004"
@@ -429,7 +429,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -518,15 +518,31 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
             ]
         },
         "reactions-count": {
-            {
-                "count": {"type": "integer"},
-                "reaction": {"type": "string"}
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {"type": "integer"},
+                    "reaction": {"type": "string"}
+                },
+                "required": [
+                    "count",
+                    "reaction"
+                ]
             }
         },
         "user-reaction": {
-            {
-                "reaction": {"type": "string"},
-                "user-id": {"type": "string"}
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "reaction": {"type": "string"},
+                    "user-id": {"type": "string"}
+                },
+                "required": [
+                    "reaction",
+                    "user-id"
+                ]
             }
         }
     },
@@ -598,7 +614,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -752,7 +768,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -885,15 +901,31 @@ Search by the author:
                 ]
             },
             "reactions-count": {
-            {
-                "count": {"type": "integer"},
-                "reaction": {"type": "string"}
-            }
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "count": {"type": "integer"},
+                        "reaction": {"type": "string"}
+                    },
+                    "required": [
+                        "count",
+                        "reaction"
+                    ]
+                }
             },
             "user-reaction": {
-                {
-                    "reaction": {"type": "string"},
-                    "user-id": {"type": "string"}
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "reaction": {"type": "string"},
+                        "user-id": {"type": "string"}
+                    },
+                    "required": [
+                        "reaction",
+                        "user-id"
+                    ]
                 }
             }
         },
@@ -992,7 +1024,7 @@ Search by the author:
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1094,7 +1126,7 @@ Multipart fields:
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001",
                 "010"
@@ -1181,9 +1213,12 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Create friendship success",
     "type": "object",
     "properties": {
-        "state": {"type": "string"},
+        "state": {
+            "type": "string",
+            "enum": ["pending", "friends"]
+        },
         "target_id": {"type": "string"},
-        "user_id": {"type": "string"},
+        "user_id": {"type": "string"}
     },
     "required": [
         "state",
@@ -1222,7 +1257,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1314,7 +1349,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Update friendship success",
     "type": "object",
     "properties": {
-        "state": {"type": "string"},
+        "state": {
+            "type": "string",
+            "enum": ["pending", "friends"]
+        },
         "target_id": {"type": "string"},
         "user_id": {"type": "string"}
     },
@@ -1355,7 +1393,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1413,19 +1451,25 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Get friends success",
-    "type": "object",
-    "properties": {
-        "id": {"type": "string"},
-        "state": {"type": "string"},
-        "target_id": {"type": "string"},
-        "user_id": {"type": "string"}
-    },
-    "required": [
-        "id",
-        "state",
-        "target_id",
-        "user_id"
-    ]
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {"type": "string"},
+            "state": {
+                "type": "string",
+                "enum": ["pending", "friends"]
+            },
+            "target_id": {"type": "string"},
+            "user_id": {"type": "string"}
+        },
+        "required": [
+            "id",
+            "state",
+            "target_id",
+            "user_id"
+        ]
+    }
 }
 ```
 
@@ -1448,49 +1492,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ]
 ```
 
-### Response: client error
-
-`400 Bad Request`
-
-#### - Response headers
-
-| Property     | Values           |
-|--------------|:----------------:|
-| Content-Type | application/json |
-
-#### - Response body
-
-```json
-{
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Get friends error",
-    "type": "object",
-    "properties": {
-        "error-id": {
-            "type": "integer",
-            "enum": [
-                "001"
-            ]
-        },
-        "error-message": {"type": "string"}
-    },
-    "required": ["error-id", "error-message"]
-}
-```
-
-*Examples:*
-
-```json
-{
-    "error-id": "001",
-    "error-message": "Invalid data"
-}
-```
-
 ### Response: server error
 
 `500 Internal Server Error`
-
 
 ## Delete Friendship
 
@@ -1517,7 +1521,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "delete friendship",
+    "title": "Delete friendship",
     "type": "object",
     "properties": {
         "target_id": {"type": "string"}
@@ -1555,11 +1559,11 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "delete friendship error",
+    "title": "Delete friendship error",
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1686,7 +1690,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1795,7 +1799,7 @@ Content-Type: application/json
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1862,7 +1866,7 @@ Content-Type: application/json
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1979,15 +1983,31 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
             ]
         },
         "reactions-count": {
-            {
-                "count": {"type": "integer"},
-                "reaction": {"type": "string"}
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {"type": "integer"},
+                    "reaction": {"type": "string"}
+                },
+                "required": [
+                    "count",
+                    "reaction"
+                ]
             }
         },
         "user-reaction": {
-            {
-                "reaction": {"type": "string"},
-                "user-id": {"type": "string"}
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "reaction": {"type": "string"},
+                    "user-id": {"type": "string"}
+                },
+                "required": [
+                    "reaction",
+                    "user-id"
+                ]
             }
         }
     },
@@ -2059,7 +2079,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -2126,7 +2146,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
