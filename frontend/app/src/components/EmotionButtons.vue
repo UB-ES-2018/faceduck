@@ -58,7 +58,7 @@ export default {
     position: absolute
     background-color: #fff
     border: 1px solid #9b9797
-    left: 9%
+    left: 0%
     border-radius: 100px
     width: 300px
     
@@ -77,6 +77,7 @@ export default {
 
 .icons
     height: 26px
+    padding: 0px 25px
 
 .icons li
     padding: 10px
