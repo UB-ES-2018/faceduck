@@ -1,14 +1,21 @@
 <template>
     <div class="comments">
-        <div class="c-cnt">{{count}} comment(s)</div>
-        <div class="c-list" v-for="comment in comments" :key="comment.comment_id">
-            <div class="c-info">
-                <div class="c-main">{{comment.username}}: {{comment.text}}</div><!--WARNING - get real author-->
-            </div>
+        <div class="c-cnt" v-on:click="showComments=!showComments">{{count}} comment(s)
+            <span v-if="!showComments">Show</span>
+            <span v-else>Hide</span>
         </div>
         
-          <input type="c-text" placeholder="Your comment…" v-model="commentText">
-          <button class="c-post" v-on:click="postComment(post_id)">Post</button>
+        
+        <div class="c-hidden" v-if="showComments">
+            <div class="c-list" v-for="comment in comments" :key="comment.comment_id">
+                <div class="c-info">
+                    <div class="c-main">{{comment.username}}: {{comment.text}}</div><!--WARNING - get real author-->
+                </div>
+            </div>
+            
+        <input type="text" placeholder="Your comment…" v-model="commentText" v-on:keyup.enter="postComment(post_id)">
+        <button class="c-post" v-on:click="postComment(post_id)">Post</button>
+        </div>
         
     </div>
 
@@ -29,6 +36,7 @@ export default {
         raw_comments: [],
         count: Number,
         post_id: String,
+        showComments: false,
         //user: JSON.parse(localStorage.getItem("user"))
 	},
 	data() {
@@ -79,6 +87,7 @@ export default {
             this.raw_comments=this.comments;
             this.comments=[];
             this.comments=this.raw_comments;
+            this.commentText="";
 
         },
 		getComments: function(post_id){
@@ -102,3 +111,24 @@ export default {
 }
 
 </script>
+
+
+<style lang="sass" scoped>
+.comments
+  color: black
+
+.comments button
+  background-color: #ffb511
+  border: none
+  color: white
+  font-size: 12px
+  font-weight: bold
+  box-sizing: content-box
+  padding: 10px
+  border-radius: 10px
+  width: 60px
+  position: relative
+  left: 1% 
+  cursor: pointer
+
+</style>
