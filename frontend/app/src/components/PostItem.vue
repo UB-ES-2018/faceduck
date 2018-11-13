@@ -11,11 +11,11 @@
             <div class="post-image" v-if="post['image-url']">
                 <img v-bind:src="post['image-url']"/>
             </div>
-            <div class="emotions">
-                <EmotionCounter v-bind:post="post" v-if="!post.special"/>
+            <div class="reaction">
+                <EmotionCounter/>
             </div>
-            <div class="emotions">
-                <EmotionButtons v-bind:post="post" v-if="!post.special"/>
+            <div class="emotionsButton">
+                <EmotionButtons/>
                 <!-- FUTURE: comments -->
             </div>
         </div>
@@ -94,7 +94,7 @@ export default {
     max-height: 30rem
     
     overflow-y: scroll
-    overflow-wrap: break-word;
+    overflow-wrap: break-word
 
 .post-username
     font-weight: bold
@@ -112,7 +112,11 @@ img
     padding: 4px
     border-radius: 3px
 
-.emotions
+.reaction
+    border-top: 1px solid #aaa
+    align: "right"
+
+.emotionsButton
     border-top: 1px solid #aaa
     
 </style>

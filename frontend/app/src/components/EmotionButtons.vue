@@ -1,32 +1,54 @@
 <template>
 	<div>
         <ul class="icons" v-on:mouseover="isVisible = true;" v-on:mouseout="isVisible = false;">
-            <li><i class="fa fa-thumbs-up" aria-hidden="true"><span> Like </span></i></li>
+            <li><i class="fa fa-thumbs-up"><span> Like </span></i></li>
             <ul class="emotions" id="emotions" v-show="isVisible"><!--&lt;EmotionButtons/&gt;-->
-                <li><img src="http://www.northamericangoldwings.com/community/forums/uploads/reactions/facebook-love-png-44003.png" class="react"></li>
-                <li><img src="http://www.freeiconspng.com/uploads/facebook-live-love-png-1.png" class="react"></li>
-                <li><img src="http://clipart.info/images/ccovers/1499793248facebook-haha.png" class="react"></li>
-                <li><img src="https://cdn4.iconfinder.com/data/icons/reaction/32/angry-512.png" class="react"></li>
-                <li><img src="http://clipart.info/images/ccovers/1499793247facebook-sad-emoji-like-png.png" class="react"></li>
+                <li><img src="http://www.northamericangoldwings.com/community/forums/uploads/reactions/facebook-love-png-44003.png" class="react" v-on:click="addReaction('like')"></li>
+                <li><img src="http://www.freeiconspng.com/uploads/facebook-live-love-png-1.png" class="react" v-on:click="addReaction('love')"></li>
+                <li><img src="http://clipart.info/images/ccovers/1499793248facebook-haha.png" class="react" v-on:click="addReaction('laughing face')"></li>
+                <li><img src="https://cdn4.iconfinder.com/data/icons/reaction/32/angry-512.png" class="react" v-on:click="addReaction('angry face')"></li>
+                <li><img src="http://clipart.info/images/ccovers/1499793247facebook-sad-emoji-like-png.png" class="react" v-on:click="addReaction('sad crying face')"></li>
             </ul>
         </ul>
 	</div>
 </template>
 
 <script>
+
+var host = window.location.hostname;
+var apiAddReactionUrl = '//'+host+':5000/post/{post_id}/reactions';
+
 export default {
 	name: "EmotionButtons",
 	props: ["post"],
 	data() {
 		return {
-            isVisible: false,
+            isVisible: false
         }
-	},
-	methods: {
-		mouseOver: function() {
-			this.isVisible = true
-		}
-	}
+    },
+    methods: {
+        addReaction(e) {
+            e.preventDefault();
+
+            fetch(apiAddReactionUrl, {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({"reaction" : e})
+            })
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then((post) => {
+                        this.$root.$emit("showReaction", {
+                            post: post
+                        });
+                    })
+                }
+            }).catch((r) => alert(r));
+        },
+    },
 }
 </script>
 
@@ -40,7 +62,6 @@ export default {
     border-radius: 100px
     width: 300px
     
-
 .emotions li
     padding: 10px
     margin: 0 auto
@@ -54,26 +75,22 @@ export default {
 .react:hover
     transform: scale(1.7)
 
-
 .icons
-    display: block
     height: 26px
 
 .icons li
     padding: 10px
     padding-top: 5px
-    text-align: center
+    text-align: left
     cursor: pointer
     
 ul li
     list-style-type: none
     float: left
-    display: block
 
 .fa
 	width: 100px
     height: 100px
     color: #ffb511
-
 
 </style>
