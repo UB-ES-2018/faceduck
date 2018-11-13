@@ -1,4 +1,4 @@
-# Faceduck SP2
+# Faceduck SP3
 
 Run all dockerized services:
 

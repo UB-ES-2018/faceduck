@@ -1,22 +1,19 @@
 <template>
   <div id="PersonalWall">
     <NavBar/>
-    <h1>This is the Wall</h1>
     <div class="container" align="center">
-      <SearchBar redirect/>
+      <!--<SearchBar redirect/>-->
       <PostForm/>
-      <PostView/>
-      <PostsView/>
+      <PostList newsfeed/>
     </div>
   </div>
 </template>
 
 <script>
 import NavBar from "../components/NavBar.vue";
-import PostForm from "../components/PostForm.vue";
-import PostView from "../components/PostView.vue";
 import SearchBar from "../components/SearchBar.vue";
-import PostsView from "../components/PostsView.vue";
+import PostForm from "../components/PostForm.vue";
+import PostList from "../components/PostList.vue";
 
 var host = window.location.hostname;
 var apiSearchPost = '//' + host + ':5000/post/search';
@@ -25,39 +22,12 @@ export default {
   name: 'PersonalWall',
   components: {
     NavBar,
-    PostForm,
-    PostView,
     SearchBar,
-    PostsView,
-
+    PostForm,
+    PostList
   },
   data() {
-    return {
-      user: JSON.parse(localStorage.getItem("user"))
-    }
-  },
-  created() {
-    this.getPost()
-  },
-  updated() {
-    this.getPost()
-  },
-  methods: {
-    getPost() {
-      fetch(apiSearchPost, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("access-token"),
-          },
-          body: JSON.stringify({"author-id": JSON.parse(localStorage.getItem("user"))["id"]})
-      }).then(res => res.json())
-      .then(data => {
-          this.$root.$emit("getPosts", {
-            results: data,
-          }); 
-      }); 
-    }
+    return {};
   }
 }
 
