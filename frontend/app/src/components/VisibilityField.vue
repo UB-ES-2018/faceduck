@@ -2,7 +2,7 @@
 <template>
     <div>
     <b-dropdown class="VisF" v-model="visibility">
-        <button class="button is-active" type="button" slot="trigger">
+        <button class="button is-primary" type="button" slot="trigger">
             <template v-if="visibility==='Friends'">
                 <b-icon icon="account-multiple"></b-icon>
                 <span>Friends</span>
@@ -83,13 +83,6 @@
         position: relative
         left: 252px
         bottom: 5px
-    .VisF button
-        background-color: #ffb511
-        color: white
-    .VisF a.dropdown-item.is-active
-        background-color: #ffb511
-    .VisF div.dropdown-trigger
-        width: 150px
         
 </style>
 

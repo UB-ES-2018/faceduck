@@ -1,44 +1,57 @@
 <template>
-<nav class="navbar navbar-light" style="background-color: pale-sky;">
-    <h1 class="title">Faceduck</h1>
-    <SearchBar v-bind:redirect="!searchPage"/>
-    <form class="form-inline">
-      <div class="mr-sm-2"> 
-          <router-link to="/profile">{{user.username}}</router-link>
-      </div>
-      <div class="mr-sm-2">
-          <router-link to="/wall">Wall</router-link>
-      </div>
-      <button class="button" v-on:click="logout">Log Out</button>
-    </form>
-</nav>
+    <nav class = 'navbar navbar-light'>
+        <h1 class="title">Faceduck</h1>
+        <div class="searchBar">
+            <SearchBar v-bind:redirect="!searchPage" />
+        </div>
+        <form class="form-inline">
+    
+            <div class="mr-sm-2">
+                <router-link to="/profile">{{user.username}}</router-link>
+            </div>
+            <div class="mr-sm-2">
+                <router-link to="/wall">Wall</router-link>
+            </div>
+            <button class="button" v-on:click="logout">Log Out</button>
+        </form>
+    </nav>
 </template>
 
 <script>
-import SearchBar from "./SearchBar.vue";
-
-export default {
-    name: "NavBar",
-    data() {
-      return {
-        user: JSON.parse(localStorage.getItem("user")),
-        searchPage: (this.$route.name === "search")
-      }
-    },
-    methods: {
-        logout: function() {
-            localStorage.removeItem("access-token");
-            localStorage.removeItem("user");
-            this.$router.push("/");
+    import SearchBar from "./SearchBar.vue";
+    
+    export default {
+        name: "NavBar",
+        data() {
+            return {
+                user: JSON.parse(localStorage.getItem("user")),
+                searchPage: (this.$route.name === "search")
+            }
         },
-    },
-    components: {
-      SearchBar
+        methods: {
+            logout: function() {
+                localStorage.removeItem("access-token");
+                localStorage.removeItem("user");
+                this.$router.push("/");
+            },
+        },
+        components: {
+            SearchBar
+        }
     }
-}
 </script>
 
 <style lang="sass" scoped>
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css");
+nav
+    background-color: #404040
+    align-items: center
+    display: flex
+.searchBar
+    padding-left: 125px
+    left: 500px
+.form-inline
+    right: 25px
 .title
   font-family: "Avenir", Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
@@ -47,7 +60,7 @@ export default {
   color: #ffb511
   text-shadow: 3px 3px #555
   position: relative
-  font-size: 450%
+  font-size: 350%
 .button
   background-color: #ffb511
   border: none
