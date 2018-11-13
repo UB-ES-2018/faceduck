@@ -34,12 +34,8 @@ export default {
       user: JSON.parse(localStorage.getItem("user"))
     }
   },
-  created() {
-    this.getPost()
-  },
-  updated() {
-    this.getPost()
-  },
+  created() {},
+  updated() {},
 	methods: {}
 }
 

@@ -39,6 +39,8 @@ export default {
     created() {
         if (this.query)
             this._query = this.query.trim();
+        else
+            this._query = "";
 
         this.fetchPosts();
         this.$root.$on("postEvent", (event) => {
@@ -54,30 +56,33 @@ export default {
     methods: {
         configure() {
             var body = {};
+            var fetch_options = {
+                headers: {}
+            };
 
             if (this.newsfeed) {
+                fetch_options["method"] = "GET";
                 api = '//' + host + ':5000/post/newsfeed';
-            } else if (this.authorId)
-                body["author-id"] = this.authorId;
-            else if (this.newsfeed)
-                body["author-id"] = JSON.parse(localStorage.getItem("user")).id;
-            else if (this._query) {
-                // activate this when we have tags API
-                if (this._query.indexOf(" ") == -1 
-                    && this._query.lastIndexOf("#") == 0)
-                    body["tag"] = this._query.slice(1);
-                else
-                    body["query"] = this._query;
+            } else {
+                if (this.authorId)
+                    body["author-id"] = this.authorId;
+
+                else /*if (this._query)*/ {
+                    if (this._query.indexOf(" ") == -1 
+                        && this._query.lastIndexOf("#") == 0)
+                        body["tag"] = this._query.slice(1);
+                    else
+                        body["query"] = this._query;
+                }
+
+                fetch_options.headers["Content-Type"] = "application/json";
+                fetch_options["body"] = JSON.stringify(body);
+                fetch_options["method"] = "POST";
             }
 
-            this.fetch_options = {
-                "method": "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                },
-                body: JSON.stringify(body)
-            };
+            fetch_options.headers["Authorization"] = "Bearer " + localStorage.getItem("access-token");
+
+            this.fetch_options = fetch_options;
         },
         fetchPosts() {
             this.configure();
