@@ -29,8 +29,6 @@ export default {
         addReaction(reaction) {
             var apiAddReactionUrl = "//" + host + ":5000/post/";
             apiAddReactionUrl += this.post.id + "/reactions";
-            console.log(apiAddReactionUrl);
-            return;
 
             fetch(apiAddReactionUrl, {
                 method: "POST",
