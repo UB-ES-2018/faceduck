@@ -12,10 +12,10 @@
                 <img v-bind:src="post['image-url']"/>
             </div>
             <div class="reaction">
-                <EmotionCounter/>
+                <EmotionCounter v-bind:post="post"/>
             </div>
             <div class="emotionsButton">
-                <EmotionButtons/>
+                <EmotionButtons v-bind:post="post"/>
                 <!-- FUTURE: comments -->
             </div>
         </div>

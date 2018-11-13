@@ -16,7 +16,6 @@
 <script>
 
 var host = window.location.hostname;
-var apiAddReactionUrl = '//'+host+':5000/post/{post_id}/reactions';
 
 export default {
 	name: "EmotionButtons",
@@ -27,8 +26,11 @@ export default {
         }
     },
     methods: {
-        addReaction(e) {
-            e.preventDefault();
+        addReaction(reaction) {
+            var apiAddReactionUrl = "//" + host + ":5000/post/";
+            apiAddReactionUrl += this.post.id + "/reactions";
+            console.log(apiAddReactionUrl);
+            return;
 
             fetch(apiAddReactionUrl, {
                 method: "POST",
@@ -36,7 +38,7 @@ export default {
                     "Authorization": "Bearer " + localStorage.getItem("access-token"),
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({"reaction" : e})
+                body: JSON.stringify({"reaction" : reaction})
             })
             .then((response) => {
                 if (response.ok) {
