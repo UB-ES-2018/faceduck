@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d2a327e9-f5c9-4ea3-b176-7e9b0fdf2c70",
+		"_postman_id": "86497372-61e2-4569-921a-42f5a2a42374",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -114,6 +114,12 @@
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
+							"",
+							"",
+							"pm.test(\"Default visibility is public\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.visibility).to.eql(\"public\");",
+							"});",
 							"var json = pm.response.json();",
 							"pm.environment.set(\"post_id\", json[\"id\"])"
 						],
@@ -160,6 +166,67 @@
 			"response": []
 		},
 		{
+			"name": "Create Post With Private Visibility",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8269d348-be12-46e4-8769-f83fb6cfd570",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Default visibility is public\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.visibility).to.eql(\"private\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World\",\n\t\"visibility\": \"private\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Sitemap",
 			"event": [
 				{
@@ -181,7 +248,10 @@
 				},
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/sitemap.xml",
 					"protocol": "http",
@@ -319,7 +389,113 @@
 			"response": []
 		},
 		{
+			"name": "Search posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5484227b-892f-4ae3-a98d-ecf531e1dcf3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": \"test\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Newsfeed",
 			"event": [
 				{
 					"listen": "test",
@@ -530,7 +706,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"text\" : \"Primer comentario\"\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
@@ -550,7 +726,7 @@
 		},
 		{
 			"name": "Delete Comment",
-      "request": {
+			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
@@ -561,8 +737,8 @@
 						}
 					]
 				},
-        "method": "DELETE",
-        "header": [
+				"method": "DELETE",
+				"header": [
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -570,28 +746,27 @@
 						"value": "application/json"
 					}
 				],
-        "body": {
+				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"comment_id\" : 2\n}"
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
-          "protocol": "http",
+					"protocol": "http",
 					"host": [
 						"{{host}}"
 					],
 					"port": "{{port}}",
 					"path": [
-            "post",
+						"post",
 						"{{post_id}}",
 						"comments"
-            ]
+					]
 				}
 			},
 			"response": []
 		},
-
-    {
+		{
 			"name": "Create Post With Social Card Image",
 			"event": [
 				{
@@ -624,7 +799,6 @@
 					]
 				},
 				"method": "POST",
-
 				"header": [
 					{
 						"key": "Content-Type",

@@ -1,5 +1,5 @@
 <template>
-    <form enctype="multipart/form-data">
+    <form enctype="multipart/form-data" ref="image_form">
         <input type="file" 
                ref="image" 
                class=""
@@ -20,7 +20,7 @@ export default {
     },
     created() {
         this.$root.$on("clearImageUpload", () => {
-            this.$refs.image.files = [];
+            this.$refs.image_form.reset();
         });
     },
     methods: {
