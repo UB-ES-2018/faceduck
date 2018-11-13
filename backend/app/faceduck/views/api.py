@@ -112,10 +112,10 @@ def search_posts():
         posts = core.search_posts(query, user_id)
     elif "author-id" in content.keys():
         author_id = content["author-id"]
-        posts = core.search_posts_by_author(author_id)
+        posts = core.search_posts_by_author(author_id, user_id)
     elif "tag" in content.keys():
         tag = content["tag"]
-        posts = core.search_posts_by_tag(tag)
+        posts = core.search_posts_by_tag(tag, user_id)
     else:
         return client_error("001")
     try:
