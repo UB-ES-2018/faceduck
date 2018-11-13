@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
+import { Select } from 'buefy/dist/components/select';
+import Bootstrap from 'bootstrap';
 
+Vue.use(Bootstrap);
+Vue.component('b-select', Select);
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
