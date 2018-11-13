@@ -265,3 +265,13 @@ def remove_comment(post_id):
 def get_user(user_id):
     user = core.get_user(user_id)
     return jsonify(user_mapper(user))
+
+
+@api.route("/post/newsfeed")
+@jwt_required
+def get_newsfeed():
+    user_id = current_user.meta.id
+
+    newsfeed = core.get_newsfeed(user_id)
+
+    return jsonify([post_mapper(p) for p in newsfeed])

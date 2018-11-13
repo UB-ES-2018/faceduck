@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d2a327e9-f5c9-4ea3-b176-7e9b0fdf2c70",
+		"_postman_id": "86497372-61e2-4569-921a-42f5a2a42374",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -448,6 +448,54 @@
 		},
 		{
 			"name": "Get Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Newsfeed",
 			"event": [
 				{
 					"listen": "test",
