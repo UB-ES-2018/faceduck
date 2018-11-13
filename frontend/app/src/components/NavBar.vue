@@ -39,6 +39,15 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.title
+  font-family: "Avenir", Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  text-align: center
+  color: #ffb511
+  text-shadow: 3px 3px #555
+  position: relative
+  font-size: 450%
 .button
   background-color: #ffb511
   border: none
