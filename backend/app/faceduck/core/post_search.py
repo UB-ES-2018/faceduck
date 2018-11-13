@@ -14,7 +14,7 @@ def search_posts(query, user_id, start=START, size=SIZE):
 
     q = generate_search_query(user_id, base_q)
 
-    response = Post.search(q).from_dict().doc_type(Post).sort({"created_at": {"order": "desc"}})[start:size].execute()
+    response = Post.search(q).from_dict(q).doc_type(Post).sort({"created_at": {"order": "desc"}})[start:size].execute()
 
     return [d for d in response.hits]
 
