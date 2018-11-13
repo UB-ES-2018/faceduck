@@ -8,6 +8,7 @@ from faceduck.models.user import User
 from faceduck.utils import FaceduckError
 from elasticsearch_dsl import Search
 from .social_card import social_card_image
+from .friendship import get_full_friend_ids
 
 
 def create_post(text, author_id, image_url, visibility):
@@ -49,11 +50,18 @@ def social_card_for_post(text):
     return social_card_image(url)
 
 
-def get_post(post_id):
+def get_post(post_id, user_id):
     try:
         post = Post.get(id=post_id)
     except NotFoundError:
         raise FaceduckError("001")
+
+    if post.visibility == "private" and post.author != user_id:
+        raise FaceduckError("001")
+    elif post.visibility == "friends":
+        friends = get_full_friend_ids(post.author)
+        if user_id not in friends:
+            raise FaceduckError("001")
     
     return post
 
@@ -72,7 +80,7 @@ def search_reaction(post,user_id):
     return [d for d in response.hits]
 
 def set_reaction(post_id, user_id, reaction):
-    post = get_post(post_id)
+    post = get_post(post_id, user_id)
     r = search_reaction(post,user_id)
     if len(r):
         post.update_reaction(user_id,reaction)
@@ -81,22 +89,22 @@ def set_reaction(post_id, user_id, reaction):
     post.save()
 
 def delete_reaction(post_id,user_id):
-    post = get_post(post_id)
+    post = get_post(post_id, user_id)
     post.remove_reaction(user_id)
     post.save()
 
 def add_comment(post_id,user_id,text):
-    post = get_post(post_id)
+    post = get_post(post_id, user_id)
     c = post.add_comment(user_id,text)
     post.save()
     return c
 
-def get_comments(post_id):
-    post = get_post(post_id)
+def get_comments(post_id, user_id):
+    post = get_post(post_id, user_id)
     return post.get_comments()
 
-def remove_comment(post_id, comment_id):
-    post = get_post(post_id)
+def remove_comment(post_id, comment_id, user_id):
+    post = get_post(post_id, user_id)
     post.remove_comment(comment_id)
     post.save()
 

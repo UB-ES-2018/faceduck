@@ -77,8 +77,9 @@ def create_post():
 @api.route("/post/<post_id>")
 @jwt_required
 def get_post(post_id):
+    user_id = current_user.meta.id
     try:
-        post = core.get_post(post_id)
+        post = core.get_post(post_id, user_id)
         response = post_mapper(post)
     except FaceduckError as e:
         return client_error(e.id)
@@ -104,10 +105,11 @@ def search_users():
 @jwt_required
 def search_posts():
     content = request.get_json()
+    user_id = current_user.meta.id
     
     if "query" in content.keys():
         query = content["query"]
-        posts = core.search_posts(query)
+        posts = core.search_posts(query, user_id)
     elif "author-id" in content.keys():
         author_id = content["author-id"]
         posts = core.search_posts_by_author(author_id)
@@ -224,7 +226,7 @@ def delete_reactions(post_id):
 
 @api.route("/post/<post_id>/comments", methods=["GET"])
 def get_comments(post_id):
-    cmts = core.get_comments(post_id)
+    cmts = core.get_comments(post_id, None)
     try:
         return jsonify([comment_mapper(c) for c in cmts])
     except FaceduckError as e:
@@ -249,8 +251,9 @@ def add_comment(post_id):
 @jwt_required
 def remove_comment(post_id):
     try:
+        user_id = current_user.meta.id
         comment_id = request.json["comment_id"]
-        core.remove_comment(post_id, comment_id)
+        core.remove_comment(post_id, comment_id, user_id)
     except KeyError:
         return client_error("001")
     except FaceduckError as e:
