@@ -10,7 +10,7 @@ from elasticsearch_dsl import Search
 from .social_card import social_card_image
 
 
-def create_post(text, author_id, image_url):
+def create_post(text, author_id, image_url, visibility):
     id = uuid.uuid4()
     created_at = str(datetime.now().time())
     split_post = text.split(' ')
@@ -25,7 +25,16 @@ def create_post(text, author_id, image_url):
     if image_url is None:
         image_url = social_card_for_post(text)
 
-    post = Post(meta={'id': id}, text=text, created_at=created_at, author=author_id, image_url=image_url, tags=tags)
+    post = Post(
+        meta={'id': id},
+        text=text,
+        created_at=created_at,
+        author=author_id,
+        image_url=image_url,
+        tags=tags,
+        visibility=visibility
+    )
+
     post.save(refresh=True)
 
     return post

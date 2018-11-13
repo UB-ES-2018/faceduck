@@ -61,11 +61,12 @@ def create_post():
     try:
         text = request.json["text"]
         image_url = request.json.get("image-url", None)
+        visibility = request.json.get("visibility", "public")
     except KeyError:
         return client_error("001")
 
     try:
-        post = core.create_post(text, author_id, image_url)
+        post = core.create_post(text, author_id, image_url, visibility)
         response = post_mapper(post)
     except FaceduckError as e:
         return client_error(e.id)
