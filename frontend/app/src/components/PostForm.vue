@@ -3,8 +3,7 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
                 <div class="inline-input">
-                    <div></div>
-                    <VisField/>
+                    <VisField visible='visibility-change'/>
                 </div>
                 <fieldset class="inputs">
                     <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
@@ -32,7 +31,8 @@
                 post: {
                     "author-id": JSON.parse(localStorage.getItem("user"))["id"],
                     text: '',
-                    "image-url": ''
+                    "image-url": '',
+                    visibility:'friends',
                 }
             }
         },
@@ -42,12 +42,18 @@
                     this.post["image-url"] = event.url;
                 }
             });
+            this.$root.$on("visibilityChange", (event) => {
+                if (event.emitter === "visibility-change") {
+                    this.post.visibility = event.visibility;
+                    alert(event.visibility)
+                }
+            });
         },
         methods: {
             submitPost(e) {
                 e.preventDefault();
                 var post = this.post;
-    
+                alert(this.post.visibility)
                 fetch(apiPostFormUrl, {
                         method: "POST",
                         headers: {
