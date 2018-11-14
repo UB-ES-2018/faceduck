@@ -1,6 +1,6 @@
 
 <template>
-    <div>
+    <!--<div>
         <b-dropdown class="VisF" v-model="visibility" @change="setValue()">
             <button class="button is-primary" type="button" slot="trigger">
                 <template v-if="visibility==='friends'">
@@ -66,7 +66,16 @@
             </div>
         </b-dropdown-item>
     </b-dropdown>
-    </div>
+    </div>-->
+    <div id='VisField'>
+         <select name="VisF" v-model="this.visibility" required>
+                       <option value="" disabled selected>Select one…</option>
+                       <option value="public">Public</option>
+                       <option value="logged">Logged Only</option>
+                       <option value="friends">Friends Only</option>
+                       <option value="private">Only For Me</option>
+                     </select>
+     </div>
 </template>
 
 <script scoped>
@@ -79,8 +88,8 @@
                 }
 
         },
-        props:{
-            visible: String
+        /** props:{
+           visible: String
             },
         methods:{
             setValue(){
@@ -91,19 +100,25 @@
                             visibility: this.visibility
                         });
             }
-        }
+        }*/
 
         
         }
 </script>
 
 <style lang="sass" scoped>
-    @import url("https://cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css")
-    @import '../../node_modules/buefy/dist/buefy.css'
-    .VisF
-        position: relative
-        left: 252px
-        bottom: 5px
+    //@import url("https://cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css")
+    //@import '../../node_modules/buefy/dist/buefy.css'
+    #VisField
+         position: relative
+         left: 255px
+         bottom: 10px
+         height: 25px
+         font-size: 15px
+    //.VisF
+      //  position: relative
+      //  left: 252px
+      //  bottom: 5px
         
 </style>
 

@@ -3,7 +3,7 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
                 <div class="inline-input">
-                    <VisField visible='visibility-change'/>
+                    <VisField v-model='this.post.visibility' />
                 </div>
                 <fieldset class="inputs">
                     <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
@@ -42,18 +42,17 @@
                     this.post["image-url"] = event.url;
                 }
             });
-            this.$root.$on("visibilityChange", (event) => {
+            /** this.$root.$on("visibilityChange", (event) => {
                 if (event.emitter === "visibility-change") {
                     this.post.visibility = event.visibility;
                     alert(event.visibility)
                 }
-            });
+            });*/
         },
         methods: {
             submitPost(e) {
                 e.preventDefault();
                 var post = this.post;
-                alert(this.post.visibility)
                 fetch(apiPostFormUrl, {
                         method: "POST",
                         headers: {

@@ -1,9 +1,7 @@
 <template>
     <nav class = 'navbar navbar-light'>
         <h1 class="title">Faceduck</h1>
-        <div class="searchBar">
-            <SearchBar v-bind:redirect="!searchPage" />
-        </div>
+        <SearchBar v-bind:redirect="!searchPage" />
         <form class="form-inline">
     
             <div class="mr-sm-2">
@@ -43,24 +41,7 @@
 
 <style lang="sass" scoped>
 @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css");
-nav
-    background-color: #404040
-    align-items: center
-    display: flex
-.searchBar
-    padding-left: 125px
-    left: 500px
-.form-inline
-    right: 25px
-.title
-  font-family: "Avenir", Helvetica, Arial, sans-serif
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
-  text-align: center
-  color: #ffb511
-  text-shadow: 3px 3px #555
-  position: relative
-  font-size: 350%
+
 .button
   background-color: #ffb511
   border: none
