@@ -3,7 +3,7 @@ from faceduck.models.post import Post
 
 
 def get_newsfeed(user_id):
-    friend_ids = get_full_friend_ids(user_id)
+    friend_ids = get_full_friend_ids(user_id) + [user_id]
 
     friend_matches = []
 
