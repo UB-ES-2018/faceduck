@@ -96,14 +96,17 @@ export default {
             .then(res => {
                 if (res.length > 0)
                     this.list = res;
-                else
-                    this.list = [{
-                        "author": {
-                            "username": "No posts found"
-                        },
-                        "text": "",
-                        "special": "no-posts"
-                    }];
+                else {
+                    if (this.list && this.list.length > 0 && this.list[0].special) {
+                        this.list = [{
+                            "author": {
+                                "username": "No posts found"
+                            },
+                            "text": "",
+                            "special": "no-posts"
+                        }];
+                    }
+                }
             });
         }
     },
