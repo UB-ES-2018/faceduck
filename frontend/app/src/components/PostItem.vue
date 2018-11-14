@@ -16,7 +16,8 @@
             <!-- FUTURE: comments -->
             <CommentsView 
               v-bind:count="this.post['comments-count']"
-              v-bind:post_id="this.post['id']"/>
+              v-bind:post_id="this.post['id']"
+              v-if="!post.special"/>
         </div>
     </div>
 </template>
