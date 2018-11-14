@@ -23,7 +23,7 @@ def create_post(text, author_id, image_url, visibility):
     if User.get(id=author_id, ignore=404) is None:
         raise FaceduckError("001")
 
-    if image_url is None:
+    if image_url is None or len(image_url) == 0:
         image_url = social_card_for_post(text)
 
     post = Post(
