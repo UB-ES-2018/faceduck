@@ -14,13 +14,16 @@
             <!-- FUTURE: reaction counts -->
             <EmotionButtons v-bind:post="post" v-if="!post.special"/>
             <!-- FUTURE: comments -->
+            <CommentsView 
+              v-bind:count="this.post['comments-count']"
+              v-bind:post_id="this.post['id']"/>
         </div>
     </div>
 </template>
 
 <script>
 import EmotionButtons from "./EmotionButtons.vue";
-
+import CommentsView from "./CommentsView.vue";
 export default {
     name: "PostItem",
     props: ["post"],
@@ -70,7 +73,8 @@ export default {
         clearInterval(this.interval);
     },
     components: {
-        EmotionButtons
+        EmotionButtons,
+        CommentsView
     }
 }
 </script>
