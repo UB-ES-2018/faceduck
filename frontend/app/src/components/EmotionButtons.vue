@@ -3,11 +3,26 @@
         <ul class="icons" v-on:mouseover="isVisible = true;" v-on:mouseout="isVisible = false;">
             <li><i class="fa fa-thumbs-up"><span> Like </span></i></li>
             <ul class="emotions" id="emotions" v-show="isVisible"><!--&lt;EmotionButtons/&gt;-->
-                <li><img src="http://www.northamericangoldwings.com/community/forums/uploads/reactions/facebook-love-png-44003.png" class="react" v-on:click="addReaction('like')"></li>
-                <li><img src="http://www.freeiconspng.com/uploads/facebook-live-love-png-1.png" class="react" v-on:click="addReaction('love')"></li>
-                <li><img src="http://clipart.info/images/ccovers/1499793248facebook-haha.png" class="react" v-on:click="addReaction('laughing face')"></li>
-                <li><img src="https://cdn4.iconfinder.com/data/icons/reaction/32/angry-512.png" class="react" v-on:click="addReaction('angry face')"></li>
-                <li><img src="http://clipart.info/images/ccovers/1499793247facebook-sad-emoji-like-png.png" class="react" v-on:click="addReaction('sad crying face')"></li>
+                <li v-bind:data-selected="selected == 'like'"><img 
+                    src="http://www.northamericangoldwings.com/community/forums/uploads/reactions/facebook-love-png-44003.png" 
+                    class="react" 
+                    v-on:click="addReaction('like')"></li>
+                <li v-bind:data-selected="selected == 'love'"><img 
+                    src="http://www.freeiconspng.com/uploads/facebook-live-love-png-1.png" 
+                    class="react" 
+                    v-on:click="addReaction('love')"></li>
+                <li v-bind:data-selected="selected == 'laughing face'"><img 
+                    src="http://clipart.info/images/ccovers/1499793248facebook-haha.png" 
+                    class="react" 
+                    v-on:click="addReaction('laughing face')"></li>
+                <li v-bind:data-selected="selected == 'angry face'"><img 
+                    src="https://cdn4.iconfinder.com/data/icons/reaction/32/angry-512.png" 
+                    class="react" 
+                    v-on:click="addReaction('angry face')"></li>
+                <li v-bind:data-selected="selected == 'sad crying face'"><img 
+                    src="http://clipart.info/images/ccovers/1499793247facebook-sad-emoji-like-png.png" 
+                    class="react" 
+                    v-on:click="addReaction('sad crying face')"></li>
             </ul>
         </ul>
 	</div>
@@ -16,14 +31,20 @@
 <script>
 
 var host = window.location.hostname;
+var user_id = JSON.parse(localStorage.getItem("user")).id;
 
 export default {
 	name: "EmotionButtons",
 	props: ["post"],
 	data() {
 		return {
-            isVisible: false
+            isVisible: false,
+            selected: ""
         }
+    },
+    created() {
+        this.mapSelected(this.post);
+        console.log(this.selected)
     },
     methods: {
         addReaction(reaction) {
@@ -41,6 +62,7 @@ export default {
             .then((response) => {
                 if (response.ok) {
                     response.json().then((post) => {
+                        this.mapSelected(post);
                         this.$root.$emit("showReaction", {
                             post: post
                         });
@@ -48,6 +70,18 @@ export default {
                 }
             }).catch((r) => alert(r));
         },
+        mapSelected(post) {
+            if (post["user-reaction"] == undefined)
+                this.selected = "";
+            else {
+                post["user-reaction"].some((r) => {
+                    if (r["user-id"] == user_id) {
+                        this.selected = r["reaction"];
+                        return true;
+                    }
+                });
+            }
+        }
     },
 }
 </script>
@@ -66,6 +100,9 @@ export default {
     padding: 10px
     margin: 0 auto
     cursor: pointer
+
+.emotions li[data-selected] 
+    background-color: #4B0082
 
 .react
     width: 25px
