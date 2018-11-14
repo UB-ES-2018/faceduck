@@ -183,4 +183,9 @@ def get_full_friends(user_id):
 
 def get_full_friend_ids(user_id):
     friends = get_full_friends(user_id)
-    return [f.target_id for f in friends if f.state == 'friends']
+    def get_other(f):
+        if f.user_id == user_id:
+            return f.target_id
+        else:
+            return f.user_id
+    return [get_other(f) for f in friends if f.state == 'friends']
