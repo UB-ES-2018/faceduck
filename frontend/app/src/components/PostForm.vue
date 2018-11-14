@@ -42,12 +42,9 @@
                     this.post["image-url"] = event.url;
                 }
             });
-            /** this.$root.$on("visibilityChange", (event) => {
-                if (event.emitter === "visibility-change") {
-                    this.post.visibility = event.visibility;
-                    alert(event.visibility)
-                }
-            });*/
+            this.$root.$on("visibilityChange", (event) => {
+                this.post.visibility = event.visibility;
+            });
         },
         methods: {
             submitPost(e) {

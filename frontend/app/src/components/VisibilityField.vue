@@ -68,42 +68,39 @@
     </b-dropdown>
     </div>-->
     <div id='VisField'>
-         <select name="VisF" v-model="this.visibility" required>
-                       <option value="" disabled selected>Select one…</option>
-                       <option value="public">Public</option>
-                       <option value="logged">Logged Only</option>
-                       <option value="friends">Friends Only</option>
-                       <option value="private">Only For Me</option>
-                     </select>
+        <select name="VisF" v-on:change="setValue()" v-model="visibility" required>
+            <option value="" disabled selected>Select one…</option>
+            <option value="public">Public</option>
+            <option value="logged">Logged Only</option>
+            <option value="friends">Friends Only</option>
+            <option value="private">Only For Me</option>
+        </select>
      </div>
 </template>
 
 <script scoped>
     //import 'buefy/dist/buefy.css';
-    export default {
-        name: 'VisField',
-        data() {
-            return { 
-                visibility:'friends'
-                }
-
-        },
+export default {
+    name: 'VisField',
+    data() {
+        return { 
+            visibility:'friends'
+        }
+    },
         /** props:{
            visible: String
             },
-        methods:{
-            setValue(){
-                this.visibility=visibility
-                alert(this.visibility)
-                this.$root.$emit("visibilityChange", {
-                            emitter: this.visible,
-                            visibility: this.visibility
-                        });
-            }
-        }*/
-
         
+        }*/
+    methods:{
+        setValue(){
+            this.$root.$emit("visibilityChange", {
+                visibility: this.visibility
+            });
         }
+    }
+        
+}
 </script>
 
 <style lang="sass" scoped>
