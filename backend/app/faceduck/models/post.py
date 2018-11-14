@@ -76,7 +76,7 @@ class Post(Document):
                 r.reaction = reaction
 
         found = False
-        old_reaction=None
+        old_reaction = None
         for rc in self.reactions_count:
             if rc.reaction == old_reaction:
                 rc.count -= 1
