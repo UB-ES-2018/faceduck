@@ -71,12 +71,14 @@ class Post(Document):
 
 
     def update_reaction(self, user_id, reaction):
+        old_reaction = None
         for r in self.user_reaction:
             if r.user_id == user_id:
                 old_reaction = r.reaction
                 r.reaction = reaction
 
         found = False
+        
         for rc in self.reactions_count:
             if rc.reaction == old_reaction:
                 rc.count -= 1

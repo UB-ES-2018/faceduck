@@ -11,9 +11,13 @@
             <div class="post-image" v-if="post['image-url']">
                 <img v-bind:src="post['image-url']"/>
             </div>
-            <!-- FUTURE: reaction counts -->
-            <EmotionButtons v-bind:post="post" v-if="!post.special"/>
-            <!-- FUTURE: comments -->
+            <div class="reaction" v-if="!post.special">
+                <EmotionCounter v-bind:post="post"/>
+            </div>
+            <div class="emotionsButton" v-if="!post.special">
+                <EmotionButtons v-bind:post="post"/>
+                <!-- FUTURE: comments -->
+            </div>
             <CommentsView 
               v-bind:count="this.post['comments-count']"
               v-bind:post_id="this.post['id']"
@@ -24,7 +28,9 @@
 
 <script>
 import EmotionButtons from "./EmotionButtons.vue";
+import EmotionCounter from "./EmotionCounter.vue";
 import CommentsView from "./CommentsView.vue";
+
 export default {
     name: "PostItem",
     props: ["post"],
@@ -75,6 +81,7 @@ export default {
     },
     components: {
         EmotionButtons,
+        EmotionCounter,
         CommentsView
     }
 }
@@ -93,7 +100,7 @@ export default {
     max-height: 30rem
     
     overflow-y: scroll
-    overflow-wrap: break-word;
+    overflow-wrap: break-word
 
 .post-username
     font-weight: bold
@@ -110,5 +117,12 @@ img
     border: 1px #aaa solid
     padding: 4px
     border-radius: 3px
+
+.reaction
+    border-top: 1px solid #aaa
+    align: "right"
+
+.emotionsButton
+    border-top: 1px solid #aaa
     
 </style>

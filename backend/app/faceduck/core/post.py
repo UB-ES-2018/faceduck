@@ -18,7 +18,7 @@ def create_post(text, author_id, image_url, visibility):
     tags = []
     for word in split_post:
         word = remove_punct(word)
-        if word[0] == '#':
+        if len(word) > 0 and word[0] == '#':
             tags.append(word)
     if User.get(id=author_id, ignore=404) is None:
         raise FaceduckError("001")
@@ -59,7 +59,7 @@ def get_post(post_id, user_id):
     if post.visibility == "private" and post.author != user_id:
         raise FaceduckError("001")
     elif post.visibility == "friends":
-        friends = get_full_friend_ids(post.author)
+        friends = get_full_friend_ids(post.author) + [user_id]
         if user_id not in friends:
             raise FaceduckError("001")
     

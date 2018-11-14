@@ -3,7 +3,7 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitPost">
                 <div class="inline-input">
-                    <VisField v-model='this.post.visibility' />
+                    <VisibilityField v-model='this.post.visibility' />
                 </div>
                 <fieldset class="inputs">
                     <textarea cols="5" rows="5" type="text" name="post" id="text-box" v-model="post.text" placeholder="Say Something..."></textarea>
@@ -19,7 +19,7 @@
 
 <script>
     import ImageUploader from "./ImageUploader.vue";
-    import VisField from "./VisibilityField.vue";
+    import VisibilityField from "./VisibilityField.vue";
     
     var host = window.location.hostname;
     var apiPostFormUrl = '//' + host + ':5000/post';
@@ -75,7 +75,7 @@
         },
         components: {
             ImageUploader,
-            VisField,
+            VisibilityField,
         }
     };
 </script>
