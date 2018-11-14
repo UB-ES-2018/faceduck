@@ -11,10 +11,10 @@
             <div class="post-image" v-if="post['image-url']">
                 <img v-bind:src="post['image-url']"/>
             </div>
-            <div class="reaction">
+            <div class="reaction" v-if="!post.special">
                 <EmotionCounter v-bind:post="post"/>
             </div>
-            <div class="emotionsButton">
+            <div class="emotionsButton" v-if="!post.special">
                 <EmotionButtons v-bind:post="post"/>
                 <!-- FUTURE: comments -->
             </div>

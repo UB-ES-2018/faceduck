@@ -97,6 +97,14 @@ export default {
                         "text": "",
                         "special": "no-posts"
                     }];
+            }).catch(() => {
+                this.list = [{
+                    "author": {
+                        "username": "No posts found"
+                    },
+                    "text": "",
+                    "special": "no-posts"
+                }];
             });
         }
     },
