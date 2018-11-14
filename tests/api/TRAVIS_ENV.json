@@ -1,0 +1,21 @@
+{
+	"id": "41e219d1-cdb0-4dbd-b22a-f0e1723bd85d",
+	"name": "UNIX",
+	"values": [
+		{
+			"key": "host",
+			"value": "api",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "port",
+			"value": "5000",
+			"description": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2018-10-27T11:27:06.357Z",
+	"_postman_exported_using": "Postman/6.4.4"
+}

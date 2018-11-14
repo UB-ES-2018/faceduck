@@ -14,10 +14,16 @@
                         <img v-bind:src="result['image-url']" width="100%" />
                     </div>
                     <!--Closing image-->
+                    
                 </div>
                 <!--Closing info-->
             </div>
             <!--Closing lavel-->
+            <CommentsView 
+              v-bind:comments="result.comments"
+              v-bind:count="result['comments-count']"
+              v-bind:post_id="result.id"/>
+            <!--Closing comments-->
         </div>
         <!--Closing .option -->
     </div>
@@ -27,7 +33,7 @@
 <script>
     var host = window.location.hostname;
     var apiPostFormUrl = '//' + host + ':5000/post';
-    
+    import CommentsView from "./CommentsView.vue";
     export default {
     
         name: 'PostsView',
@@ -37,6 +43,9 @@
                 results: [],
                 nores: false,
             }
+        },
+        components: {
+            CommentsView
         },
         mounted: function() {
             this.$root.$on('getPosts', (text) => { // here you need to use the arrow function

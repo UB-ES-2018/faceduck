@@ -39,8 +39,7 @@ services:
       - api:api
     depends_on:
       - frontend
-    image: willwill/wait-for-it
-    entrypoint: "bash -c 'if [ $CI ]; then /wait-for-it.sh --timeout=60 elasticsearch:9200 && /wait-for-it.sh --timeout=15 api:5000 && /wait-for-it.sh --timeout=15 frontend:8080 && exit 0; fi;'"
+    build: tests/api
 
 volumes:
   node_modules:

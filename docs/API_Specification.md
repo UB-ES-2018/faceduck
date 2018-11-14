@@ -1,5 +1,27 @@
 # API Specification
 
+## Table of contents
+
+- [Summary of codes and ids](#summary-of-codes-and-ids)
+- [Sign up](#sign-up)
+- [Log in](#log-in)
+- [Create Post](#create-post)
+- [Get Post](#get-post)
+- [Search user](#search-user)
+- [Search post](#search-post)
+- [Create Media (Upload)](#create-media-upload)
+- [Create Friendship](#create-friendship)
+- [Update Friendship](#update-friendship)
+- [Get Friends](#get-friends)
+- [Delete Friendship](#delete-friendship)
+- [Add Comment](#add-comment)
+- [Get Post Comments](#get-post-comments)
+- [Delete Post Comment](#delete-post-comment)
+- [Add Reaction](#add-reaction)
+- [Delete Reaction](#delete-reaction)
+
+## Summary of codes and ids
+
 - HTTP Codes used
 
 | Code | Name                  |
@@ -241,7 +263,7 @@
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001",
                 "004"
@@ -295,12 +317,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "text": {"type": "string"},
-        "author-id": {"type": "string"},
         "image-url": {"type": "string"}
     },
     "required": [
-        "text",
-        "author-id"
+        "text"
     ]
 }
 ```
@@ -310,7 +330,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "text": "Hello this is a post.",
-    "author-id": "32",
     "image-url": "http://localhost:5000/media/1.jpg"
 }
 ```
@@ -410,7 +429,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -497,6 +516,34 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
                 "birthday",
                 "gender"
             ]
+        },
+        "reactions-count": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {"type": "integer"},
+                    "reaction": {"type": "string"}
+                },
+                "required": [
+                    "count",
+                    "reaction"
+                ]
+            }
+        },
+        "user-reaction": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "reaction": {"type": "string"},
+                    "user-id": {"type": "string"}
+                },
+                "required": [
+                    "reaction",
+                    "user-id"
+                ]
+            }
         }
     },
     "required": [
@@ -524,7 +571,27 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
         "birthday": "1984-10-01",
         "gender": "male"
     },
-    "image-url": "http://localhost:5000/media/1.jpg"
+    "image-url": "http://localhost:5000/media/1.jpg",
+    "reactions-count": [
+        {
+            "count": 1,
+            "reaction": "love"
+        },
+        {
+            "count": 1,
+            "reaction": "like"
+        }
+    ],
+    "user-reaction": [
+        {
+            "reaction": "like",
+            "user-id": "32"
+        },
+        {
+            "reaction": "love",
+            "user-id": "42"
+        }
+    ]
 }
 ```
 
@@ -547,7 +614,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -701,7 +768,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -832,6 +899,34 @@ Search by the author:
                     "birthday",
                     "gender"
                 ]
+            },
+            "reactions-count": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "count": {"type": "integer"},
+                        "reaction": {"type": "string"}
+                    },
+                    "required": [
+                        "count",
+                        "reaction"
+                    ]
+                }
+            },
+            "user-reaction": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "reaction": {"type": "string"},
+                        "user-id": {"type": "string"}
+                    },
+                    "required": [
+                        "reaction",
+                        "user-id"
+                    ]
+                }
             }
         },
         "required": [
@@ -859,7 +954,23 @@ Search by the author:
             "surname": "Master",
             "birthday": "1984-10-01",
             "gender": "male"
-        }
+        },
+        "reactions-count": [
+            {
+                "count": 2,
+                "reaction": "like"
+            }
+        ],
+        "user-reaction": [
+            {
+                "reaction": "like",
+                "user-id": "32"
+            },
+            {
+                "reaction": "like",
+                "user-id": "42"
+            }
+        ]
     },
     {
         "id": "34",
@@ -873,7 +984,23 @@ Search by the author:
             "surname": "Master2",
             "birthday": "1986-10-01",
             "gender": "female"
-        }
+        },
+        "reactions-count": [
+            {
+                "count": 2,
+                "reaction": "love"
+            }
+        ],
+        "user-reaction": [
+            {
+                "reaction": "love",
+                "user-id": "32"
+            },
+            {
+                "reaction": "love",
+                "user-id": "42"
+            }
+        ]
     }
 ]
 ```
@@ -897,7 +1024,7 @@ Search by the author:
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -999,7 +1126,7 @@ Multipart fields:
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001",
                 "010"
@@ -1086,9 +1213,12 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Create friendship success",
     "type": "object",
     "properties": {
-        "state": {"type": "string"},
+        "state": {
+            "type": "string",
+            "enum": ["pending", "friends"]
+        },
         "target_id": {"type": "string"},
-        "user_id": {"type": "string"},
+        "user_id": {"type": "string"}
     },
     "required": [
         "state",
@@ -1127,7 +1257,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1219,7 +1349,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "title": "Update friendship success",
     "type": "object",
     "properties": {
-        "state": {"type": "string"},
+        "state": {
+            "type": "string",
+            "enum": ["pending", "friends"]
+        },
         "target_id": {"type": "string"},
         "user_id": {"type": "string"}
     },
@@ -1260,7 +1393,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
             "enum": [
                 "001"
             ]
@@ -1317,20 +1450,26 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Get post success",
-    "type": "object",
-    "properties": {
-        "id": {"type": "string"},
-        "state": {"type": "string"},
-        "target_id": {"type": "string"},
-        "user_id": {"type": "string"}
-    },
-    "required": [
-        "id",
-        "state",
-        "target_id",
-        "user_id"
-    ]
+    "title": "Get friends success",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {"type": "string"},
+            "state": {
+                "type": "string",
+                "enum": ["pending", "friends"]
+            },
+            "target_id": {"type": "string"},
+            "user_id": {"type": "string"}
+        },
+        "required": [
+            "id",
+            "state",
+            "target_id",
+            "user_id"
+        ]
+    }
 }
 ```
 
@@ -1353,49 +1492,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ]
 ```
 
-### Response: client error
-
-`400 Bad Request`
-
-#### - Response headers
-
-| Property     | Values           |
-|--------------|:----------------:|
-| Content-Type | application/json |
-
-#### - Response body
-
-```json
-{
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Get post error",
-    "type": "object",
-    "properties": {
-        "error-id": {
-            "type": "integer",
-            "enum": [
-                "001"
-            ]
-        },
-        "error-message": {"type": "string"}
-    },
-    "required": ["error-id", "error-message"]
-}
-```
-
-*Examples:*
-
-```json
-{
-    "error-id": "001",
-    "error-message": "Invalid data"
-}
-```
-
 ### Response: server error
 
 `500 Internal Server Error`
-
 
 ## Delete Friendship
 
@@ -1422,7 +1521,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create friendship",
+    "title": "Delete friendship",
     "type": "object",
     "properties": {
         "target_id": {"type": "string"}
@@ -1460,11 +1559,594 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create post error",
+    "title": "Delete friendship error",
     "type": "object",
     "properties": {
         "error-id": {
-            "type": "integer",
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Add Comment
+
+### Request
+
+**POST** `/post/{post_id}/comments`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add comment",
+    "type": "object",
+    "properties": {
+        "text": {"type": "string"},
+    },
+    "required": [
+        "text"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "text" : "This is a test comment"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add comment success",
+    "type": "object",
+    "properties": {
+        "comment_id": {"type": "string"},
+        "text": {"type": "string"},
+        "user_id": {"type": "string"},
+    },
+    "required": [
+        "comment_id",
+        "text",
+        "user_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "comment_id": "1",
+    "text": "This is a test comment",
+    "user_id": "42",
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add comment error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Get Post Comments
+
+### Request
+
+**GET** `/post/{post_id}/comments`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+
+
+*Examples:*
+
+```
+Content-Type: application/json
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get comments success",
+    "type": "object",
+    "properties": {
+        "comment_id": {"type": "string"},
+        "text": {"type": "string"},
+        "user_id": {"type": "string"},
+    },
+    "required": [
+        "comment_id",
+        "text",
+        "user_id"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+[
+    {
+        "comment_id": "1",
+        "text": "This is a test comment",
+        "user_id": "42",
+    },
+    {
+        "comment_id": "2",
+        "text": "This is a test comment",
+        "user_id": "34",
+    }
+]
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get comments error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Delete Post Comment
+
+### Request
+
+**DELETE** `/post/{post_id}/comments`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+
+
+*Examples:*
+
+```
+Content-Type: application/json
+```
+
+### Response: success
+
+`204 No Content`
+
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Delete comment error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+
+
+## Add Reaction
+
+### Request
+
+**POST** `/post/{post_id}/reactions`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add reaction",
+    "type": "object",
+    "properties": {
+        "reaction": {"type": "string"},
+    },
+    "required": [
+        "reaction"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "reaction" : "like"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add reaction success",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "text": {"type": "string"},
+        "created-at": {"type": "string"},
+        "image-url": {"type": "string"},
+        "author": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "username": {"type": "string"},
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "birthday": {"type": "string"},
+                "gender": {"type": "string"}
+            },
+            "required": [
+                "id",
+                "username",
+                "email",
+                "name",
+                "surname",
+                "birthday",
+                "gender"
+            ]
+        },
+        "reactions-count": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {"type": "integer"},
+                    "reaction": {"type": "string"}
+                },
+                "required": [
+                    "count",
+                    "reaction"
+                ]
+            }
+        },
+        "user-reaction": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "reaction": {"type": "string"},
+                    "user-id": {"type": "string"}
+                },
+                "required": [
+                    "reaction",
+                    "user-id"
+                ]
+            }
+        }
+    },
+    "required": [
+        "id",
+        "text",
+        "created-at",
+        "author"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "id": "42",
+    "text": "Hello this is a post.",
+    "created-at": "12-01-2018, 03:45:34",
+    "author": {
+        "id": "32",
+        "username": "test123",
+        "email": "test@faceduck.com",
+        "name": "Scrum",
+        "surname": "Master",
+        "birthday": "1984-10-01",
+        "gender": "male"
+    },
+    "image-url": "http://localhost:5000/media/1.jpg",
+    "reactions-count": [
+        {
+            "count": 1,
+            "reaction": "love"
+        },
+        {
+            "count": 1,
+            "reaction": "like"
+        }
+    ],
+    "user-reaction": [
+        {
+            "reaction": "like",
+            "user-id": "32"
+        },
+        {
+            "reaction": "love",
+            "user-id": "42"
+        }
+    ]
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add reaction error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Delete Reaction
+
+### Request
+
+**DELETE** `/post/{post_id}/reactions`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+### Response: success
+
+`204 No Content`
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Delete reaction error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
             "enum": [
                 "001"
             ]
