@@ -11,6 +11,7 @@
 
 html 
   height: 100%
+  background-color: #404040
 
 
 body 
@@ -24,9 +25,9 @@ body
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   text-align: center
-  background-color: #404040
   color: #ffb511
   margin: 0
+  background-color: #404040
   flex-grow: 1
 
 

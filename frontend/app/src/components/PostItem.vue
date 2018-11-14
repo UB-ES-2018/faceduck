@@ -18,6 +18,10 @@
                 <EmotionButtons v-bind:post="post"/>
                 <!-- FUTURE: comments -->
             </div>
+            <CommentsView 
+              v-bind:count="this.post['comments-count']"
+              v-bind:post_id="this.post['id']"
+              v-if="!post.special"/>
         </div>
     </div>
 </template>
@@ -25,6 +29,7 @@
 <script>
 import EmotionButtons from "./EmotionButtons.vue";
 import EmotionCounter from "./EmotionCounter.vue";
+import CommentsView from "./CommentsView.vue";
 
 export default {
     name: "PostItem",
@@ -76,7 +81,8 @@ export default {
     },
     components: {
         EmotionButtons,
-        EmotionCounter
+        EmotionCounter,
+        CommentsView
     }
 }
 </script>

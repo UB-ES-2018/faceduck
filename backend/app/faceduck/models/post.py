@@ -19,6 +19,7 @@ class Post(Document):
     author = Text()
     image_url = Text()
     tags = Keyword(multi=True)
+    visibility = Keyword()  # public, friends, private
     user_reaction = Nested(Reaction)
     reactions_count = Nested(ReactionCount)
     comments = Nested(Comment)

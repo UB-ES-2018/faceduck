@@ -2,6 +2,7 @@ import uuid
 from faceduck.models.friendship import Friendship
 from faceduck.models.user import User
 from faceduck.utils import FaceduckError
+from elasticsearch.exceptions import NotFoundError
 
 
 def exists_friendship(user_id, target_id):
@@ -151,3 +152,35 @@ def get_friends(user_id):
     }).doc_type(Friendship).execute()
     
     return friends
+
+
+def get_full_friends(user_id):
+    try:
+        friends = Friendship.search().from_dict({
+            "query": {
+                "bool": {
+                    "must": {
+                        "match": {
+                            "state": "friends"
+                        }
+                    },
+                    "should": [
+                        {
+                            "multi_match": {
+                                "query": user_id,
+                                "fields": ["user_id", "target_id"]
+                            }
+                        }
+                    ]
+                }
+            }
+        }).doc_type(Friendship).execute()
+    except NotFoundError:
+        raise FaceduckError("001")
+
+    return friends
+
+
+def get_full_friend_ids(user_id):
+    friends = get_full_friends(user_id)
+    return [f.target_id for f in friends if f.state == 'friends']
