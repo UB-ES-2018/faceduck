@@ -81,7 +81,7 @@
 <script scoped>
     //import 'buefy/dist/buefy.css';
 export default {
-    name: 'VisField',
+    name: 'VisibilityField',
     data() {
         return { 
             visibility:'friends'

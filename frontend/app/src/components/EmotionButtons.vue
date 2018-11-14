@@ -74,6 +74,7 @@ export default {
             if (post["user-reaction"] == undefined)
                 this.selected = "";
             else {
+                this.selected = "";
                 post["user-reaction"].some((r) => {
                     if (r["user-id"] == user_id) {
                         this.selected = r["reaction"];
