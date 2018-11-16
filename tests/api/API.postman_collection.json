@@ -941,12 +941,12 @@
 							"raw": "{\n\t\"name\" : \"Test Group\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group",
+							"raw": "http://{{host}}:{{port}}/group",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group"
 							]
@@ -999,12 +999,12 @@
 							"raw": "{\n\t\"name\" : \"Test Delete Group\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group",
+							"raw": "http://{{host}}:{{port}}/group",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group"
 							]
@@ -1047,14 +1047,13 @@
 							"raw": "{\n\t\"name\" : \"Test Group\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}",
+							"raw": "http://{{host}}:{{port}}/{{group_id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
-								"group",
 								"{{group_id}}"
 							]
 						}
@@ -1096,12 +1095,12 @@
 							"raw": "{\n\t\"name\" : \"Test Group\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id_rem}}",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id_rem}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id_rem}}"
@@ -1154,12 +1153,12 @@
 							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/posts",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1213,12 +1212,12 @@
 							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/posts",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1270,12 +1269,12 @@
 							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/posts",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1327,12 +1326,12 @@
 							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/posts",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1384,12 +1383,12 @@
 							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/posts/{{group_post_id_rem}}",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts/{{group_post_id_rem}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1435,12 +1434,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/members",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1485,12 +1484,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/members/admins",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members/admins",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1543,12 +1542,12 @@
 							"raw": "{\n\t\"user_id\" : \"{{user_id2}}\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/members",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1654,12 +1653,12 @@
 							"raw": "{\n\t\"user_id\" : \"{{user_id2}}\",\n\t\"admin\" : true\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/members",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1708,12 +1707,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/members/admins",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members/admins",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1766,12 +1765,12 @@
 							"raw": "{\n\t\"user_id\" : \"{{user_id2}}\",\n\t\"admin\" : false\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/members",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1820,12 +1819,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/members/admins",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members/admins",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
@@ -1878,12 +1877,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/group/{{group_id}}/members/{{user_id2}}",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members/{{user_id2}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "5000",
+							"port": "{{port}}",
 							"path": [
 								"group",
 								"{{group_id}}",
