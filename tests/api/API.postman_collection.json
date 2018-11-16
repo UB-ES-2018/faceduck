@@ -909,7 +909,8 @@
 									"});",
 									"",
 									"var json = pm.response.json();",
-									"pm.environment.set(\"group_id\", json[\"id\"]);"
+									"",
+									"pm.environment.set(\"group_id\", json[\"id\"])"
 								],
 								"type": "text/javascript"
 							}
@@ -966,7 +967,8 @@
 									"});",
 									"",
 									"var json = pm.response.json();",
-									"pm.environment.set(\"group_id_rem\", json[\"id\"]);"
+									"",
+									"pm.environment.set(\"group_id_rem\", json[\"id\"])"
 								],
 								"type": "text/javascript"
 							}
@@ -1119,8 +1121,9 @@
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
 									"});",
+									"",
 									"var json = pm.response.json();",
-									"pm.environment.set(\"group_post_id\", json[\"id\"]);"
+									"pm.environment.set(\"group_post_id\", json[\"id\"])"
 								],
 								"type": "text/javascript"
 							}
@@ -1177,8 +1180,9 @@
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
 									"});",
+									"",
 									"var json = pm.response.json();",
-									"pm.environment.set(\"group_post_id_rem\", json[\"id\"]);"
+									"pm.environment.set(\"group_post_id_rem\", json[\"id\"])"
 								],
 								"type": "text/javascript"
 							}
