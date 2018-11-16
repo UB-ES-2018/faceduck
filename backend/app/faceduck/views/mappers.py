@@ -14,8 +14,11 @@ def user_mapper(user):
     for attr in dir(user):
         key = attr.replace("_", "-")
         
-        if attr != "password":
+        if attr == "groups":
+            user_dict[key] = list(getattr(user,attr))
+        elif attr != "password":
             user_dict[key] = getattr(user, attr)
+
 
     return user_dict
 
@@ -77,3 +80,18 @@ def post_mapper(post):
             post_dict[key] = getattr(post, attr)
 
     return post_dict
+
+def group_mapper(group):
+    group_dict = {"id" : group.meta.id}
+
+    for attr in dir(group):
+        key = attr.replace("_","-")
+
+        if key == "admins" or key == "users":
+            users = [user_mapper(u) for u in getattr(group, attr)]
+            group_dict[key] = users
+        elif key == "posts":
+            continue
+        else:
+            group_dict[key] = getattr(group,attr)
+    return group_dict
