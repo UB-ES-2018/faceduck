@@ -5,9 +5,9 @@ from faceduck.models.user import User
 class Group(Document):
     name = Text()
     image_url = Text()
-    admins = Keyword(multi=True)
-    users = Keyword(multi=True) #Users + Admins
-    posts = Nested(Post)
+    admins = Text(multi=True)
+    users = Text(multi=True) #Users + Admins
+    posts = Text(multi=True)
     class Index:
         name = 'group'
 
@@ -19,9 +19,10 @@ class Group(Document):
             self.admins.append(user_id)
 
     def addUser(self,user):
-        if user.meta.user_id not in self.users:
-            self.users.append(user.meta.user_id)
+        if user.meta.id not in self.users:
+            self.users.append(user.meta.id)
             user.addGroup(self.meta.id)
+            user.save()
 
 
     def isAdmin(self, user_id):
@@ -34,13 +35,14 @@ class Group(Document):
             return True
         return False
 
-    def removeUser(self,user_id):
-        if user_id in self.users:
-            self.users.remove(user_id)
-        if user_id in self.admins:
-            self.admins.remove(user_id)
+    def removeUser(self,user):
+        if user.meta.id in self.users:
+            self.users.remove(user.meta.id)
+        if user.meta.id in self.admins:
+            self.admins.remove(user.meta.id)
         user.removeGroup(self.meta.id)
-    
+        user.save()
+
     def makeUser(self,user_id):
         if user_id in self.admins:
             self.admins.remove(user_id)
@@ -51,14 +53,13 @@ class Group(Document):
     def getAdmins(self):
         return self.admins
 
-    def addPost(self, post):
-        self.posts.append(post)
+    def addPost(self, post_id):
+        self.posts.append(post_id)
 
     def removePost(self,post_id):
         for post in self.posts:
-            if post.meta.id == post_id:
+            if post == post_id:
                 self.posts.remove(post)
-                post.remove()
 
     def getPosts(self):
         return self.posts

@@ -1,10 +1,845 @@
 {
 	"info": {
-		"_postman_id": "86497372-61e2-4569-921a-42f5a2a42374",
+		"_postman_id": "b545662c-2bf5-42e3-831b-6a3ca49b080e",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Group",
+			"item": [
+				{
+					"name": "Create Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									"",
+									"var json = pm.response.json();",
+									"pm.environment.set(\"group_id\", json[\"id\"])"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Group\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Group To Remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									"",
+									"var json = pm.response.json();",
+									"pm.environment.set(\"group_id_rem\", json[\"id\"])"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Delete Group\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get  Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+								"exec": [
+									"pm.test(\"Successful GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Group\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test Group\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id_rem}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id_rem}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Group Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									"var json = pm.response.json();",
+									"pm.environment.set(\"group_post_id\", json[\"id\"])"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Group Post To Remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									"var json = pm.response.json();",
+									"pm.environment.set(\"group_post_id_rem\", json[\"id\"])"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group Posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Group Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/posts/{{group_post_id_rem}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"posts",
+								"{{group_post_id_rem}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group Members",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0819a47-74fe-4b4d-a9df-572eea843598",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group Admins",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2aa3eb2e-4c9c-4120-a9b1-c90b5bf8d4b3",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/members/admins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"members",
+								"admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user to group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token2}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_id\" : \"{{user_id2}}\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change User2 to Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token2}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_id\" : \"{{user_id2}}\",\n\t\"admin\" : true\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change User2 to Member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token2}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_id\" : \"{{user_id2}}\",\n\t\"admin\" : false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Group Member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/group/{{group_id}}/members/{{user_id2}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"{{group_id}}",
+								"members",
+								"{{user_id2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Create User",
 			"event": [
@@ -50,7 +885,105 @@
 			"response": []
 		},
 		{
+			"name": "Create User2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c33c1a6f-b3a4-4ee9-8fbc-0fee7d5968d2",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"patata\",\n\t\"email\": \"test@test.com\",\n\t\"password\": \"1234\",\n\t\"name\": \"Test User\",\n\t\"surname\": \"Surname\",\n\t\"birthday\": \"1990-01-01\",\n\t\"gender\": \"male\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/user",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c33c1a6f-b3a4-4ee9-8fbc-0fee7d5968d2",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"var json = pm.response.json();",
+							"",
+							"// TODO: Check has access-token",
+							"",
+							"pm.environment.set(\"token\", json[\"access-token\"])",
+							"pm.environment.set(\"user_id\", json.user[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"1234\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/session",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login2",
 			"event": [
 				{
 					"listen": "test",
@@ -166,6 +1099,203 @@
 			"response": []
 		},
 		{
+			"name": "Post Comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"Primer comentario\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Reaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e9a9e4e-9663-4246-b4aa-a3204ba37176",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"reaction\" : \"like\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"reactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post With Social Card Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e242ee78-3161-440c-aa57-5afada1027d8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"API processed correct social image\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"image-url\"]).to.eql(\"https://static01.nyt.com/images/2018/03/20/business/00ZUCKTOWN-8/00ZUCKTOWN-8-facebookJumbo-v2.jpg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Hey Mark, look at that: https://www.nytimes.com/2018/03/21/technology/facebook-zucktown-willow-village.html\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sitemap",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b8778f9-5b73-4c01-9df0-a985a31b51b0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Content-Type is application/xml\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/xml\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/sitemap.xml",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"sitemap.xml"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Post With Private Visibility",
 			"event": [
 				{
@@ -227,60 +1357,15 @@
 			"response": []
 		},
 		{
-			"name": "Sitemap",
+			"name": "Get Newsfeed",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "5b8778f9-5b73-4c01-9df0-a985a31b51b0",
-						"type": "text/javascript",
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
 						"exec": [
-							"pm.test(\"Content-Type is application/xml\", function () {",
-							"    pm.response.to.have.header(\"Content-Type\", \"application/xml\");",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{host}}:{{port}}/sitemap.xml",
-					"protocol": "http",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"sitemap.xml"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Post with tag",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "e242ee78-3161-440c-aa57-5afada1027d8",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Post object contains tag\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.tags).to.contain(\"#postmantest\")",
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -298,30 +1383,24 @@
 						}
 					]
 				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
+				"method": "GET",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World #postmantest\"\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{host}}:{{port}}/post",
-					"protocol": "http",
+					"raw": "{{host}}:{{port}}/post/{{post_id}}",
 					"host": [
 						"{{host}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"post"
+						"post",
+						"{{post_id}}"
 					]
-				}
+				},
+				"description": "Not working?"
 			},
 			"response": []
 		},
@@ -389,6 +1468,41 @@
 			"response": []
 		},
 		{
+			"name": "Get Comments",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Search posts",
 			"event": [
 				{
@@ -447,111 +1561,20 @@
 			"response": []
 		},
 		{
-			"name": "Get Post",
+			"name": "Create Post with tag",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"id": "e242ee78-3161-440c-aa57-5afada1027d8",
 						"exec": [
-							"pm.test(\"Successful GET request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}:{{port}}/post/{{post_id}}",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"post",
-						"{{post_id}}"
-					]
-				},
-				"description": "Not working?"
-			},
-			"response": []
-		},
-		{
-			"name": "Get Newsfeed",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
-						"exec": [
-							"pm.test(\"Successful GET request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}:{{port}}/post/{{post_id}}",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"post",
-						"{{post_id}}"
-					]
-				},
-				"description": "Not working?"
-			},
-			"response": []
-		},
-		{
-			"name": "Add Reaction",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "1e9a9e4e-9663-4246-b4aa-a3204ba37176",
-						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Post object contains tag\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.tags).to.contain(\"#postmantest\")",
 							"});"
 						],
 						"type": "text/javascript"
@@ -574,151 +1597,23 @@
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"reaction\" : \"like\"\n}"
+					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World #postmantest\"\n}"
 				},
 				"url": {
-					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
+					"raw": "http://{{host}}:{{port}}/post",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"post",
-						"{{post_id}}",
-						"reactions"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Reaction",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "8d79e4a2-5ed8-474b-8f22-7ff357449cf2",
-						"exec": [
-							"pm.test(\"Successful DELETE request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
-					"protocol": "http",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"post",
-						"{{post_id}}",
-						"reactions"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Post Comment",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"text\" : \"Primer comentario\"\n}"
-				},
-				"url": {
-					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
-					"protocol": "http",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"post",
-						"{{post_id}}",
-						"comments"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Comments",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/comments",
-					"protocol": "http",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"post",
-						"{{post_id}}",
-						"comments"
+						"post"
 					]
 				}
 			},
@@ -767,20 +1662,15 @@
 			"response": []
 		},
 		{
-			"name": "Create Post With Social Card Image",
+			"name": "Get Post",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "e242ee78-3161-440c-aa57-5afada1027d8",
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"API processed correct social image\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData[\"image-url\"]).to.eql(\"https://static01.nyt.com/images/2018/03/20/business/00ZUCKTOWN-8/00ZUCKTOWN-8-facebookJumbo-v2.jpg\");",
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -798,28 +1688,71 @@
 						}
 					]
 				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
+				"method": "GET",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"text\": \"Hey Mark, look at that: https://www.nytimes.com/2018/03/21/technology/facebook-zucktown-willow-village.html\"\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{host}}:{{port}}/post",
+					"raw": "{{host}}:{{port}}/post/{{post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Reaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d79e4a2-5ed8-474b-8f22-7ff357449cf2",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post/{{post_id}}/reactions",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"post"
+						"post",
+						"{{post_id}}",
+						"reactions"
 					]
 				}
 			},

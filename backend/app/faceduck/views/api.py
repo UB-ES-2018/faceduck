@@ -282,9 +282,12 @@ def get_newsfeed():
 def create_group():
     user_id = current_user.meta.id
     name = request.json["name"]
-    image_url = request.json["image-url"]
+    if "image-url" in request.get_json().keys():
+        image_url = request.json["image-url"]
+    else:
+        image_url = ""
     group = core.create_group(name,image_url,user_id)
-    return group_mapper(group)
+    return jsonify(group_mapper(group))
 
 @api.route("/group/<group_id>", methods=["GET"])
 def get_group(group_id):
@@ -307,7 +310,10 @@ def get_posts(group_id):
 def create_group_post(group_id):
     user_id = current_user.meta.id
     text = request.json["text"]
-    image_url = request.json["image-url"]
+    if "image-url" in request.get_json().keys():
+        image_url = request.json["image-url"]
+    else:
+        image_url = ""
     post = core.create_group_post(group_id,user_id,text,image_url)
     return jsonify(post_mapper(post))
 
@@ -325,18 +331,18 @@ def remove_group_post(group_id,post_id):
 @jwt_required
 def get_group_members(group_id):
     members = core.get_group_members(group_id)
-    return jsonify([user_mapper(m) for m in members])
+    return jsonify([user_mapper(core.get_user(m)) for m in members])
 
 @api.route("/group/<group_id>/members/admins", methods=["GET"])
 @jwt_required
 def get_group_admins(group_id):
     admins = core.get_group_admins(group_id)
-    return jsonify([user_mapper(a) for a in admins])
+    return jsonify([user_mapper(core.get_user(a)) for a in admins])
 
 @api.route("/group/<group_id>/members", methods=["POST"])
 @jwt_required
 def add_user_to_group(group_id):
-    if request.json["user_id"]:
+    if "user_id" in request.get_json().keys():
         user_id = request.json["user_id"]
     else:
         user_id = current_user.meta.id
@@ -347,7 +353,7 @@ def add_user_to_group(group_id):
 @api.route("/group/<group_id>/members", methods=["PUT"])
 @jwt_required
 def change_user_role(group_id):
-    if request.json["user_id"]:
+    if "user_id" in request.get_json().keys():
         user_id = request.json["user_id"]
     else:
         user_id = current_user.meta.id

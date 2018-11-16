@@ -1,6 +1,6 @@
 from .signup import create_user
 from .login import login_user
-from .post import create_post, get_post, set_reaction, delete_reaction, add_comment, get_comments, remove_comment
+from .post import *
 from .user import get_user, get_all_users
 from .upload import upload_media
 from .user_search import search_users
