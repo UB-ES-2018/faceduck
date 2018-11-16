@@ -292,7 +292,7 @@ def get_group(group_id):
 
 @api.route("/group/<group_id>", methods=["DELETE"])
 @jwt_required
-def get_group(group_id):
+def remove_group(group_id):
     core.remove_group(group_id)
     return ("",204)
 
@@ -329,7 +329,7 @@ def get_group_members(group_id):
 
 @api.route("/group/<group_id>/members/admins", methods=["GET"])
 @jwt_required
-def get_group_members(group_id):
+def get_group_admins(group_id):
     admins = core.get_group_admins(group_id)
     return jsonify([user_mapper(a) for a in admins])
 
