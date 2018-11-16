@@ -279,7 +279,7 @@ def get_newsfeed():
 
 @api.route("/group", methods=["POST"])
 @jwt_required
-def create_group()
+def create_group():
     user_id = current_user.meta.id
     name = request.json["name"]
     image_url = request.json["image-url"]
