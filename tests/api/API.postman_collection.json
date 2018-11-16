@@ -1047,13 +1047,14 @@
 							"raw": "{\n\t\"name\" : \"Test Group\"\n}"
 						},
 						"url": {
-							"raw": "http://{{host}}:{{port}}/{{group_id}}",
+							"raw": "http://{{host}}:{{port}}/group/{{group_id}}",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
+								"group",
 								"{{group_id}}"
 							]
 						}
