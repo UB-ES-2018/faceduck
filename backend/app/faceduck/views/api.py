@@ -35,13 +35,14 @@ def signup():
 @api.route('/session', methods=["POST"])
 def login():
     req = request.get_json()
+    device = request.headers.get('User-Agent')
     try:
         email = req['email']
         password = req['password']
     except KeyError:
         return client_error("001")
     try:
-        user, token = core.login_user(email, password)
+        user, token = core.login_user(email, password, device)
         return jsonify({
             'user': user_mapper(user),
             'access-token': token
