@@ -1,5 +1,5 @@
 FROM node:slim
-ADD /app/package.json /app/package.json
+COPY /app/package.json /app/package.json
 WORKDIR /app
 RUN npm install
 
