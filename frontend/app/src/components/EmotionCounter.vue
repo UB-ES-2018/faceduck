@@ -1,16 +1,12 @@
 <template>
-    <div class="emotions" id="emotions" v-show="isVisible"><!--&lt;EmotionButtons/&gt;-->
-        <li v-if="like > 0"><img src="http://www.northamericangoldwings.com/community/forums/uploads/reactions/facebook-love-png-44003.png" class="react"> {{like}} </li>
-        <li v-if="love > 0"><img src="http://www.freeiconspng.com/uploads/facebook-live-love-png-1.png" class="react"> {{love}} </li>
-        <li v-if="laughing > 0"><img src="http://clipart.info/images/ccovers/1499793248facebook-haha.png" class="react"> {{laughing}} </li>
-        <li v-if="angry > 0"><img src="https://cdn4.iconfinder.com/data/icons/reaction/32/angry-512.png" class="react"> {{angry}} </li>
-        <li v-if="sad > 0"><img src="http://clipart.info/images/ccovers/1499793247facebook-sad-emoji-like-png.png" class="react"> {{sad}} </li>
-        <!--
-            v-if="post['reactions-count'][0]['reaction'] === 'love'"
-            v-if="post['reactions-count'][0]['reaction'] === 'laughing face'"
-            v-if="post['reactions-count'][0]['reaction'] === 'angry face'"
-            v-if="post['reactions-count'][0]['reaction'] === 'sad crying face'"
-        -->
+    <div class="emotions" id="emotions" v-show="isVisible">
+    <ul>
+        <li v-if="like > 0"><img src="/emotions/like.png" class="react"> {{like}} </li>
+        <li v-if="love > 0"><img src="/emotions/love.png" class="react"> {{love}} </li>
+        <li v-if="laughing > 0"><img src="/emotions/laughing_face.png" class="react"> {{laughing}} </li>
+        <li v-if="angry > 0"><img src="/emotions/angry_face.png" class="react"> {{angry}} </li>
+        <li v-if="sad > 0"><img src="/emotions/sad_crying_face.png" class="react"> {{sad}} </li>
+    </ul>
     </div>
 </template>
 
@@ -26,17 +22,18 @@ export default {
             laughing: 0,
             angry: 0,
             sad: 0,
-            _post: {}
+            post_: {}
         }
     },
 
     created() {
-        this._post = this.post;
+        this.post_ = this.post;
         this.updateVisibleReactions();
 
+        /* istanbul ignore next */
         this.$root.$on("showReaction", (event) => {
             if (event.post.id == this.post.id) {
-                this._post = event.post;
+                this.post_ = event.post;
                 this.updateVisibleReactions();
             }
         });
@@ -54,9 +51,9 @@ export default {
             //var reactions = JSON.stringify(this.post["reactions-count"]);
             
             this.resetCounts();
-            if (this._post["reactions-count"] == undefined) return;
+            if (this.post_["reactions-count"] == undefined) return;
 
-            this._post["reactions-count"].forEach((reaction) => {
+            this.post_["reactions-count"].forEach((reaction) => {
                 var reaction_name = reaction["reaction"];
 
                 switch (reaction_name) {
