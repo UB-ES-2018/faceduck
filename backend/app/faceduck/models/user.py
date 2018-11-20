@@ -2,8 +2,10 @@ from elasticsearch_dsl import Document, Date, Nested, Boolean, Text, Integer, In
 
 
 class LoginLog(InnerDoc):
-    user_id = Text()
-    log = Text()
+    ip = Text()
+    device = Text()
+    date = Date()
+    state = Boolean()
 
 class User(Document):
     username = Text()
@@ -14,6 +16,8 @@ class User(Document):
     surname = Text()
     birthday = Date()
     gender = Text()
+
+    login_logs = Nested(LoginLog)
     
     #location = Text()
     #description = Text()
@@ -32,4 +36,27 @@ class User(Document):
     
     def save(self, ** kwargs):
         return super().save(** kwargs)
+
+    def add_log(self, device, ip, state, date):
+        entry = LoginLog(device=device, ip=ip, state=state, date=date)
+        self.login_logs.append(entry)
+        return entry
+
+    def get_login_logs(self):
+        return self.login_logs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

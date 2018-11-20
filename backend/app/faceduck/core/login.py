@@ -20,21 +20,24 @@ def get_user_by_email(email):
     return email_response.hits[0]
 
 
-def login_user(email, password, device):
+def login_user(email, password, device, ip):
     user = get_user_by_email(email)
 
     if user is None:
         raise FaceduckError("004")
 
     if not check_password_hash(user.password, password):
+        add_log(user, device, ip, False)
         raise FaceduckError("004")
 
     token = SessionKeeping.generate_jwt_token(user.meta.id)
 
-    add_log(user, device)
+    add_log(user, device, ip, True)
 
     return user, token
 
-def add_log(user, device):
+def add_log(user, device,ip, state):
     time = datetime.datetime.now()
-    time2 = time.srftime("%Y-%m-%d %H:%M")
+    #time2 = time.srftime("%Y-%m-%d %H:%M")
+    user.add_log(device, ip, state, time)
+    user.save()

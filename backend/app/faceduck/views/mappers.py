@@ -10,11 +10,9 @@ ERRORS = {
 
 def user_mapper(user):
     user_dict = {"id": user.meta.id}
-
     for attr in dir(user):
         key = attr.replace("_", "-")
-        
-        if attr != "password":
+        if attr != "password" and attr != "login_logs":
             user_dict[key] = getattr(user, attr)
 
     return user_dict
@@ -77,3 +75,8 @@ def post_mapper(post):
             post_dict[key] = getattr(post, attr)
 
     return post_dict
+
+
+def log_mapper(log):
+    log_dict = {"device": log.device, "ip": log.ip, "state": log.state, "date": log.date}
+    return log_dict

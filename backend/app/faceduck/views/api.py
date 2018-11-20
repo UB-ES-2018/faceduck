@@ -3,7 +3,7 @@ from faceduck.blueprints import api
 from faceduck import core
 from faceduck.utils import FaceduckError
 from flask_jwt_extended import jwt_required, current_user
-from .mappers import user_mapper, post_mapper, comment_mapper, friendship_mapper
+from .mappers import user_mapper, post_mapper, comment_mapper, friendship_mapper, log_mapper
 from faceduck.views.view_utils import client_error
 
 
@@ -36,13 +36,14 @@ def signup():
 def login():
     req = request.get_json()
     device = request.headers.get('User-Agent')
+    ip = request.remote_addr
     try:
         email = req['email']
         password = req['password']
     except KeyError:
         return client_error("001")
     try:
-        user, token = core.login_user(email, password, device)
+        user, token = core.login_user(email, password, device, ip)
         return jsonify({
             'user': user_mapper(user),
             'access-token': token
@@ -276,3 +277,15 @@ def get_newsfeed():
     newsfeed = core.get_newsfeed(user_id)
 
     return jsonify([post_mapper(p) for p in newsfeed])
+
+@api.route("/login_logs")
+@jwt_required
+def get_login_logs():
+    user_id = current_user.meta.id
+
+    logs = core.get_login_logs(user_id)
+    try:
+        return jsonify([log_mapper(p) for p in logs])
+    except FaceduckError as e:
+        return client_error(e.id)
+
