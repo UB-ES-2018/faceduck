@@ -71,7 +71,7 @@
         <select name="VisF" v-on:change="setValue()" v-model="visibility" required>
             <option value="" disabled selected>Select one…</option>
             <option value="public">Public</option>
-            <option value="logged">Logged Only</option>
+            <option value="loggedin">Logged Only</option>
             <option value="friends">Friends Only</option>
             <option value="private">Only For Me</option>
         </select>
