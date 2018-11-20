@@ -64,18 +64,4 @@ describe("PostItem.vue", () => {
 		expect(wrapper.find(".emotionsButton").exists()).toBeFalsy();
 		expect(wrapper.find(".comments").exists()).toBeFalsy();
 	});
-
-	it("renders duckload properly", () => {
-		const wrapper = factory({post: {
-			"special": "duckload",
-			"author": {
-				username: "This is a special test"
-			},
-			"text": "Follow instructions to properly run jest."
-		}});
-
-		setTimeout(() => {
-			expect(wrapper.find(".post-text").text()).toContain("🐤");
-		}, 200);
-	});
 });
