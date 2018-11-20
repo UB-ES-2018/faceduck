@@ -42,7 +42,7 @@ export default {
             var text = this.post.text;
             text = text.replace(/<.*script/, "&lt;script");
             var tags = text.match(/#[^\s]+/g);
-
+            //console.log(this.post)
             if (!tags) return text;
 
             for (var i = 0; i < tags.length; i++) {
