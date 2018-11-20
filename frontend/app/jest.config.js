@@ -20,5 +20,10 @@ module.exports = {
     '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
   ],
   testURL: 'http://localhost/',
-  setupFiles: ["./tests/UnitSetup.js"]
+  setupFiles: ["./tests/UnitSetup.js"],
+  collectCoverageFrom: [
+    "**/{components|views}/*.{vue}",
+    "!**/node_modules/**",
+    "!**/vendor/**"
+  ]
 }

@@ -46,4 +46,36 @@ describe("PostItem.vue", () => {
 		expect(wrapper.find(".post-text a").text()).toEqual("#hashtag");
 		expect(wrapper.find(".post-text a").attributes("href")).toEqual("/search?query=%23hashtag");
 	});
+
+	it("renders special posts properly", () => {
+		const wrapper = factory({post: {
+			"special": "test-special",
+			"author": {
+				username: "This is a special test"
+			},
+			"text": "Follow instructions to properly run jest."
+		}});
+
+		expect(wrapper.find(".post-username span").exists()).toBeTruthy();
+		expect(wrapper.find(".post-username span").text()).toEqual("This is a special test");
+		expect(wrapper.find(".post-text").text()).toEqual("Follow instructions to properly run jest.");
+		expect(wrapper.find(".post-image").exists()).toBeFalsy();
+		expect(wrapper.find(".reaction").exists()).toBeFalsy();
+		expect(wrapper.find(".emotionsButton").exists()).toBeFalsy();
+		expect(wrapper.find(".comments").exists()).toBeFalsy();
+	});
+
+	it("renders duckload properly", () => {
+		const wrapper = factory({post: {
+			"special": "duckload",
+			"author": {
+				username: "This is a special test"
+			},
+			"text": "Follow instructions to properly run jest."
+		}});
+
+		setTimeout(() => {
+			expect(wrapper.find(".post-text").text()).toContain("🐤");
+		}, 200);
+	});
 });
