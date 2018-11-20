@@ -228,7 +228,7 @@ def delete_reactions(post_id):
 @jwt_optional
 def get_comments(post_id):
     try:
-        user_id = current_user.meta.id if current_user is not None else None
+        user_id = (current_user or None) and current_user.meta.id
         core.get_post(post_id, user_id)
         cmts = core.get_comments(post_id, None)
 
