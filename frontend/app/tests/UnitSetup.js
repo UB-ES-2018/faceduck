@@ -1,3 +1,6 @@
+/**
+ * Mock localStorage
+ */
 class LocalStorageMock {
   constructor() {
     this.store = {};
@@ -18,7 +21,7 @@ class LocalStorageMock {
   removeItem(key) {
     delete this.store[key];
   }
-};
+}
 
 global.localStorage = new LocalStorageMock;
 
@@ -31,14 +34,19 @@ var fakePromise = {
   catch: () => { return { ...fakePromise } }
 }
 
-global.fetch = () => { return { ...fakePromise } };
+global.fetch = jest.fn(() => { return { ...fakePromise } });
 
-localStorage.setItem("user", JSON.stringify({
+
+/**
+ * Mock user data
+ */
+global.user = {
   "id": "90ada2f2-1b5d-4319-9c55-77ea566015e4",
   "username": "john",
   "name": "John",
   "surname": "Appleseed",
   "email": "john@apple.com", 
   "gender": "other"
-}));
+};
+localStorage.setItem("user", JSON.stringify(global.user));
 
