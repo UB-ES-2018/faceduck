@@ -182,6 +182,9 @@
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.visibility).to.eql(\"private\");",
 							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"private_post_id\", jsonData[\"id\"])",
 							""
 						],
 						"type": "text/javascript"
@@ -211,6 +214,134 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World\",\n\t\"visibility\": \"private\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post With Logged In Visibility",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8269d348-be12-46e4-8769-f83fb6cfd570",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Default visibility is public\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.visibility).to.eql(\"loggedin\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"logged_post_id\", jsonData[\"id\"])",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World\",\n\t\"visibility\": \"loggedin\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/post",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post With Public visiblity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8269d348-be12-46e4-8769-f83fb6cfd570",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Default visibility is public\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.visibility).to.eql(\"public\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"public_post_id\", jsonData[\"id\"])",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"author-id\": \"{{user_id}}\",\n\t\"text\": \"Hello World\",\n\t\"visibility\": \"public\"\n}"
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/post",
@@ -488,6 +619,246 @@
 					"path": [
 						"post",
 						"{{post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Private Post without Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{private_post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{private_post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Logged Post without Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{logged_post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{logged_post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Public Post without Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{public_post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{public_post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Logged Post with Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{logged_post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{logged_post_id}}"
+					]
+				},
+				"description": "Not working?"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Private Post with Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db15a6e3-dbd7-459a-a75b-7a4917f5cccd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/post/{{private_post_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"post",
+						"{{private_post_id}}"
 					]
 				},
 				"description": "Not working?"

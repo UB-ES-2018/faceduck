@@ -2,7 +2,7 @@ from flask import make_response, request, jsonify
 from faceduck.blueprints import api
 from faceduck import core
 from faceduck.utils import FaceduckError
-from flask_jwt_extended import jwt_required, current_user
+from flask_jwt_extended import jwt_required, jwt_optional, current_user
 from .mappers import user_mapper, post_mapper, comment_mapper, friendship_mapper
 from faceduck.views.view_utils import client_error
 
@@ -75,10 +75,10 @@ def create_post():
 
 
 @api.route("/post/<post_id>")
-@jwt_required
+@jwt_optional
 def get_post(post_id):
-    user_id = current_user.meta.id
     try:
+        user_id = (current_user or None) and current_user.meta.id
         post = core.get_post(post_id, user_id)
         response = post_mapper(post)
     except FaceduckError as e:
@@ -203,7 +203,7 @@ def add_reactions(post_id):
     try:
         user_id = current_user.meta.id
         reaction = request.json["reaction"]
-        core.set_reaction(post_id,user_id,reaction)
+        core.set_reaction(post_id, user_id, reaction)
         response = get_post(post_id)
 
     except KeyError:
@@ -225,9 +225,13 @@ def delete_reactions(post_id):
 
 
 @api.route("/post/<post_id>/comments", methods=["GET"])
+@jwt_optional
 def get_comments(post_id):
-    cmts = core.get_comments(post_id, None)
     try:
+        user_id = (current_user or None) and current_user.meta.id
+        core.get_post(post_id, user_id)
+        cmts = core.get_comments(post_id, None)
+
         return jsonify([comment_mapper(c) for c in cmts])
     except FaceduckError as e:
         return client_error(e.id)
