@@ -48,5 +48,13 @@ export default new Router({
             meta: { requiresAuth: true }
 
         },
+        {
+            path: '/login_logs',
+            name: 'All account\'s logins',
+            component: () =>
+                import ( /* webpackChunkName: "search" */ './views/Login_logs.vue'),
+            meta: { requiresAuth: true }
+
+        },
     ]
 })

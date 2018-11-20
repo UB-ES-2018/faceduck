@@ -278,6 +278,7 @@ def get_newsfeed():
 
     return jsonify([post_mapper(p) for p in newsfeed])
 
+
 @api.route("/login_logs")
 @jwt_required
 def get_login_logs():
