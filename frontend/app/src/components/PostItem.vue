@@ -62,11 +62,13 @@ export default {
         this.special();
     },
     updated() {
+        /* istanbul ignore next */
         this.special();
     },
     methods: {
         special() {
             clearInterval(this.interval);
+            /* istanbul ignore next */
             if (this.post.special == "duckload") {
                 this.interval = setInterval(() => {
                     if (this.post.text.length < 48) 
@@ -77,6 +79,7 @@ export default {
         }
     },
     beforeDestroy() {
+        /* istanbul ignore next */
         clearInterval(this.interval);
     },
     components: {
