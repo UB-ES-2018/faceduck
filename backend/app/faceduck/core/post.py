@@ -68,8 +68,11 @@ def get_post(post_id, user_id):
         friends = get_full_friend_ids(post.author) + [user_id]
         if user_id not in friends:
             raise FaceduckError("001")
+    elif post.visibility == "loggedin" and user_id is None:
+        raise FaceduckError("001")
     
     return post
+
 
 def remove_punct(word):
     new_word = ""
