@@ -34,8 +34,6 @@ export default {
 	},
 	data() {
 		return {
-			authors: [],
-            commentText: ""
 		}
 	},
 	mounted() {
