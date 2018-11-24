@@ -1,5 +1,4 @@
 from faceduck.core.user import get_user
-import sys
 ERRORS = {
     "001": {"error-id": "001", "error-message": "Invalid data"},
     "002": {"error-id": "002", "error-message": "Already existing username"},
@@ -88,7 +87,6 @@ def group_mapper(group):
         key = attr.replace("_","-")
 
         if key == "admins" or key == "users":
-            print(getattr(group,attr),file=sys.stderr)
             users = [user_mapper(get_user(u)) for u in getattr(group, attr)]
             group_dict[key] = users
         elif key == "posts":

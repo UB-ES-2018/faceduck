@@ -285,7 +285,10 @@ def get_newsfeed():
 @jwt_required
 def create_group():
     user_id = current_user.meta.id
-    name = request.json["name"]
+    try:
+        name = request.json["name"]
+    except KeyError:
+        return client_error("001")
     if "image-url" in request.get_json().keys():
         image_url = request.json["image-url"]
     else:
@@ -313,7 +316,10 @@ def get_posts(group_id):
 @jwt_required
 def create_group_post(group_id):
     user_id = current_user.meta.id
-    text = request.json["text"]
+    try:
+        text = request.json["text"]
+    except KeyError:
+        return client_error("001")
     if "image-url" in request.get_json().keys():
         image_url = request.json["image-url"]
     else:
@@ -362,7 +368,10 @@ def change_user_role(group_id):
     else:
         user_id = current_user.meta.id
 
-    admin = request.json["admin"]
+    try:
+        admin = request.json["admin"]
+    except KeyError:
+        return client_error("001")
     core.change_user_role(group_id,user_id,admin)
     return("",204)
 

@@ -2244,7 +2244,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Create post success",
+    "title": "Create group success",
     "type": "object",
     "properties": {
         "id": {"type": "string"},
