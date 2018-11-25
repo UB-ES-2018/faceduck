@@ -22,24 +22,32 @@
             PostItem,
             NavBar,
         },
+        methods: {
+            setIdpost() {
+                return this.$route.params.idpost
+            },
+            fetchData() {
+                fetch(apiPostFormUrl + '/' + this.idpost, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                    },
+                }).then(res => {
+                    if (res.ok) {
+                        res.json().then(data => {
+                            this.post = data
+                        })
+                        //console.log(this.post)
+                    } else {
+                        this.$router.push("/");
+                    }
+                })
+            }
+        },
         created() {
-            this.idpost = this.$route.params.idpost
-            fetch(apiPostFormUrl + '/' + this.idpost, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                },
-            }).then(res => {
-                if (res.ok) {
-                    res.json().then(data => {
-                        this.post = data
-                    })
-                    //console.log(this.post)
-                } else {
-                    this.$router.push("/");
-                }
-            })
+            this.idpost = this.setIdpost()
+            this.fetchData()
         },
     
     }
