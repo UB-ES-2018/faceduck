@@ -3,3 +3,4 @@ __pycache__
 .idea
 !backend/app/uploads/.emptyfile
 backend/app/uploads/
+backend/app/.coverage
