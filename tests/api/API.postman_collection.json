@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "86497372-61e2-4569-921a-42f5a2a42374",
+		"_postman_id": "8249e42b-30f3-4318-9ad9-8f232fba9500",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1191,6 +1191,29 @@
 					"port": "{{port}}",
 					"path": [
 						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shutdown API",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/shutdown",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"shutdown"
 					]
 				}
 			},
