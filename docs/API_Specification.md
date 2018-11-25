@@ -19,6 +19,19 @@
 - [Delete Post Comment](#delete-post-comment)
 - [Add Reaction](#add-reaction)
 - [Delete Reaction](#delete-reaction)
+- [Create Group](#create-group)
+- [Get Group](#get-group)
+- [Delete Group](#delete-group)
+- [Create Group Post](#create-group-post)
+- [Get Group Posts](#get-group-posts)
+- [Get Group Post](#get-group-post)
+- [Delete Group Post](#delete-group-post)
+- [Add Member to Group](#add-member-to-group)
+- [Get Group Members](#get-group-members)
+- [Get Group Admins](#get-group-admins)
+- [Update User Role](#update-user-role)
+- [Get Group User](#get-group-user)
+- [Delete Group User](#delete-group-user)
 
 ## Summary of codes and ids
 
@@ -2143,6 +2156,1707 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Delete reaction error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Create Group
+
+### Request
+
+**POST** `/group`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create post",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string"},
+        "image-url": {"type": "string"}
+    },
+    "required": [
+        "name"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "name": "Test Group",
+    "image-url": "http://localhost:5000/media/1.jpg"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create group success",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "image-url": {"type": "string"},
+        "admins": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "username": {"type": "string"},
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "name": {"type": "string"},
+                    "surname": {"type": "string"},
+                    "birthday": {"type": "string"},
+                    "gender": {"type": "string"}
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "name",
+                    "surname",
+                    "birthday",
+                    "gender"
+                ]
+            }
+        },
+        "users": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "username": {"type": "string"},
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "name": {"type": "string"},
+                    "surname": {"type": "string"},
+                    "birthday": {"type": "string"},
+                    "gender": {"type": "string"}
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "name",
+                    "surname",
+                    "birthday",
+                    "gender"
+                ]
+            }
+        }
+    },
+    "required": [
+        "id",
+        "name"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "id": "300",
+    "name": "Test Group",
+    "image-url": "http://localhost:5000/media/1.jpg",
+    "admins": [
+        {
+            "id" : "45",
+            "username" : "test",
+            "email" : "test@test.com",
+            "name" : "Test",
+            "surname" : "User",
+            "birthday": "1984-10-01",
+            "gender": "male"
+        }
+    ],
+    "users": [
+        {
+            "id" : "45",
+            "username" : "test",
+            "email" : "test@test.com",
+            "name" : "Test",
+            "surname" : "User",
+            "birthday": "1984-10-01",
+            "gender": "male"
+        }
+    ]
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create group error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+
+## Get Group
+
+### Request
+
+**GET** `/group/{group_id}`
+
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create post success",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "image-url": {"type": "string"},
+        "admins": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "username": {"type": "string"},
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "name": {"type": "string"},
+                    "surname": {"type": "string"},
+                    "birthday": {"type": "string"},
+                    "gender": {"type": "string"}
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "name",
+                    "surname",
+                    "birthday",
+                    "gender"
+                ]
+            }
+        },
+        "users": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "username": {"type": "string"},
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "name": {"type": "string"},
+                    "surname": {"type": "string"},
+                    "birthday": {"type": "string"},
+                    "gender": {"type": "string"}
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "name",
+                    "surname",
+                    "birthday",
+                    "gender"
+                ]
+            }
+        },
+        "posts": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "text": {"type": "string"},
+                    "created-at": {"type": "string"},
+                    "image-url": {"type": "string"},
+                    "author": {"type":"User"},
+                    "reactions-count" : {"type":"array"},
+                    "user-reaction":{"type":"array"}
+                },
+                "required": [
+                    "id",
+                    "text",
+                    "created-at",
+                    "author"
+                ]
+            }
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "admins",
+        "users"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "id": "300",
+    "name": "Test Group",
+    "image-url": "http://localhost:5000/media/1.jpg",
+    "admins": [
+        {
+            "id" : "45",
+            "username" : "test",
+            "email" : "test@test.com",
+            "name" : "Test",
+            "surname" : "User",
+            "birthday": "1984-10-01",
+            "gender": "male"
+        }
+    ],
+    "users": [
+        {
+            "id" : "45",
+            "username" : "test",
+            "email" : "test@test.com",
+            "name" : "Test",
+            "surname" : "User",
+            "birthday": "1984-10-01",
+            "gender": "male"
+        },{
+            "id" : "45",
+            "username" : "test",
+            "email" : "test@test.com",
+            "name" : "Test",
+            "surname" : "User",
+            "birthday": "1984-10-01",
+            "gender": "male"
+        }
+    ],
+    "posts":[
+        {
+            "id": "42",
+            "text": "Hello this is a post.",
+            "created-at": "12-01-2018, 03:45:34",
+            "author": {
+                "id": "32",
+                "username": "test123",
+                "email": "test@faceduck.com",
+                "name": "Scrum",
+                "surname": "Master",
+                "birthday": "1984-10-01",
+                "gender": "male"
+            },
+            "image-url": "http://localhost:5000/media/1.jpg",
+            "reactions-count": [
+                {
+                    "count": 1,
+                    "reaction": "love"
+                },
+                {
+                    "count": 1,
+                    "reaction": "like"
+                }
+            ],
+            "user-reaction": [
+                {
+                    "reaction": "like",
+                    "user-id": "32"
+                },
+                {
+                    "reaction": "love",
+                    "user-id": "42"
+                }
+            ]
+        }
+    ]
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get group error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Delete Group
+
+### Request
+
+**DELETE** `/group/{group_id}`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+### Response: success
+
+`204 No Content`
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Delete group error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Create Group Post
+
+### Request
+
+**POST** `/group/{group_id}/posts`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create post",
+    "type": "object",
+    "properties": {
+        "text": {"type": "string"},
+        "image-url": {"type": "string"}
+    },
+    "required": [
+        "text"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "text": "Hello this is a group post.",
+    "image-url": "http://localhost:5000/media/1.jpg"
+}
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create group post success",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "text": {"type": "string"},
+        "created-at": {"type": "string"},
+        "image-url": {"type": "string"},
+        "author": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "username": {"type": "string"},
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "birthday": {"type": "string"},
+                "gender": {"type": "string"}
+            },
+            "required": [
+                "id",
+                "username",
+                "email",
+                "name",
+                "surname",
+                "birthday",
+                "gender"
+            ]
+        }
+    },
+    "required": [
+        "id",
+        "text",
+        "created-at",
+        "author"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "id": "42",
+    "text": "Hello this is a group post.",
+    "created-at": "12-01-2018, 03:45:34",
+    "author": {
+        "id": "32",
+        "username": "test123",
+        "email": "test@faceduck.com",
+        "name": "Scrum",
+        "surname": "Master",
+        "birthday": "1984-10-01",
+        "gender": "male"
+    },
+    "image-url": "http://localhost:5000/media/1.jpg"
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Create group post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+
+## Get Group Posts
+
+### Request
+
+**GET** `/group/{group_id}/posts`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+
+*Examples:*
+
+```
+Content-Type: application/json
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get group posts success",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "text": {"type": "string"},
+            "created-at": {"type": "string"},
+            "author": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "username": {"type": "string"},
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "name": {"type": "string"},
+                    "surname": {"type": "string"},
+                    "birthday": {"type": "string"},
+                    "gender": {"type": "string"}
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "name",
+                    "surname",
+                    "birthday",
+                    "gender"
+                ]
+            },
+            "reactions-count": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "count": {"type": "integer"},
+                        "reaction": {"type": "string"}
+                    },
+                    "required": [
+                        "count",
+                        "reaction"
+                    ]
+                }
+            },
+            "user-reaction": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "reaction": {"type": "string"},
+                        "user-id": {"type": "string"}
+                    },
+                    "required": [
+                        "reaction",
+                        "user-id"
+                    ]
+                }
+            }
+        },
+        "required": [
+            "text",
+            "created-at",
+            "author"
+        ]
+    }
+}
+```
+
+*Examples:*
+
+```json
+[
+    {
+        "id": "45",
+        "text": "Hello this is a post.",
+        "created-at": "12-01-2018, 03:45:34",
+        "author": {
+            "id": "32",
+            "username": "test123",
+            "email": "test@faceduck.com",
+            "name": "Scrum",
+            "surname": "Master",
+            "birthday": "1984-10-01",
+            "gender": "male"
+        },
+        "reactions-count": [
+            {
+                "count": 2,
+                "reaction": "like"
+            }
+        ],
+        "user-reaction": [
+            {
+                "reaction": "like",
+                "user-id": "32"
+            },
+            {
+                "reaction": "like",
+                "user-id": "42"
+            }
+        ]
+    },
+    {
+        "id": "34",
+        "text": "Hello this is another post.",
+        "created-at": "13-01-2018, 03:45:34",
+        "author": {
+            "id": "34",
+            "username": "test2",
+            "email": "test2@faceduck.com",
+            "name": "Scrum",
+            "surname": "Master2",
+            "birthday": "1986-10-01",
+            "gender": "female"
+        },
+        "reactions-count": [
+            {
+                "count": 2,
+                "reaction": "love"
+            }
+        ],
+        "user-reaction": [
+            {
+                "reaction": "love",
+                "user-id": "32"
+            },
+            {
+                "reaction": "love",
+                "user-id": "42"
+            }
+        ]
+    }
+]
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get group posts error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Get Group Post
+
+### Request
+
+**GET** `/group/{group_id}/posts/{post_id}`
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get group post success",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "text": {"type": "string"},
+        "created-at": {"type": "string"},
+        "image-url": {"type": "string"},
+        "author": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "username": {"type": "string"},
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "birthday": {"type": "string"},
+                "gender": {"type": "string"}
+            },
+            "required": [
+                "id",
+                "username",
+                "email",
+                "name",
+                "surname",
+                "birthday",
+                "gender"
+            ]
+        },
+        "reactions-count": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {"type": "integer"},
+                    "reaction": {"type": "string"}
+                },
+                "required": [
+                    "count",
+                    "reaction"
+                ]
+            }
+        },
+        "user-reaction": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "reaction": {"type": "string"},
+                    "user-id": {"type": "string"}
+                },
+                "required": [
+                    "reaction",
+                    "user-id"
+                ]
+            }
+        }
+    },
+    "required": [
+        "id",
+        "text",
+        "created-at",
+        "author"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "id": "42",
+    "text": "Hello this is a group post.",
+    "created-at": "12-01-2018, 03:45:34",
+    "author": {
+        "id": "32",
+        "username": "test123",
+        "email": "test@faceduck.com",
+        "name": "Scrum",
+        "surname": "Master",
+        "birthday": "1984-10-01",
+        "gender": "male"
+    },
+    "image-url": "http://localhost:5000/media/1.jpg",
+    "reactions-count": [
+        {
+            "count": 1,
+            "reaction": "love"
+        },
+        {
+            "count": 1,
+            "reaction": "like"
+        }
+    ],
+    "user-reaction": [
+        {
+            "reaction": "like",
+            "user-id": "32"
+        },
+        {
+            "reaction": "love",
+            "user-id": "42"
+        }
+    ]
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get group post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Delete Group Post
+
+### Request
+
+**DELETE** `/group/{group_id}/posts/{post_id}`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+### Response: success
+
+`204 No Content`
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Delete group post error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Add member to group
+
+### Request
+
+**POST** `/group/{group_id}/members`
+
+#### - Request headers
+
+| Property     | Required | Values           |
+|--------------|:--------:|:----------------:|
+| Content-Type | Yes      | application/json |
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add member to group",
+    "type": "object",
+    "properties": {
+        "user_id": {"type": "string"},
+        
+    },
+    "required": []
+}
+```
+*if no user_id is provided it adds the current user*
+*Examples:*
+
+```json
+{
+    "user_id" : "47"
+}
+
+```
+
+### Response: success
+
+`204 No Content`
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Add user error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001",
+                "002",
+                "003"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data",
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Get group members
+
+### Request
+
+**GET** `/group/{group_id}/members`
+
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Login success",
+    "type": "array",
+    "properties": {
+        {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "username": {"type": "string"},
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "birthday": {"type": "string"},
+                "gender": {"type": "string"}
+            },
+            "required": [
+                "id",
+                "username",
+                "email",
+                "name",
+                "surname",
+                "birthday",
+                "gender"
+            ]
+        }
+    },
+    "required": ["access-token", "user"]
+}
+```
+
+*Examples:*
+
+```json
+[
+    {
+        "id": "32",
+        "username": "test123",
+        "email": "test@faceduck.com",
+        "name": "Scrum",
+        "surname": "Master",
+        "birthday": "1984-10-01",
+        "gender": "male"
+    }
+]
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get members error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001",
+                "004"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "004",
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Get group admins
+
+### Request
+
+**GET** `/group/{group_id}/members/admins`
+
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get group admins success",
+    "type": "array",
+    "properties": {
+        {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "username": {"type": "string"},
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "birthday": {"type": "string"},
+                "gender": {"type": "string"}
+            },
+            "required": [
+                "id",
+                "username",
+                "email",
+                "name",
+                "surname",
+                "birthday",
+                "gender"
+            ]
+        }
+    },
+    "required": ["access-token", "user"]
+}
+```
+
+*Examples:*
+
+```json
+[ 
+    {
+        "id": "32",
+        "username": "test123",
+        "email": "test@faceduck.com",
+        "name": "Scrum",
+        "surname": "Master",
+        "birthday": "1984-10-01",
+        "gender": "male"
+    }
+]
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get admins error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001",
+                "004"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "004",
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Update User Role
+
+### Request
+
+**PUT** `/group/{group_id}/members`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Update user role",
+    "type": "object",
+    "properties": {
+        "user_id": {"type": "string"},
+        "admin":{"type": "boolean"}
+    },
+    "required": [
+        "user_id",
+        "admin"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "user_id" : "23",
+    "admin" : true
+}
+```
+
+### Response: success
+
+`204 No Content`
+
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "update user role error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Get group user
+
+### Request
+
+**GET** `/group/{group_id}/members/{user_id}`
+
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get group user success",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "username": {"type": "string"},
+        "email": {
+            "type": "string",
+            "format": "email"
+        },
+        "name": {"type": "string"},
+        "surname": {"type": "string"},
+        "birthday": {"type": "string"},
+        "gender": {"type": "string"}
+    },
+    "required": [
+        "id",
+        "username",
+        "email",
+        "name",
+        "surname",
+        "birthday",
+        "gender"
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "id": "32",
+    "username": "test123",
+    "email": "test@faceduck.com",
+    "name": "Scrum",
+    "surname": "Master",
+    "birthday": "1984-10-01",
+    "gender": "male"
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get group user error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001",
+                "004"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "004",
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Delete Group User
+
+### Request
+
+**DELETE** `/group/{group_id}/members/{user_id}`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+### Response: success
+
+`204 No Content`
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Delete group user error",
     "type": "object",
     "properties": {
         "error-id": {

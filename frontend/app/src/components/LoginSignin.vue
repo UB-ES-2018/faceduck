@@ -125,7 +125,7 @@ export default {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(this.signup)
-      }).catch((r) => this.failedSignup = true)
+      }).catch(() => this.failedSignup = true)
       .then((response) => {
         if (response.ok) {
           this.successfulSignup = true;
@@ -143,7 +143,7 @@ export default {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(this.login)
-      }).catch((r) => this.failedSignup = true)
+      }).catch(() => this.failedSignup = true)
       .then((response) => {
         if (response.ok) {
           response.json().then((json) => {

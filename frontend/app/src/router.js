@@ -5,11 +5,10 @@ Vue.use(Router)
 
 export default new Router({
     mode: 'history',
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'homepage',
-            component: () => 
+            component: () =>
                 import ( /* webpackChunkName: "homepage" */ './views/HomePage.vue')
         },
         {
@@ -54,7 +53,12 @@ export default new Router({
             component: () =>
                 import ( /* webpackChunkName: "search" */ './views/Login_logs.vue'),
             meta: { requiresAuth: true }
-
+        },
+        {
+            path: '/post/:idpost',
+            name: 'post_page',
+            component: () =>
+                import ( /* webpackChunkName: "post_page" */ './views/PostPage.vue'),
         },
     ]
 })

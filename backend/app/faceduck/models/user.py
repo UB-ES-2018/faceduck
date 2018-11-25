@@ -1,4 +1,4 @@
-from elasticsearch_dsl import Document, Date, Nested, Boolean, Text, Integer, InnerDoc
+from elasticsearch_dsl import Document, Date, Nested, Boolean, Text, Integer, InnerDoc, Keyword
 
 
 class LoginLog(InnerDoc):
@@ -19,6 +19,7 @@ class User(Document):
 
     login_logs = Nested(LoginLog)
     
+    groups = Keyword(multi = True)
     #location = Text()
     #description = Text()
     #url = Text()
@@ -36,7 +37,7 @@ class User(Document):
     
     def save(self, ** kwargs):
         return super().save(** kwargs)
-
+    
     def add_log(self, device, ip, state, date):
         entry = LoginLog(device=device, ip=ip, state=state, date=date)
         self.login_logs.append(entry)
@@ -44,19 +45,12 @@ class User(Document):
 
     def get_login_logs(self):
         return self.login_logs
+    
+    def addGroup(self,group_id):
+        if group_id not in self.groups:
+            self.groups.append(group_id)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def removeGroup(self, group_id):
+        if group_id in self.groups:
+            self.groups.remove(group_id)
 
