@@ -5,8 +5,9 @@ services:
   - docker
 
 env:
-  - DOCKER_RESTART="no"
-  - CI=true
+  global:
+    - DOCKER_RESTART="no"
+    - CI=true
 
 install:
 
