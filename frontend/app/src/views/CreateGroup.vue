@@ -20,14 +20,16 @@
 <script>
     import NavBar from "../components/NavBar.vue";
 
-    var host = window.location.hostname;
-    var apiGetFriendsUrl = '//' + host + ':5000/user/friends/';
+    //var host = window.location.hostname;
+    //var apiGetFriendsUrl = '//' + host + ':5000/user/friends/';
 
     export default {
         name: "CreateGroup",
         data() {
             return {
-                friends: {}
+                group: {
+                    name:"",
+                }
             }
         },
         components: {

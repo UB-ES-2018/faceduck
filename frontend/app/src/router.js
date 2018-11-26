@@ -63,7 +63,7 @@ export default new Router({
             path: '/group',
             name: 'create_group',
             component: () =>
-                import ( /* webpackChunkName: "create_group" */ './views/CreateGrop.vue'),
+                import ( /* webpackChunkName: "create_group" */ './views/CreateGroup.vue'),
         },
     ]
 })
