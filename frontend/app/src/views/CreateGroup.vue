@@ -4,11 +4,11 @@
         <div class="container">
             <form class='inputbox' v-on:submit="submitGroup">
                 <fieldset class="inputs">
-                    Nombre del grupo
+                    <p><b>Group Name</b></p>
                     <textarea cols="5" rows="1" type="text" name="name" id="text-box" v-model="group.name" placeholder="Name"></textarea>
                 </fieldset>
-                Añadir personas
-                <!--list with method Get Friends o buscador por user? / En facebook es desplegable con tus amigos-->
+                <p><b>Add people</b></p>
+                <!--list with method Get Friends o buscador por user? / En facebook es desplegable con tus amigos, minimo uno-->
                 <fieldset class="actions">
                     <button type="submit"> Post </button>
                 </fieldset>
@@ -21,21 +21,20 @@
     import NavBar from "../components/NavBar.vue";
 
     var host = window.location.hostname;
-    var apiPostFormUrl = '//' + host + ':5000/post';
+    var apiGetFriendsUrl = '//' + host + ':5000/user/friends/';
 
     export default {
         name: "CreateGroup",
         data() {
             return {
+                friends: {}
             }
         },
         components: {
             NavBar,
         },
         created() {
-        
         },
-    
     }
 </script>
 
