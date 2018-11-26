@@ -3,8 +3,8 @@
     <NavBar/>
     <div class="containerPhoto" align="center">
         <div class="photo"></div>
-        <div class="groupname" v-bind:userName="user.username">
-          {{ user.username }} <!--THIS-->
+        <div class="groupname" v-bind:groupname="group.groupname">
+          {{ group.groupname }} <!--THIS-->
         </div>
     </div>
     <div class="container" align="center">
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      user: JSON.parse(localStorage.getItem("user")) //THIS
+      group: JSON.parse(localStorage.getItem("user")) //THIS
     }
   },
   created() {},
@@ -72,7 +72,7 @@ export default {
     height: 15vh
     width: 15vh
 
-.username
+.groupname
     color: black
     font-size: 4vh
 
