@@ -53,5 +53,11 @@ export default new Router({
             component: () =>
                 import ( /* webpackChunkName: "post_page" */ './views/PostPage.vue'),
         },
+        {
+            path: '/group/:groupid',
+            name: 'group_page',
+            component: () =>
+                import ( /* webpackChunkName: "group_page" */ './views/GroupPage.vue'),
+        },
     ]
 })
