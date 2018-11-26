@@ -1,15 +1,11 @@
 <template>
-  <div id="GroupPage" >
+  <div id="GroupPage">
     <NavBar/>
     <div class="containerPhoto" align="center">
         <div class="photo"></div>
         <div class="groupname" v-bind:groupname="group.groupname">
           {{ group.groupname }} <!--THIS-->
         </div>
-    </div>
-    <div class="container" align="center">
-       <PostForm/>
-       <PostList v-bind:authorId="user.id"/>
     </div>
   </div>
 </template>
@@ -20,20 +16,23 @@ import PostForm from "../components/PostForm.vue";
 import PostList from "../components/PostList.vue";
 
 export default {
-  name: 'GroupPage',
-  components: {
-    NavBar,
-    PostForm,
-    PostList
-  },
-  data() {
-    return {
-      group: JSON.parse(localStorage.getItem("user")) //THIS
-    }
-  },
-  created() {},
-  updated() {},
-	methods: {}
+    name: 'GroupPage',
+    data() {
+        return {
+            groupid: -1,
+            group: JSON.parse(localStorage.getItem("user")) //THIS
+        }
+    },
+    created() {
+        this.groupid = this.$route.params.groupid;
+    },
+    updated() {},
+    methods: {},
+    components: {
+        NavBar,
+        PostForm,
+        PostList
+    },
 }
 
 </script>
@@ -75,5 +74,4 @@ export default {
 .groupname
     color: black
     font-size: 4vh
-
 </style>
