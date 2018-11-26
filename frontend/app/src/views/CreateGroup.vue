@@ -7,12 +7,21 @@
                     <p><b>Group Name</b></p>
                     <textarea cols="5" rows="1" type="text" name="name" id="text-box" v-model="group.name" placeholder="Name"></textarea>
                 </fieldset>
-                <p><b>Add people</b></p>
-                <!--list with method Get Friends o buscador por user? / En facebook es desplegable con tus amigos, minimo uno-->
+            </form>
+            
+            <p><b>Add people</b></p>
+            <div v-for="friend in friends" :key="friend" class="form-group">
+                <input type="checkbox" class="form-check-input"> 
+                <label name="friend" value="friend" class="form-check-label">{{ friend }}</label>
+            </div>
+            <!--list with method Get Friends o buscador por user? / En facebook es desplegable con tus amigos, minimo uno-->
+            
+            <form class='inputbox' v-on:submit="submitGroup">    
                 <fieldset class="actions">
-                    <button type="submit"> Post </button>
+                    <button type="submit"> Create </button>
                 </fieldset>
             </form>
+            
         </div>
     </div>
 </template>
@@ -20,13 +29,14 @@
 <script>
     import NavBar from "../components/NavBar.vue";
 
-    //var host = window.location.hostname;
-    //var apiGetFriendsUrl = '//' + host + ':5000/user/friends/';
-
+    var host = window.location.hostname;
+    var apiGetFriendsUrl = '//' + host + ':5000/user/friends/' + JSON.parse(localStorage.getItem("user"))["id"];
+    
     export default {
         name: "CreateGroup",
         data() {
             return {
+                friends: ["Maria", "Pablo", "Mario", "Choripan"],
                 group: {
                     name:"",
                 }
@@ -36,6 +46,19 @@
             NavBar,
         },
         created() {
+            fetch(apiGetFriendsUrl, {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                },
+            })
+            .then((response) => {
+                if (response.ok) {
+                    //alert(JSON.stringify(response));
+                    
+                }
+            }).catch(() => {});
+            
         },
     }
 </script>

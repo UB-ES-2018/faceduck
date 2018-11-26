@@ -12,8 +12,6 @@
 
 <script>
 import NavBar from "../components/NavBar.vue";
-import PostForm from "../components/PostForm.vue";
-import PostList from "../components/PostList.vue";
 
 export default {
     name: 'GroupPage',
@@ -30,8 +28,6 @@ export default {
     methods: {},
     components: {
         NavBar,
-        PostForm,
-        PostList
     },
 }
 
