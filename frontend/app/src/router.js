@@ -53,5 +53,17 @@ export default new Router({
             component: () =>
                 import ( /* webpackChunkName: "post_page" */ './views/PostPage.vue'),
         },
+        {
+            path: '/group/:idgroup',
+            name: 'group_page',
+            component: () =>
+                import ( /* webpackChunkName: "group_page" */ './views/GroupPage.vue'),
+        },
+        {
+            path: '/group',
+            name: 'create_group',
+            component: () =>
+                import ( /* webpackChunkName: "create_group" */ './views/CreateGrop.vue'),
+        },
     ]
 })
