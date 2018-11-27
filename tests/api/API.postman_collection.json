@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "86497372-61e2-4569-921a-42f5a2a42374",
+		"_postman_id": "d7ce5ba5-e5dc-497d-b0c0-d2ca2e6c9e54",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -34,6 +34,50 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"username\": \"patata\",\n\t\"email\": \"test@test.com\",\n\t\"password\": \"1234\",\n\t\"name\": \"Test User\",\n\t\"surname\": \"Surname\",\n\t\"birthday\": \"1990-01-01\",\n\t\"gender\": \"male\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/user",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c33c1a6f-b3a4-4ee9-8fbc-0fee7d5968d2",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"patata2\",\n\t\"email\": \"test2@test2.com\",\n\t\"password\": \"1234\",\n\t\"name\": \"Test User\",\n\t\"surname\": \"Surname\",\n\t\"birthday\": \"1990-01-01\",\n\t\"gender\": \"male\"\n}"
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/user",
@@ -88,6 +132,60 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"1234\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/session",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c33c1a6f-b3a4-4ee9-8fbc-0fee7d5968d2",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"var json = pm.response.json();",
+							"",
+							"// TODO: Check has access-token",
+							"",
+							"pm.environment.set(\"token2\", json[\"access-token\"])",
+							"pm.environment.set(\"user_id2\", json.user[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test2@test2.com\",\n\t\"password\": \"1234\"\n}"
 				},
 				"url": {
 					"raw": "http://{{host}}:{{port}}/session",
@@ -1191,6 +1289,1030 @@
 					"port": "{{port}}",
 					"path": [
 						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"var json = pm.response.json();",
+							"",
+							"pm.environment.set(\"group_id\", json[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Test Group\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group To Remove",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"var json = pm.response.json();",
+							"",
+							"pm.environment.set(\"group_id_rem\", json[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Test Delete Group\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Test Group\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id_rem}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id_rem}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"var json = pm.response.json();",
+							"pm.environment.set(\"group_post_id\", json[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group Post To Remove",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"var json = pm.response.json();",
+							"pm.environment.set(\"group_post_id_rem\", json[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Group Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4068b886-57e0-4c97-8c8a-395900efab01",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"Test group post\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/posts/{{group_post_id_rem}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"posts",
+						"{{group_post_id_rem}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group Members",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0819a47-74fe-4b4d-a9df-572eea843598",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group Admins",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2aa3eb2e-4c9c-4120-a9b1-c90b5bf8d4b3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members/admins",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"members",
+						"admins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user to group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\" : \"{{user_id2}}\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login2 Check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c33c1a6f-b3a4-4ee9-8fbc-0fee7d5968d2",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"var json = pm.response.json();",
+							"",
+							"// TODO: Check has access-token",
+							"",
+							"pm.environment.set(\"groups_length\", json.user[\"groups\"].length);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test2@test2.com\",\n\t\"password\": \"1234\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/session",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change User2 to Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\" : \"{{user_id2}}\",\n\t\"admin\" : true\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group Admins Check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2aa3eb2e-4c9c-4120-a9b1-c90b5bf8d4b3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"Role changed successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members/admins",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"members",
+						"admins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change User2 to Member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\" : \"{{user_id2}}\",\n\t\"admin\" : false\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group Admins Check Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2aa3eb2e-4c9c-4120-a9b1-c90b5bf8d4b3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"Role changed successfully\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members/admins",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"members",
+						"admins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Group Member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id}}/members/{{user_id2}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id}}",
+						"members",
+						"{{user_id2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shutdown API",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/shutdown",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"shutdown"
 					]
 				}
 			},

@@ -164,6 +164,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../assets/global.sass';
 
 .container
   //border:1px solid white
@@ -176,7 +177,7 @@ export default {
   display: inline-flex
 
 .backbox
-  background-color: #404040
+  background-color: $background
   width: 90%
   height: 100%
   position: absolute
@@ -185,7 +186,7 @@ export default {
   display: inline-flex
 
 .frontbox
-  background-color: white
+  background-color: #ffffff
   border-radius: 20px
   height: 150%
   width: 50%
@@ -214,15 +215,15 @@ export default {
   font-weight: 100
 
 .textcontent
-  color: white
+  color: $darkestgray
   margin-top: 65px
   margin-left: 5%
 
 .loginMsg button, .signupMsg button
-  background-color: #404040
-  border: 2px solid white
+  background-color: $background
+  border: 2px solid $darkestgray
   border-radius: 10px
-  color: white
+  color: $darkestgray
   font-size: 12px
   box-sizing: content-box
   font-weight: 300
@@ -246,7 +247,8 @@ export default {
   display: block
   width: 100%
   height: 40px
-  background-color: #f2f2f2
+  background-color: $lightgray
+  color: $darkgray
   border: none
   margin-bottom: 20px
   font-size: 12px
@@ -255,7 +257,7 @@ export default {
 .inputbox button[type="submit"]
   background-color: #ffb511
   border: none
-  color: white
+  color: #ffffff
   font-size: 12px
   font-weight: bold
   box-sizing: content-box

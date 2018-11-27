@@ -10,6 +10,8 @@ services:
     volumes:
       - './backend/app:/app'
     restart: "${DOCKER_RESTART}"
+    environment:
+      - CI=${CI-false}
     links:
       - elasticsearch:elasticsearch
   frontend:

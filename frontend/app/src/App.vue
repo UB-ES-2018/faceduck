@@ -8,14 +8,15 @@
 
 <style lang="sass">
 @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css");
+@import 'assets/global.sass';
 
 html 
   height: 100%
-  background-color: #404040
+  background-color: $background
 
 
 body 
-  background-color: #404040
+  background-color: $background
   height: 100%
   display: flex
 
@@ -27,7 +28,7 @@ body
   text-align: center
   color: #ffb511
   margin: 0
-  background-color: #404040
+  background-color: $background
   flex-grow: 1
 
 

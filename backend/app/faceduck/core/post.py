@@ -49,6 +49,12 @@ def social_card_for_post(text):
     url = urls[0]
     return social_card_image(url)
 
+def get_post_by_id(post_id):
+    try:
+        post = Post.get(id = post_id)
+    except NotFoundError:
+        raise FaceduckError("001")
+    return post
 
 def get_post(post_id, user_id):
     try:
