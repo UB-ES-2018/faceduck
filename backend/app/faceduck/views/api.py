@@ -287,12 +287,13 @@ def get_newsfeed():
 @jwt_required
 def get_login_logs():
     user_id = current_user.meta.id
-
-    logs = core.get_login_logs(user_id)
+    
     try:
-        return jsonify([log_mapper(p) for p in logs])
+        logs = core.get_login_logs(user_id)
     except FaceduckError as e:
         return client_error(e.id)
+    
+    return jsonify([log_mapper(p) for p in logs])
 
 
 @api.route("/group", methods=["POST"])

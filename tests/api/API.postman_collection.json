@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d7ce5ba5-e5dc-497d-b0c0-d2ca2e6c9e54",
+		"_postman_id": "5346e109-01d0-4ef6-ae59-eff23332067e",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2293,7 +2293,77 @@
 			"response": []
 		},
 		{
+			"name": "Log invalid password login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "589a9346-c7d0-45fc-ab11-516a5e6ec51d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"invalid\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/session",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Login Log",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff1f7e93-6ddd-4cee-b374-22689b221797",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Login log returns non-empty list\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.not.eql(0);",
+							"});",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -2309,8 +2379,7 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					}
 				],
 				"body": {
