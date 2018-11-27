@@ -2293,32 +2293,6 @@
 			"response": []
 		},
 		{
-			"name": "Shutdown API",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{host}}:{{port}}/shutdown",
-					"protocol": "http",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"shutdown"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get Login Log",
 			"request": {
 				"auth": {
@@ -2352,6 +2326,32 @@
 					"port": "{{port}}",
 					"path": [
 						"login_logs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shutdown API",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/shutdown",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"shutdown"
 					]
 				}
 			},
