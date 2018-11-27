@@ -11,7 +11,7 @@
             
             <p><b>Add people</b></p>
             <div v-for="friend in friends" :key="friend" class="form-group">
-                <input type="checkbox" class="form-check-input"> 
+                <input type="checkbox" class="form-check-input" v-on:click="members.push(friend)"> 
                 <label name="friend" value="friend" class="form-check-label">{{ friend }}</label>
             </div>
             <!--list with method Get Friends o buscador por user? / En facebook es desplegable con tus amigos, minimo uno-->
@@ -21,7 +21,6 @@
                     <button type="submit"> Create </button>
                 </fieldset>
             </form>
-            
         </div>
     </div>
 </template>
@@ -31,15 +30,18 @@
 
     var host = window.location.hostname;
     var apiGetFriendsUrl = '//' + host + ':5000/user/friends/' + JSON.parse(localStorage.getItem("user"))["id"];
-    
+    var apiCreateGroupUrl = '//' + host + ':5000/group';
+
     export default {
         name: "CreateGroup",
         data() {
             return {
-                friends: ["Maria", "Pablo", "Mario", "Choripan"],
+                friends: ["Maria", "Pablo", "Mario", "Choripan"], // ESTO TENDRIAN QUE SER LOS AMIGOS DEL USER
                 group: {
                     name:"",
-                }
+                },
+                groupID: "",
+                members: [],
             }
         },
         components: {
@@ -53,12 +55,51 @@
                 },
             })
             .then((response) => {
-                if (response.ok) {
+                if (response.ok) { // REVISAR ESTO
                     //alert(JSON.stringify(response));
                     
                 }
             }).catch(() => {});
             
+        },
+        methods: {
+            submitGroup(e) {
+                fetch(apiCreateGroupUrl, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(group)
+                })
+                .then((response) => {
+                    if (response.ok) {    
+                        response.json().then((json) => {
+                            //alert(JSON.stringify(response));
+                            groupID = response.id;
+                            apiCreateGroupUrl = apiCreateGroupUrl + groupID + "/members";
+                        });
+                    }
+                }).catch(() => {});
+
+                for (i in members){
+                    fetch(apiCreateGroupUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(i) // HAY QUE PASARLE EL ID
+                    })
+                    .then((response) => {
+                        if (response.ok) {    
+                            response.json().then((json) => {
+                                //alert(JSON.stringify(response));
+                                this.$router.push("/group/" +  response.id); // VAMOS A LA PAG DEL GRUPO
+                            });
+                        }
+                    }).catch(() => {});
+                }
+            },
         },
     }
 </script>
@@ -134,7 +175,6 @@
         border-radius: 10px
         width: 60px
         position: relative
-        left: 40% 
         cursor: pointer
 
 </style>
