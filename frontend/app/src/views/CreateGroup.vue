@@ -2,10 +2,10 @@
     <div id="CreateGroup">
         <NavBar/>
         <div class="container">
-            <form class='inputbox' v-on:submit="submitGroup">
+            <form class='inputbox'>
                 <fieldset class="inputs">
-                    <p><b>Group Name</b></p>
-                    <textarea cols="5" rows="1" type="text" name="name" id="text-box" v-model="group.name" placeholder="Name"></textarea>
+                    <p><b>Group Name</b></p> <!--HAY QUE GUARDAR EL NOMBRE PARA LUEGO PODER ENVIARLO-->
+                    <textarea cols="5" rows="1" type="text" name="name" id="text-box" placeholder="Name"></textarea>
                 </fieldset>
             </form>
             
@@ -14,7 +14,6 @@
                 <input type="checkbox" class="form-check-input" v-on:click="members.push(friend)"> 
                 <label name="friend" value="friend" class="form-check-label">{{ friend }}</label>
             </div>
-            <!--list with method Get Friends o buscador por user? / En facebook es desplegable con tus amigos, minimo uno-->
             
             <form class='inputbox' v-on:submit="submitGroup">    
                 <fieldset class="actions">
