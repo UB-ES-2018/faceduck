@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "087ea157-1a8e-46d9-9839-6a8f4d854599",
+		"_postman_id": "d7ce5ba5-e5dc-497d-b0c0-d2ca2e6c9e54",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2293,49 +2293,26 @@
 			"response": []
 		},
 		{
-			"name": "Login2 Check Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c33c1a6f-b3a4-4ee9-8fbc-0fee7d5968d2",
-						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
+			"name": "Shutdown API",
 			"request": {
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
+				"method": "GET",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"test2@test2.com\",\n\t\"password\": \"1234\"\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{host}}:{{port}}/session",
+					"raw": "http://{{host}}:{{port}}/shutdown",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"session"
+						"shutdown"
 					]
 				}
 			},
