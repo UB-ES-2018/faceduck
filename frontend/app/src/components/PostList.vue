@@ -32,19 +32,19 @@ export default {
         return {
             list: [],
             timeout: false,
-            _query: "",
+            query_: "",
             fetch_options: ""
         };
     },
     created() {
         if (this.query)
-            this._query = this.query.trim();
+            this.query_ = this.query.trim();
         else
-            this._query = "";
+            this.query_ = "";
 
         this.fetchPosts();
         this.$root.$on("postEvent", (event) => {
-            if (event && event.query) this._query = event.query.trim();
+            if (event && event.query) this.query_ = event.query.trim();
             this.fetchPosts();
         });
         this.$root.$on("addPost", (event) => {
@@ -67,12 +67,12 @@ export default {
                 if (this.authorId)
                     body["author-id"] = this.authorId;
 
-                else /*if (this._query)*/ {
-                    if (this._query.indexOf(" ") == -1 
-                        && this._query.lastIndexOf("#") == 0)
-                        body["tag"] = this._query.slice(1);
+                else /*if (this.query_)*/ {
+                    if (this.query_.indexOf(" ") == -1 
+                        && this.query_.lastIndexOf("#") == 0)
+                        body["tag"] = this.query_.slice(1);
                     else
-                        body["query"] = this._query;
+                        body["query"] = this.query_;
                 }
 
                 fetch_options.headers["Content-Type"] = "application/json";

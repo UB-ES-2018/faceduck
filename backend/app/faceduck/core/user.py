@@ -14,3 +14,7 @@ def get_user(user_id):
 
 def get_all_users():
     return User.search().query("match_all").scan()
+
+def get_login_logs(user_id):
+    user = get_user(user_id)
+    return user.get_login_logs()

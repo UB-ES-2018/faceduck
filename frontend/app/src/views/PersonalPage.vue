@@ -19,9 +19,6 @@ import NavBar from "../components/NavBar.vue";
 import PostForm from "../components/PostForm.vue";
 import PostList from "../components/PostList.vue";
 
-var host = window.location.hostname;
-var apiSearchPost = '//' + host + ':5000/post/search';
-
 export default {
   name: 'PersonalPage',
   components: {

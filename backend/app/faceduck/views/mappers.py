@@ -1,5 +1,4 @@
 from faceduck.core.user import get_user
-
 ERRORS = {
     "001": {"error-id": "001", "error-message": "Invalid data"},
     "002": {"error-id": "002", "error-message": "Already existing username"},
@@ -10,13 +9,14 @@ ERRORS = {
 
 def user_mapper(user):
     user_dict = {"id": user.meta.id}
-
     for attr in dir(user):
         key = attr.replace("_", "-")
         
-        if attr != "password":
+        if attr == "groups":
+            user_dict[key] = list(getattr(user,attr))
+        elif attr != "password" and attr != "login_logs":
             user_dict[key] = getattr(user, attr)
-
+    
     return user_dict
 
 
@@ -77,3 +77,25 @@ def post_mapper(post):
             post_dict[key] = getattr(post, attr)
 
     return post_dict
+
+
+def log_mapper(log):
+    log_dict = {"device": log.device, "ip": log.ip, "state": log.state, "date": log.date}
+    return log_dict
+
+
+def group_mapper(group):
+    group_dict = {"id" : group.meta.id}
+
+    for attr in dir(group):
+        key = attr.replace("_","-")
+
+        if key == "admins" or key == "users":
+            users = [user_mapper(get_user(u)) for u in getattr(group, attr)]
+            group_dict[key] = users
+        elif key == "posts":
+            continue
+        else:
+            group_dict[key] = getattr(group,attr)
+    return group_dict
+

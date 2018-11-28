@@ -86,7 +86,7 @@ export default {
       if (this.showYear) this.$refs.year.select();
     },
     updateValue() {
-      const timestamp = Date.parse(`${this.year.padStart(4, 0)}-${this.month}-${this.day}`);
+      const timestamp = Date.parse(`${this.year}-${this.month}-${this.day}`);
       if (Number.isNaN(timestamp)) return;
       this.$emit(`input`, timestamp);
     },

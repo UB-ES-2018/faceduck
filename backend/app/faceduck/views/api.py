@@ -2,8 +2,8 @@ from flask import make_response, request, jsonify
 from faceduck.blueprints import api
 from faceduck import core
 from faceduck.utils import FaceduckError
-from flask_jwt_extended import jwt_required, current_user
-from .mappers import user_mapper, post_mapper, comment_mapper, friendship_mapper
+from flask_jwt_extended import jwt_required, jwt_optional, current_user
+from .mappers import user_mapper, post_mapper, comment_mapper, friendship_mapper, group_mapper, log_mapper
 from faceduck.views.view_utils import client_error
 
 
@@ -35,13 +35,15 @@ def signup():
 @api.route('/session', methods=["POST"])
 def login():
     req = request.get_json()
+    device = request.headers.get('User-Agent')
+    ip = request.remote_addr
     try:
         email = req['email']
         password = req['password']
     except KeyError:
         return client_error("001")
     try:
-        user, token = core.login_user(email, password)
+        user, token = core.login_user(email, password, device, ip)
         return jsonify({
             'user': user_mapper(user),
             'access-token': token
@@ -75,10 +77,10 @@ def create_post():
 
 
 @api.route("/post/<post_id>")
-@jwt_required
+@jwt_optional
 def get_post(post_id):
-    user_id = current_user.meta.id
     try:
+        user_id = (current_user or None) and current_user.meta.id
         post = core.get_post(post_id, user_id)
         response = post_mapper(post)
     except FaceduckError as e:
@@ -203,7 +205,7 @@ def add_reactions(post_id):
     try:
         user_id = current_user.meta.id
         reaction = request.json["reaction"]
-        core.set_reaction(post_id,user_id,reaction)
+        core.set_reaction(post_id, user_id, reaction)
         response = get_post(post_id)
 
     except KeyError:
@@ -225,9 +227,13 @@ def delete_reactions(post_id):
 
 
 @api.route("/post/<post_id>/comments", methods=["GET"])
+@jwt_optional
 def get_comments(post_id):
-    cmts = core.get_comments(post_id, None)
     try:
+        user_id = (current_user or None) and current_user.meta.id
+        core.get_post(post_id, user_id)
+        cmts = core.get_comments(post_id, None)
+
         return jsonify([comment_mapper(c) for c in cmts])
     except FaceduckError as e:
         return client_error(e.id)
@@ -275,3 +281,129 @@ def get_newsfeed():
     newsfeed = core.get_newsfeed(user_id)
 
     return jsonify([post_mapper(p) for p in newsfeed])
+
+
+@api.route("/login_logs")
+@jwt_required
+def get_login_logs():
+    user_id = current_user.meta.id
+    
+    try:
+        logs = core.get_login_logs(user_id)
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return jsonify([log_mapper(p) for p in logs])
+
+
+@api.route("/group", methods=["POST"])
+@jwt_required
+def create_group():
+    user_id = current_user.meta.id
+    try:
+        name = request.json["name"]
+    except KeyError:
+        return client_error("001")
+    if "image-url" in request.get_json().keys():
+        image_url = request.json["image-url"]
+    else:
+        image_url = ""
+    group = core.create_group(name,image_url,user_id)
+    return jsonify(group_mapper(group))
+
+
+@api.route("/group/<group_id>", methods=["GET"])
+def get_group(group_id):
+    return jsonify(group_mapper(core.get_group(group_id)))
+
+
+@api.route("/group/<group_id>", methods=["DELETE"])
+@jwt_required
+def remove_group(group_id):
+    core.remove_group(group_id)
+    return ("",204)
+
+
+@api.route("/group/<group_id>/posts", methods=["GET"])
+def get_posts(group_id):
+    posts = core.get_group_posts(group_id)
+
+    return jsonify([post_mapper(p) for p in posts])
+
+
+@api.route("/group/<group_id>/posts", methods=["POST"])
+@jwt_required
+def create_group_post(group_id):
+    user_id = current_user.meta.id
+    try:
+        text = request.json["text"]
+    except KeyError:
+        return client_error("001")
+    if "image-url" in request.get_json().keys():
+        image_url = request.json["image-url"]
+    else:
+        image_url = ""
+    post = core.create_group_post(group_id,user_id,text,image_url)
+    return jsonify(post_mapper(post))
+
+
+@api.route("/group/<group_id>/posts/<post_id>", methods=["GET"])
+def get_group_post(group_id,post_id):
+    return jsonify(post_mapper(core.get_group_post(post_id)))
+
+
+@api.route("/group/<group_id>/posts/<post_id>", methods=["DELETE"])
+@jwt_required
+def remove_group_post(group_id,post_id):
+    core.remove_group_post(group_id,post_id)
+    return ("",204)
+
+
+@api.route("/group/<group_id>/members", methods=["GET"])
+@jwt_required
+def get_group_members(group_id):
+    members = core.get_group_members(group_id)
+    return jsonify([user_mapper(core.get_user(m)) for m in members])
+
+
+@api.route("/group/<group_id>/members/admins", methods=["GET"])
+@jwt_required
+def get_group_admins(group_id):
+    admins = core.get_group_admins(group_id)
+    return jsonify([user_mapper(core.get_user(a)) for a in admins])
+
+
+@api.route("/group/<group_id>/members", methods=["POST"])
+@jwt_required
+def add_user_to_group(group_id):
+    if "user_id" in request.get_json().keys():
+        user_id = request.json["user_id"]
+    else:
+        user_id = current_user.meta.id
+
+    core.add_user_to_group(group_id,user_id)
+    return ("",204)
+
+
+@api.route("/group/<group_id>/members", methods=["PUT"])
+@jwt_required
+def change_user_role(group_id):
+    if "user_id" in request.get_json().keys():
+        user_id = request.json["user_id"]
+    else:
+        user_id = current_user.meta.id
+
+    try:
+        admin = request.json["admin"]
+    except KeyError:
+        return client_error("001")
+    core.change_user_role(group_id,user_id,admin)
+    return("",204)
+
+
+@api.route("/group/<group_id>/members/<user_id>", methods=["DELETE"])
+@jwt_required
+def remove_group_member(group_id,user_id):
+    core.remove_group_member(group_id,user_id)
+    return ("", 204)
+
