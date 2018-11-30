@@ -91,6 +91,7 @@ export default {
                 || this.list[0].special == "no-posts")
                 this.list = ducklist;
             
+            /* istanbul ignore next */ 
             fetch(api, this.fetch_options)
             .then(res => res.json())
             .then(res => {
