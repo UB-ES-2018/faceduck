@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5346e109-01d0-4ef6-ae59-eff23332067e",
+		"_postman_id": "9653f37a-d90e-4695-8b29-9f64996755bb",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2395,6 +2395,129 @@
 					"port": "{{port}}",
 					"path": [
 						"login_logs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c97ca788-c5bd-443a-828c-e83eca1df3a9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Put object contains image-url\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['image-url']).to.contain( \"https://imgflip.com/i/mi1ql\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"image-url\" : \"https://imgflip.com/i/mi1ql\"\n} "
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit All User Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c97ca788-c5bd-443a-828c-e83eca1df3a9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Put object edited correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['image-url']).to.contain( \"https://imgflip.com/i/mi1ql\")",
+							"    pm.expect(jsonData['email']).to.contain( \"testt@test.com\")",
+							"    pm.expect(jsonData['username']).to.contain( \"patataa\")",
+							"    pm.expect(jsonData['name']).to.contain( \"Testt User\")",
+							"    pm.expect(jsonData['surname']).to.contain( \"Surnamee\")",
+							"    pm.expect(jsonData['birthday']).to.contain( \"Mon, 01 Jan 1991 00:00:00 GMT\")",
+							"    pm.expect(jsonData['gender']).to.contain( \"female\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"image-url\" : \"https://imgflip.com/i/mi1ql\",\n\t\"username\": \"patataa\",\n\t\"email\": \"testt@test.com\",\n\t\"name\": \"Testt User\",\n\t\"surname\": \"Surnamee\",\n\t\"birthday\": \"1991-01-01\",\n\t\"gender\": \"female\"\n} "
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"user"
 					]
 				}
 			},
