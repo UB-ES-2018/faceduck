@@ -3883,3 +3883,170 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 ### Response: server error
 
 `500 Internal Server Error`
+
+
+## Edit User
+
+### Request
+
+**PUT** `/user`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Content-Type  | Yes      | application/json      |
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+#### - Request body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Update friendship",
+    "type": "object",
+    "properties": {
+        "username": {"type": "string"},
+        "name": {"type": "string"},
+        "surname": {"type": "string"},
+        "birthday": {"type": "string"},
+        "email": {"type": "string"},
+        "image-url": {"type": "string"},
+        "gender": {"type": "string"},
+    },
+    "required": [
+    ]
+}
+```
+
+*Examples:*
+
+```json
+{
+	"image-url" : "https://imgflip.com/i/mi1ql"
+}
+
+{
+	"image-url" : "https://imgflip.com/i/mi1ql",
+	"username": "patataa",
+	"email": "testt@test.com",
+	"name": "Testt User",
+	"surname": "Surnamee",
+	"birthday": "1991-01-01",
+	"gender": "female"
+} 
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Login success",
+    "type": "object",
+    "properties": {
+        "access-token": {"type": "string"},
+        "user": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "username": {"type": "string"},
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "birthday": {"type": "string"},
+                "gender": {"type": "string"},
+                "image-url": {"type":"string"}
+            },
+            "required": [
+                "id",
+                "username",
+                "email",
+                "name",
+                "surname",
+                "birthday",
+                "gender"
+            ]
+        }
+    },
+    "required": ["access-token", "user"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "birthday": "Tue, 01 Jan 1991 00:00:00 GMT",
+    "email": "testt@test.com",
+    "gender": "female",
+    "id": "30ffaddd-56c7-4535-af58-142101c2de30",
+    "image-url": "https://imgflip.com/i/mi1ql",
+    "name": "Testt User",
+    "surname": "Surnamee",
+    "username": "patataa"
+}
+```
+
+### Response: client error
+
+`400 Bad Request`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Edit user error",
+    "type": "object",
+    "properties": {
+        "error-id": {
+            "type": "string",
+            "enum": [
+                "001"
+            ]
+        },
+        "error-message": {"type": "string"}
+    },
+    "required": ["error-id", "error-message"]
+}
+```
+
+*Examples:*
+
+```json
+{
+    "error-id": "001",
+    "error-message": "Invalid data"
+}
+```
+
+### Response: server error
+
+`500 Internal Server Error`
