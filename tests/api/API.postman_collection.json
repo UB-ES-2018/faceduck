@@ -2477,7 +2477,7 @@
 							"    pm.expect(jsonData['username']).to.contain( \"patataa\")",
 							"    pm.expect(jsonData['name']).to.contain( \"Testt User\")",
 							"    pm.expect(jsonData['surname']).to.contain( \"Surnamee\")",
-							"    pm.expect(jsonData['birthday']).to.contain( \"Mon, 01 Jan 1991 00:00:00 GMT\")",
+							"    pm.expect(jsonData['birthday']).to.contain( \"Tue, 01 Jan 1991 00:00:00 GMT\")",
 							"    pm.expect(jsonData['gender']).to.contain( \"female\")",
 							"});",
 							""
