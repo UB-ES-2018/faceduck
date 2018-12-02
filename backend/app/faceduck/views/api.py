@@ -102,6 +102,19 @@ def search_users():
     users = core.search_users(query)
     return jsonify([user_mapper(u) for u in users])
 
+@api.route('/group/search', methods=["POST"])
+@jwt_required
+def search_groups():
+    content = request.get_json()
+    
+    try:
+        query = content['query']
+    except KeyError:
+        return client_error("001")
+
+    groups = core.search_groups(query)
+    return jsonify([group_mapper(g) for g in groups])
+
 
 @api.route('/post/search', methods=["POST"])
 @jwt_required

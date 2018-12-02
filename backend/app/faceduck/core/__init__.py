@@ -7,6 +7,7 @@ from .user_search import search_users
 from .post_search import search_posts
 from .friendship import exists_friendship,create_friendship,update_friendship,get_friends,delete_friendship
 from .post_search import search_posts, search_posts_by_author, search_posts_by_tag
+from .group_search import search_groups
 from .newsfeed import get_newsfeed
 from .group import *
 
