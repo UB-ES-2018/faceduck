@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5346e109-01d0-4ef6-ae59-eff23332067e",
+		"_postman_id": "f2c70731-fb70-47c3-9d15-abdb75e37509",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2395,6 +2395,64 @@
 					"port": "{{port}}",
 					"path": [
 						"login_logs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "26e9259a-1a7a-459c-a710-070b8e1fc7af",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": \"Test Group\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"search"
 					]
 				}
 			},
