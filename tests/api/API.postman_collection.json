@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9653f37a-d90e-4695-8b29-9f64996755bb",
+		"_postman_id": "e604dfeb-e2f4-4062-a20f-3b19ac828c66",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -669,6 +669,64 @@
 					"port": "{{port}}",
 					"path": [
 						"post",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5484227b-892f-4ae3-a98d-ecf531e1dcf3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": \"patata2\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/user/search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"user",
 						"search"
 					]
 				}
