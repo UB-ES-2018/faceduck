@@ -48,16 +48,17 @@ export default new Router({
 
         },
         {
+            path: '/login_logs',
+            name: 'All account\'s logins',
+            component: () =>
+                import ( /* webpackChunkName: "search" */ './views/Login_logs.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
             path: '/post/:idpost',
             name: 'post_page',
             component: () =>
                 import ( /* webpackChunkName: "post_page" */ './views/PostPage.vue'),
-        },
-        {
-            path: '/group/:groupid',
-            name: 'group_page',
-            component: () =>
-                import ( /* webpackChunkName: "group_page" */ './views/GroupPage.vue'),
         },
         {
             path: '/group',

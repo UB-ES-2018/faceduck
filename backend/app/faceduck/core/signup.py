@@ -38,7 +38,7 @@ def create_user(username, email, password, name, surname, birthday, gender):
     id = uuid.uuid4()
     password = generate_password_hash(password)
     user = User(meta={'id': id}, username=username, email=email, password=password,
-                name=name, surname=surname, birthday=birthday, gender=gender)
+                name=name, surname=surname, birthday=birthday, gender=gender,image_url=None)
     user.save()
     
     return user

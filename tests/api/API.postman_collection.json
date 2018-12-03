@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d7ce5ba5-e5dc-497d-b0c0-d2ca2e6c9e54",
+		"_postman_id": "9653f37a-d90e-4695-8b29-9f64996755bb",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2287,6 +2287,237 @@
 						"{{group_id}}",
 						"members",
 						"{{user_id2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log invalid password login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "589a9346-c7d0-45fc-ab11-516a5e6ec51d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"invalid\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/session",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Login Log",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff1f7e93-6ddd-4cee-b374-22689b221797",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Login log returns non-empty list\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.not.eql(0);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/login_logs",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"login_logs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c97ca788-c5bd-443a-828c-e83eca1df3a9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Put object contains image-url\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['image-url']).to.contain( \"https://imgflip.com/i/mi1ql\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"image-url\" : \"https://imgflip.com/i/mi1ql\"\n} "
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit All User Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c97ca788-c5bd-443a-828c-e83eca1df3a9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Put object edited correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['image-url']).to.contain( \"https://imgflip.com/i/mi1ql\")",
+							"    pm.expect(jsonData['email']).to.contain( \"testt@test.com\")",
+							"    pm.expect(jsonData['username']).to.contain( \"patataa\")",
+							"    pm.expect(jsonData['name']).to.contain( \"Testt User\")",
+							"    pm.expect(jsonData['surname']).to.contain( \"Surnamee\")",
+							"    pm.expect(jsonData['birthday']).to.contain( \"Tue, 01 Jan 1991 00:00:00 GMT\")",
+							"    pm.expect(jsonData['gender']).to.contain( \"female\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"image-url\" : \"https://imgflip.com/i/mi1ql\",\n\t\"username\": \"patataa\",\n\t\"email\": \"testt@test.com\",\n\t\"name\": \"Testt User\",\n\t\"surname\": \"Surnamee\",\n\t\"birthday\": \"1991-01-01\",\n\t\"gender\": \"female\"\n} "
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"user"
 					]
 				}
 			},

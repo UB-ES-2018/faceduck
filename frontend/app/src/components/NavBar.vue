@@ -10,6 +10,9 @@
             <div class="mr-sm-2">
                 <router-link to="/wall">Wall</router-link>
             </div>
+            <div class="mr-sm-2">
+                <router-link to="/login_logs">Logs</router-link>
+            </div>
             <button class="button" v-on:click="logout">Log Out</button>
         </form>
     </nav>

@@ -2,8 +2,8 @@ from flask import make_response, request, jsonify
 from faceduck.blueprints import api
 from faceduck import core
 from faceduck.utils import FaceduckError
-from .mappers import user_mapper, post_mapper, comment_mapper, friendship_mapper, group_mapper
 from flask_jwt_extended import jwt_required, jwt_optional, current_user
+from .mappers import user_mapper, post_mapper, comment_mapper, friendship_mapper, group_mapper, log_mapper
 from faceduck.views.view_utils import client_error
 
 
@@ -35,13 +35,15 @@ def signup():
 @api.route('/session', methods=["POST"])
 def login():
     req = request.get_json()
+    device = request.headers.get('User-Agent')
+    ip = request.remote_addr
     try:
         email = req['email']
         password = req['password']
     except KeyError:
         return client_error("001")
     try:
-        user, token = core.login_user(email, password)
+        user, token = core.login_user(email, password, device, ip)
         return jsonify({
             'user': user_mapper(user),
             'access-token': token
@@ -281,6 +283,19 @@ def get_newsfeed():
     return jsonify([post_mapper(p) for p in newsfeed])
 
 
+@api.route("/login_logs")
+@jwt_required
+def get_login_logs():
+    user_id = current_user.meta.id
+    
+    try:
+        logs = core.get_login_logs(user_id)
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return jsonify([log_mapper(p) for p in logs])
+
+
 @api.route("/group", methods=["POST"])
 @jwt_required
 def create_group():
@@ -296,9 +311,11 @@ def create_group():
     group = core.create_group(name,image_url,user_id)
     return jsonify(group_mapper(group))
 
+
 @api.route("/group/<group_id>", methods=["GET"])
 def get_group(group_id):
     return jsonify(group_mapper(core.get_group(group_id)))
+
 
 @api.route("/group/<group_id>", methods=["DELETE"])
 @jwt_required
@@ -306,11 +323,13 @@ def remove_group(group_id):
     core.remove_group(group_id)
     return ("",204)
 
+
 @api.route("/group/<group_id>/posts", methods=["GET"])
 def get_posts(group_id):
     posts = core.get_group_posts(group_id)
 
     return jsonify([post_mapper(p) for p in posts])
+
 
 @api.route("/group/<group_id>/posts", methods=["POST"])
 @jwt_required
@@ -327,9 +346,11 @@ def create_group_post(group_id):
     post = core.create_group_post(group_id,user_id,text,image_url)
     return jsonify(post_mapper(post))
 
+
 @api.route("/group/<group_id>/posts/<post_id>", methods=["GET"])
 def get_group_post(group_id,post_id):
     return jsonify(post_mapper(core.get_group_post(post_id)))
+
 
 @api.route("/group/<group_id>/posts/<post_id>", methods=["DELETE"])
 @jwt_required
@@ -337,17 +358,20 @@ def remove_group_post(group_id,post_id):
     core.remove_group_post(group_id,post_id)
     return ("",204)
 
+
 @api.route("/group/<group_id>/members", methods=["GET"])
 @jwt_required
 def get_group_members(group_id):
     members = core.get_group_members(group_id)
     return jsonify([user_mapper(core.get_user(m)) for m in members])
 
+
 @api.route("/group/<group_id>/members/admins", methods=["GET"])
 @jwt_required
 def get_group_admins(group_id):
     admins = core.get_group_admins(group_id)
     return jsonify([user_mapper(core.get_user(a)) for a in admins])
+
 
 @api.route("/group/<group_id>/members", methods=["POST"])
 @jwt_required
@@ -359,6 +383,7 @@ def add_user_to_group(group_id):
 
     core.add_user_to_group(group_id,user_id)
     return ("",204)
+
 
 @api.route("/group/<group_id>/members", methods=["PUT"])
 @jwt_required
@@ -375,8 +400,22 @@ def change_user_role(group_id):
     core.change_user_role(group_id,user_id,admin)
     return("",204)
 
+
 @api.route("/group/<group_id>/members/<user_id>", methods=["DELETE"])
 @jwt_required
 def remove_group_member(group_id,user_id):
     core.remove_group_member(group_id,user_id)
     return ("", 204)
+
+
+@api.route('/user', methods=["PUT"])
+@jwt_required
+def edit_user():
+    if not request.is_json:
+        return client_error("001")
+    try:
+        user = core.edit_user(current_user.meta.id, request.json)
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return (jsonify(user_mapper(user)))
