@@ -1,41 +1,74 @@
 <template>
-  <div id="PersonalPage" >
+  <div id="PersonalPage">
     <NavBar/>
     <div class="containerPhoto" align="center">
-        <div class="photo"></div>
-        <div class="username" v-bind:userName="user.username">
-          {{ user.username }}
-        </div>
+      <img class="photo" v-if="hasImage" v-bind:src="post['image-url']"/>
+      <ImageUploader v-if="!hasImage" uploader-id="personal-image-uploader" />
+      <div class="username" v-bind:userName="user.username">
+        {{ user.username }}
+      </div>
     </div>
     <div class="container" align="center">
-       <PostForm/>
-       <PostList v-bind:authorId="user.id"/>
+      <PostForm/>
+      <PostList v-bind:authorId="user.id" />
     </div>
   </div>
 </template>
 
 <script>
-import NavBar from "../components/NavBar.vue";
-import PostForm from "../components/PostForm.vue";
-import PostList from "../components/PostList.vue";
-
-export default {
-  name: 'PersonalPage',
-  components: {
-    NavBar,
-    PostForm,
-    PostList
-  },
-  data() {
-    return {
-      user: JSON.parse(localStorage.getItem("user"))
+  import NavBar from "../components/NavBar.vue";
+  import PostForm from "../components/PostForm.vue";
+  import PostList from "../components/PostList.vue";
+  import ImageUploader from "../components/ImageUploader";
+  var host = window.location.hostname
+  var apiPutImageUrl = 'http://' + host + ':5000/user'; //Backend ip
+  
+  export default {
+    name: 'PersonalPage',
+    components: {
+      NavBar,
+      PostForm,
+      PostList,
+      ImageUploader
+    },
+    data() {
+      return {
+        user: JSON.parse(localStorage.getItem("user")),
+        post: {
+          "image-url": '',
+        },
+        hasImage: false
+      }
+    },
+    created() {},
+    updated() {},
+    methods: {
+      putImage() {
+        var post = this.post;
+        fetch(apiPutImageUrl, {
+            method: "PUT",
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("access-token"),
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(post)
+          })
+          .then((response) => {
+            if (response.ok) {
+              this.hasImage = true
+            }
+          }).catch(() => {});
+      }
+    },
+    mounted() {
+      this.$root.$on("imageUpload", (event) => {
+        if (event.emitter === "personal-image-uploader") {
+          this.post["image-url"] = event.url;
+          this.putImage()
+        }
+      });
     }
-  },
-  created() {},
-  updated() {},
-	methods: {}
-}
-
+  }
 </script>
 
 <style lang="sass" scoped>
