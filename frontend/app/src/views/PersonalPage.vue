@@ -2,8 +2,8 @@
   <div id="PersonalPage">
     <NavBar/>
     <div class="containerPhoto" align="center">
-      <img class="photo" v-if="hasImage" v-bind:src="post['image-url']" />
-      <ImageUploader v-if="!hasImage" uploader-id="personal-image-uploader" />
+      <img name="photo" class="photo" v-show="hasImage" v-bind:src="post['image-url']" />
+      <ImageUploader v-show="!hasImage" uploader-id="personal-image-uploader" />
       <div class="username" v-bind:userName="user.username">
         {{ user.username }}
       </div>
@@ -40,23 +40,7 @@
       }
     },
     created() {
-      var user = JSON.parse(localStorage.getItem("user"));
-      if (this.$route.path === '/profile') {
-        if (user["image-url"] != '') {
-          this.post["image-url"] = user["image-url"]
-          this.hasImage = true
-        }
-      } else {
-        if (user.username == this.$route.username) {
-          if (user.getItem("image-url") != '') {
-            this.post["image-url"] = user["image-url"]
-            this.hasImage = true
-          }
-        } else {
-          this.getUser()
-        }
-      }
-  
+      this.userHasImage()
     },
     updated() {},
     methods: {
@@ -82,6 +66,24 @@
       },
       getUser() {
         return true;
+      },
+      userHasImage() {
+        var user = JSON.parse(localStorage.getItem("user"));
+        if (this.$route.path === '/profile') {
+          if (user["image-url"] != '') {
+            this.post["image-url"] = user["image-url"]
+            this.hasImage = true
+          }
+        } else {
+          if (user.username == this.$route.username) {
+            if (user.getItem("image-url") != '') {
+              this.post["image-url"] = user["image-url"]
+              this.hasImage = true
+            }
+          } else {
+            this.getUser()
+          }
+        }
       }
     },
     mounted() {
