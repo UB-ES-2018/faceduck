@@ -2,7 +2,7 @@
   <div id="PersonalPage">
     <NavBar/>
     <div class="containerPhoto" align="center">
-      <img class="photo" v-if="hasImage" v-bind:src="post['image-url']"/>
+      <img class="photo" v-if="hasImage" v-bind:src="post['image-url']" />
       <ImageUploader v-if="!hasImage" uploader-id="personal-image-uploader" />
       <div class="username" v-bind:userName="user.username">
         {{ user.username }}
@@ -22,7 +22,6 @@
   import ImageUploader from "../components/ImageUploader";
   var host = window.location.hostname
   var apiPutImageUrl = 'http://' + host + ':5000/user'; //Backend ip
-  
   export default {
     name: 'PersonalPage',
     components: {
@@ -37,10 +36,28 @@
         post: {
           "image-url": '',
         },
-        hasImage: false
+        hasImage: false,
       }
     },
-    created() {},
+    created() {
+      var user = JSON.parse(localStorage.getItem("user"));
+      if (this.$route.path === '/profile') {
+        if (user["image-url"] != '') {
+          this.post["image-url"] = user["image-url"]
+          this.hasImage = true
+        }
+      } else {
+        if (user.username == this.$route.username) {
+          if (user.getItem("image-url") != '') {
+            this.post["image-url"] = user["image-url"]
+            this.hasImage = true
+          }
+        } else {
+          this.getUser()
+        }
+      }
+  
+    },
     updated() {},
     methods: {
       putImage() {
@@ -55,9 +72,16 @@
           })
           .then((response) => {
             if (response.ok) {
+              localStorage.removeItem("user");
+              localStorage.setItem("user",
+                JSON.stringify(response["user"]));
+              console.log(localStorage.getItem("user"))
               this.hasImage = true
             }
           }).catch(() => {});
+      },
+      getUser() {
+        return true;
       }
     },
     mounted() {
