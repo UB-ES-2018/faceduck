@@ -2,12 +2,12 @@
 	<div class="group-list">
 		<ul class="list-group"><!-- actual bootstrap class 😅 -->
 			<li class="list-group-item"
-				v-for="group in groups" v-bind:key="group.id">
+				v-for="group in groups_" v-bind:key="group.id">
 				<a v-bind:href="'/group/' + group.id">
 					{{group.name}}
 				</a>
 			</li>
-			<li class="list-group-item" v-if="groups.length == 0">
+			<li class="list-group-item" v-if="groups_.length == 0">
 				No groups yet!
 			</li>
 		</ul>
@@ -21,20 +21,25 @@ var apiGetUser  = '//'+ host +':5000/user/';
 
 export default {
 	name: "GroupList",
-	props: ["userId"],
+	props: ["userId", "groups"],
 	data() {
 		return {
-			groups: []
+			groups_: []
 		}
 	},
 	created() {
-		this.fetchGroups();
+		if (this.groups) {
+			this.groups_ = this.groups
+		} else {
+			this.fetchGroups();
+		}
 	},
 	methods: {
 		fetchGroups() {
-			var user_id = this.userId;
-			if (user_id === undefined) {
+			if (!this.userId) {
 				user_id = JSON.parse(localStorage.getItem("user")).id;
+			} else {
+				var user_id = this.userId;
 			}
 
 			/* istanbul ignore next */
@@ -44,9 +49,9 @@ export default {
 			}).then(res => res.json())
 			.then(user => {
 				if (user.groups !== undefined)
-					this.groups = user.groups;
+					this.groups_ = user.groups;
 				else
-					this.groups = [];
+					this.groups_ = [];
 			});
 		}
 	}
