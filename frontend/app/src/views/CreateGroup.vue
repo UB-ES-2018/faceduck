@@ -62,32 +62,32 @@
             
         },
         methods: {
-            submitGroup(e) {
+            submitGroup() {
                 fetch(apiCreateGroupUrl, {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + localStorage.getItem("access-token"),
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(group)
+                    //body: JSON.stringify(group)
                 })
                 .then((response) => {
                     if (response.ok) {    
-                        response.json().then((json) => {
+                        //response.json().then((json) => {
                             //alert(JSON.stringify(response));
-                            groupID = response.id;
-                            apiCreateGroupUrl = apiCreateGroupUrl + groupID + "/members";
-                        });
+                            //groupID = response.id;
+                            //apiCreateGroupUrl = apiCreateGroupUrl + groupID + "/members";
+                        //});
                     }
                 }).catch(() => {});
 
-                for (i in members){
+                /*for (i in members){
                     fetch(apiCreateGroupUrl, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify(i) // HAY QUE PASARLE EL ID
+                        //body: JSON.stringify(i) // HAY QUE PASARLE EL ID
                     })
                     .then((response) => {
                         if (response.ok) {    
@@ -97,7 +97,7 @@
                             });
                         }
                     }).catch(() => {});
-                }
+                }*/
             },
         },
     }
