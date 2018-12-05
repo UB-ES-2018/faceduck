@@ -2,7 +2,7 @@
 	<div class="group-list">
 		<ul class="list-group"><!-- actual bootstrap class 😅 -->
 			<li class="list-group-item"
-			 	v-for="group in groups" v-bind:key="group.id">
+				v-for="group in groups" v-bind:key="group.id">
 				<a v-bind:href="'/group/' + group.id">
 					{{group.name}}
 				</a>
@@ -24,18 +24,7 @@ export default {
 	props: ["userId"],
 	data() {
 		return {
-			groups: [{
-				id:"1324",
-				name:"Er fúrbo"
-			},
-			{
-				id:"1325",
-				name:"TeaTime ☕️☕️"
-			},
-			{
-				id:"1326",
-				name:"Grupo del Cole"
-			}]
+			groups: []
 		}
 	},
 	created() {
@@ -48,9 +37,10 @@ export default {
 				user_id = JSON.parse(localStorage.getItem("user")).id;
 			}
 
+			/* istanbul ignore next */
 			fetch(apiGetUser + user_id, {
 				method: "GET",
-              "Authorization": "Bearer " + localStorage.getItem("access-token"),
+				"Authorization": "Bearer " + localStorage.getItem("access-token"),
 			}).then(res => res.json())
 			.then(user => {
 				if (user.groups !== undefined)
