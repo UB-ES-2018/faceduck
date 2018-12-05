@@ -199,6 +199,15 @@ def get_friends(user_id):
     return jsonify([friendship_mapper(f) for f in friends])
 
 
+@api.route('/user/friends/', methods=["GET"])
+@jwt_required
+def get_friends_full():
+    user_id = current_user.meta.id
+    friends = core.get_full_friend_ids(user_id)
+    users = [core.get_user(f) for f in friends]#OPTIMIZE
+    return jsonify([user_mapper(u) for u in users])
+
+
 @api.route("/post/<post_id>/reactions", methods=["POST"])
 @jwt_required
 def add_reactions(post_id):
@@ -407,3 +416,15 @@ def remove_group_member(group_id,user_id):
     core.remove_group_member(group_id,user_id)
     return ("", 204)
 
+
+@api.route('/user', methods=["PUT"])
+@jwt_required
+def edit_user():
+    if not request.is_json:
+        return client_error("001")
+    try:
+        user = core.edit_user(current_user.meta.id, request.json)
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return (jsonify(user_mapper(user)))
