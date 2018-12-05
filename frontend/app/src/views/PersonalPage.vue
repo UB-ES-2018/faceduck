@@ -56,33 +56,42 @@
           })
           .then((response) => {
             if (response.ok) {
-              localStorage.removeItem("user");
-              localStorage.setItem("user",
-                JSON.stringify(response["user"]));
-              console.log(localStorage.getItem("user"))
-              this.hasImage = true
+              response.json().then(res => {
+                console.log(res)
+                localStorage.setItem("user",
+                JSON.stringify(res))
+                this.hasImage = true           
+              })
             }
           }).catch(() => {});
+          
       },
       getUser() {
         return true;
       },
+      refreshUser(){
+        this.user = JSON.parse(localStorage.getItem("user"))
+      },
+
       userHasImage() {
         var user = JSON.parse(localStorage.getItem("user"));
+        console.log(user)
         if (this.$route.path === '/profile') {
-          if (user["image-url"] != '') {
+          if (user.hasOwnProperty("image-url")) {
             this.post["image-url"] = user["image-url"]
             this.hasImage = true
           }
+          console.log(this.hasImage)
         } else {
           if (user.username == this.$route.username) {
-            if (user.getItem("image-url") != '') {
+            if (user.hasOwnProperty("image-url")) {
               this.post["image-url"] = user["image-url"]
               this.hasImage = true
             }
           } else {
             this.getUser()
           }
+          console.log(this.hasImage)
         }
       }
     },
@@ -90,7 +99,9 @@
       this.$root.$on("imageUpload", (event) => {
         if (event.emitter === "personal-image-uploader") {
           this.post["image-url"] = event.url;
+          this.hasImage = true
           this.putImage()
+          
         }
       });
     }
