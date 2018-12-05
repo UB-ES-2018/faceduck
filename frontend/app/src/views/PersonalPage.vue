@@ -3,7 +3,7 @@
     <NavBar/>
     <div class="containerPhoto" align="center">
       <img name="photo" class="photo" v-show="hasImage" v-bind:src="post['image-url']" />
-      <ImageUploader v-show="!hasImage" uploader-id="personal-image-uploader" />
+      <ImageUploader uploader-id="personal-image-uploader" />
       <div class="username" v-bind:userName="user.username">
         {{ user.username }}
       </div>
