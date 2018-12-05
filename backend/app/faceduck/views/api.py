@@ -420,3 +420,15 @@ def remove_group_member(group_id,user_id):
     core.remove_group_member(group_id,user_id)
     return ("", 204)
 
+
+@api.route('/user', methods=["PUT"])
+@jwt_required
+def edit_user():
+    if not request.is_json:
+        return client_error("001")
+    try:
+        user = core.edit_user(current_user.meta.id, request.json)
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return (jsonify(user_mapper(user)))

@@ -1,7 +1,7 @@
 from .signup import create_user
 from .login import login_user
 from .post import *
-from .user import get_user, get_all_users, get_login_logs
+from .user import get_user, get_all_users, get_login_logs, edit_user
 from .upload import upload_media
 from .user_search import search_users
 from .post_search import search_posts
