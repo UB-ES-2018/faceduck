@@ -25,9 +25,9 @@ def get_all_public_posts():
                 "visibility": "public"
             }
         }
-    }).doc_type(Post).execute()
+    }).doc_type(Post).scan()
 
-    return [p for p in response.hits]
+    return [p for p in response]
 
 def search_posts_by_author(author, user_id, start=START, size=SIZE):
     base_q = {"match_phrase": {"author": author}}
