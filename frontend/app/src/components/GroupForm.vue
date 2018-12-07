@@ -1,6 +1,5 @@
 <template>
-    <div id="CreateGroup">
-        <NavBar/>
+    <div id='GroupForm'>
         <div class="container">
             <form class='inputbox' v-on:submit="submitGroup">
                 <fieldset class="inputs">
@@ -16,46 +15,62 @@
 </template>
 
 <script>
-    import NavBar from "../components/NavBar.vue";
-
+    import ImageUploader from "./ImageUploader.vue";
+    import VisibilityField from "./VisibilityField.vue";
+    
     var host = window.location.hostname;
-    var apiCreateGroupUrl = '//' + host + ':5000/group';
-
+    var apiPostFormUrl = '//' + host + ':5000/post';
+    
     export default {
-        name: "CreateGroup",
+        name: 'PostForm',
         data() {
             return {
-                group: {
-                    name: '',
-                },
+                post: {
+                    "author-id": JSON.parse(localStorage.getItem("user"))["id"],
+                    text: '',
+                    "image-url": '',
+                    visibility:'friends',
+                }
             }
         },
-        components: {
-            NavBar,
+        beforeCreate() {
+            this.$root.$on("imageUpload", (event) => {
+                if (event.emitter === "post-image-uploader") {
+                    this.post["image-url"] = event.url;
+                }
+            });
+            this.$root.$on("visibilityChange", (event) => {
+                this.post.visibility = event.visibility;
+            });
         },
         methods: {
-            submitGroup() {
-                console.log(this.group);
-                fetch(apiCreateGroupUrl, {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(this.group),
-                })
-                .then((response) => {
-                    if (response.ok) {
-                        response.json().then(resp => {
-                            console.log(resp);
-                        }) 
-                        //this.$router.push("/group/" + response.id.name); // VAMOS A LA PAG DEL GRUPO
-                        
-                    }
-                }).catch(() => {});
+            submitPost(e) {
+                e.preventDefault();
+                var post = this.post;
+                fetch(apiPostFormUrl, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(post)
+                    })
+                    .then((response) => {
+                        if (response.ok) {
+                            this.post["text"] = "";
+                            this.post["image-url"] = "";
+                            this.$root.$emit("clearImageUpload");
+    
+                            response.json().then((post) => {
+                                this.$root.$emit("addPost", {
+                                    post: post
+                                });
+                            })
+                        }
+                    }).catch(() => {});
             },
         },
-    }
+    };
 </script>
 
 <style lang="sass" scoped>
@@ -129,6 +144,7 @@
         border-radius: 10px
         width: 60px
         position: relative
+        left: 40% 
         cursor: pointer
 
 </style>
