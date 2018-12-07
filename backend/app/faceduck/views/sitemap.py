@@ -1,13 +1,13 @@
 from faceduck.blueprints import sitemap
 from flask import make_response, render_template
 from faceduck import core
-from faceduck.config import FRONTEND_HOST, FRONTEND_PORT, FRONTEND_PATHS
+from faceduck.config import FRONTEND_HOST, FRONTEND_PATHS
 
 
 @sitemap.route('/sitemap.xml')
 def sitemap():
     pages = []
-    base_url = "http://{}:{}".format(FRONTEND_HOST, FRONTEND_PORT)
+    base_url = "http://{}".format(FRONTEND_HOST)
     
     # Static pages
     for path in FRONTEND_PATHS:
@@ -17,6 +17,11 @@ def sitemap():
     # User pages
     for user in core.get_all_users():
         path = "/user/{}".format(user.username)
+        url = "{}{}".format(base_url, path)
+        pages.append(url)
+
+    for post in core.get_all_public_posts():
+        path = "/post/{}".format(post.meta.id)
         url = "{}{}".format(base_url, path)
         pages.append(url)
 
