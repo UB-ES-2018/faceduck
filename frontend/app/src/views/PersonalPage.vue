@@ -6,7 +6,7 @@
   <div class="containerPhoto">
     <div class="personal-photo">
       <img name="photo" class="photo" v-show="hasImage" v-bind:src="post['image-url']" />
-      <ImageUploader class="image-uploader" uploader-id="personal-image-uploader" />
+      <ImageUploader class="image-uploader" v-if="isUser" uploader-id="personal-image-uploader" />
     </div>
     <div class="username" v-bind:userName="user.username">
       {{ user.username }}
@@ -15,11 +15,11 @@
   
   <main>
     <FriendList class="friend-list"/>
-    <GroupList class="group-list"/>
+    <GroupList class="group-list" v-bind:userId="this.user.id"/>
     
     <div class="post-wall">
       <PostForm class="post-form"/>
-      <PostList class="post-list" v-bind:authorId="user.id"/>
+      <PostList class="post-list" v-bind:authorId="this.user.id"/>
     </div>
   </main>
 </div>
@@ -53,6 +53,8 @@ export default {
                 "image-url": '',
             },
             hasImage: false,
+            userid: '',
+            isUser: true,
         }
     },
     created() {
@@ -83,7 +85,25 @@ export default {
             
         },
         getUser() {
-            return true;
+            this.userid=this.$route.params.userid
+            this.isUser = false
+            fetch(apiPutImageUrl+'/'+this.userid,{
+                method: "GET",
+                headers:{
+                     "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                    "Content-Type": "application/json",
+                }
+            }).then((response)=>{
+                if(response.ok){
+                    response.json().then(res=>{
+                        this.user = res
+                        if(res.hasOwnProperty("image-url")){
+                            this.hasImage = true
+                            this.post["image-url"] = res["image-url"]
+                        }
+                    })
+                }
+            });
         },
         refreshUser(){
             this.user = JSON.parse(localStorage.getItem("user"))

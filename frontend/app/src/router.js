@@ -33,8 +33,8 @@ export default new Router({
             meta: { requiresAuth: true }
         },
         {
-            path: '/profile/:username',
-            name: 'profile_username',
+            path: '/profile/:userid',
+            name: 'profile_userid',
             component: () =>
                 import ( /* webpackCunkName: "profile" */ './views/PersonalPage.vue'),
             meta: { requiresAuth: true }
