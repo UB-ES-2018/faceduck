@@ -7,12 +7,12 @@
           {{ groupname }}
         </div>
     </div>
-    <button class="btn btn-warning btn-sm" 
+    <button class="btn btn-warning btn-sm" id="Add" 
         v-on:click="addUserToGroup" v-show="!added">
         <i class="fas fa-user-plus"></i>
         Add to group
     </button>
-    <button class="btn btn-danger btn-sm"
+    <button class="btn btn-danger btn-sm" id="Cancel"
         v-on:click="deleteUserFromGroup" v-show="added">
         <i class="fas fa-user-times"></i>
         Cancel
@@ -48,6 +48,7 @@ export default {
     methods: {
         getGroupInfo() {
             var apiGetGroup = apiGroups + '/' + this.id;
+            /* istanbul ignore next */
             fetch(apiGetGroup, {
                 method: "GET",
                 headers: {
@@ -73,8 +74,11 @@ export default {
             }).catch();
         },
         addUserToGroup(e) {
+            /* istanbul ignore next */
             e.preventDefault();
+            /* istanbul ignore next */
             var apiAddUserUrl = apiGroups + '/' + this.id + '/members';
+            /* istanbul ignore next */
             fetch(apiAddUserUrl, {
                 method: "POST",
                 headers: {
@@ -88,8 +92,11 @@ export default {
             }).catch(() => {});
         },
         deleteUserFromGroup(e) {
+            /* istanbul ignore next */
             e.preventDefault();
+            /* istanbul ignore next */
             var apiDeleteUserUrl = apiGroups + '/' + this.id + '/members/'+ JSON.parse(localStorage.getItem("user"))["id"];
+            /* istanbul ignore next */
             fetch(apiDeleteUserUrl, {
                 method: "DELETE",
                 headers: {

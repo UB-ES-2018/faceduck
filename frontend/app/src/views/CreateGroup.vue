@@ -9,41 +9,11 @@
     import NavBar from "../components/NavBar.vue";
     import GroupForm from "../components/GroupForm.vue";
 
-    var host = window.location.hostname;
-    var apiCreateGroupUrl = '//' + host + ':5000/group';
-
     export default {
         name: "CreateGroup",
-        data() {
-            return {
-                
-            }
-        },
         components: {
             NavBar,
             GroupForm,
-        },
-        methods: {
-            submitGroup() {
-                console.log(this.group);
-                fetch(apiCreateGroupUrl, {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(this.group),
-                })
-                .then((response) => {
-                    if (response.ok) {
-                        response.json().then(resp => {
-                            console.log(resp);
-                        }) 
-                        //this.$router.push("/group/" + response.id.name); // VAMOS A LA PAG DEL GRUPO
-                        
-                    }
-                }).catch(() => {});
-            },
         },
     }
 </script>

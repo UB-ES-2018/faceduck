@@ -32,6 +32,7 @@
         },
         methods: {
             submitGroup(e) {
+                /* istanbul ignore next */
                 e.preventDefault();
                 fetch(apiCreateGroupUrl, {
                     method: "POST",
