@@ -15,60 +15,42 @@
 </template>
 
 <script>
-    import ImageUploader from "./ImageUploader.vue";
-    import VisibilityField from "./VisibilityField.vue";
-    
     var host = window.location.hostname;
-    var apiPostFormUrl = '//' + host + ':5000/post';
+    var apiCreateGroupUrl = '//' + host + ':5000/group';
     
     export default {
-        name: 'PostForm',
+        name: 'GroupForm',
         data() {
             return {
-                post: {
-                    "author-id": JSON.parse(localStorage.getItem("user"))["id"],
-                    text: '',
-                    "image-url": '',
-                    visibility:'friends',
-                }
+                group: {
+                    name: '',
+                },
             }
         },
         beforeCreate() {
-            this.$root.$on("imageUpload", (event) => {
-                if (event.emitter === "post-image-uploader") {
-                    this.post["image-url"] = event.url;
-                }
-            });
-            this.$root.$on("visibilityChange", (event) => {
-                this.post.visibility = event.visibility;
-            });
+            
         },
         methods: {
-            submitPost(e) {
+            submitGroup(e) {
                 e.preventDefault();
-                var post = this.post;
-                fetch(apiPostFormUrl, {
-                        method: "POST",
-                        headers: {
-                            "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(post)
-                    })
-                    .then((response) => {
-                        if (response.ok) {
-                            this.post["text"] = "";
-                            this.post["image-url"] = "";
-                            this.$root.$emit("clearImageUpload");
-    
-                            response.json().then((post) => {
-                                this.$root.$emit("addPost", {
-                                    post: post
-                                });
-                            })
-                        }
-                    }).catch(() => {});
+                fetch(apiCreateGroupUrl, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(this.group),
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        response.json().then(resp => {
+                            this.$router.push("/group/" + resp.id); // Vamos a la pagina del grupo recien creado
+                        }) 
+                        
+                    }
+                }).catch(() => {});
             },
+        
         },
     };
 </script>

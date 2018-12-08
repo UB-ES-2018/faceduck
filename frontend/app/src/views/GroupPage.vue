@@ -3,31 +3,109 @@
     <NavBar/>
     <div class="containerPhoto" align="center">
         <div class="photo"></div>
-        <div class="groupname" v-bind:groupname="group.groupname">
-          {{ group.groupname }} <!--THIS-->
+        <div class="groupname" v-bind:groupname="groupname">
+          {{ groupname }}
         </div>
     </div>
+    <button class="btn btn-warning btn-sm" 
+        v-on:click="addUserToGroup" v-show="!added">
+        <i class="fas fa-user-plus"></i>
+        Add to group
+    </button>
+    <button class="btn btn-danger btn-sm"
+        v-on:click="deleteUserFromGroup" v-show="added">
+        <i class="fas fa-user-times"></i>
+        Cancel
+    </button>
   </div>
 </template>
 
 <script>
 import NavBar from "../components/NavBar.vue";
 
+var host = window.location.hostname;
+var apiGroups = '//' + host + ':5000/group';
+
 export default {
     name: 'GroupPage',
     data() {
         return {
-            groupid: -1,
-            group: JSON.parse(localStorage.getItem("user")) //THIS
+            id: '',
+            groupname: '',
+            added: '',
+            users: 0,
+
         }
     },
     created() {
-        this.groupid = this.$route.params.groupid;
+        this.id = this.$route.params.idgroup; // Obtenemos el id del grupo de la URI
+        this.getGroupInfo();
     },
     updated() {},
-    methods: {},
     components: {
         NavBar,
+    },
+    methods: {
+        getGroupInfo() {
+            var apiGetGroup = apiGroups + '/' + this.id;
+            fetch(apiGetGroup, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then(resp => {
+                        this.groupname=resp.name;
+                        this.users = resp.users.length;
+                        for(var i in resp.users){
+                            if(resp.users[i].id == JSON.parse(localStorage.getItem("user"))["id"]){
+                                this.added = true;
+                            } else {
+                                this.added = false;
+                            }
+                        }                            
+                    }) 
+                } else {
+                    this.$router.push("/wall"); // Si hay un error volvemos a wall
+                }
+            }).catch();
+        },
+        addUserToGroup(e) {
+            e.preventDefault();
+            var apiAddUserUrl = apiGroups + '/' + this.id + '/members';
+            fetch(apiAddUserUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((response) => {
+                if (response.ok) {
+                    this.added = !this.added;
+                }
+            }).catch(() => {});
+        },
+        deleteUserFromGroup(e) {
+            e.preventDefault();
+            var apiDeleteUserUrl = apiGroups + '/' + this.id + '/members/'+ JSON.parse(localStorage.getItem("user"))["id"];
+            fetch(apiDeleteUserUrl, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((response) => {
+                if (response.ok) {
+                    if(this.users==1){
+                        this.$router.push("/wall");
+                    }
+                    this.added = !this.added;
+                }
+            }).catch(() => {});
+        },
     },
 }
 
@@ -70,4 +148,5 @@ export default {
 .groupname
     color: black
     font-size: 4vh
+
 </style>

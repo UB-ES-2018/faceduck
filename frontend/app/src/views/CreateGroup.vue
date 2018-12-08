@@ -1,22 +1,13 @@
 <template>
     <div id="CreateGroup">
         <NavBar/>
-        <div class="container">
-            <form class='inputbox' v-on:submit="submitGroup">
-                <fieldset class="inputs">
-                    <p><b>Group Name</b></p>
-                    <textarea cols="5" rows="1" type="text" name="name" id="text-box" v-model="group.name" placeholder="Name"></textarea>
-                </fieldset> 
-                <fieldset class="actions">
-                    <button type="submit"> Create </button>
-                </fieldset>
-            </form>
-        </div>
+        <GroupForm/>        
     </div>
 </template>
 
 <script>
     import NavBar from "../components/NavBar.vue";
+    import GroupForm from "../components/GroupForm.vue";
 
     var host = window.location.hostname;
     var apiCreateGroupUrl = '//' + host + ':5000/group';
@@ -25,13 +16,12 @@
         name: "CreateGroup",
         data() {
             return {
-                group: {
-                    name: '',
-                },
+                
             }
         },
         components: {
             NavBar,
+            GroupForm,
         },
         methods: {
             submitGroup() {
