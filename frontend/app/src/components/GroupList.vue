@@ -1,18 +1,18 @@
 <template>
-	<div class="group-list">
-		<ul class="list-group"><!-- actual bootstrap class 😅 -->
-			<li class="list-group-item"
-				v-for="group in groups_" v-bind:key="group.id">
-				<a v-bind:href="'/group/' + group.id">
-					{{group.name}}
-				</a>
-			</li>
-			<li class="list-group-item" v-if="groups_.length == 0">
-				No groups yet!
-			</li>
-		</ul>
-
-	</div>
+<div class="group-list">
+  <ul class="list-group"><!-- actual bootstrap class 😅 -->
+    <li class="list-group-item"
+	v-for="group in groups_" v-bind:key="group.id">
+      <a v-bind:href="'/group/' + group.id">
+	{{group.name}}
+      </a>
+    </li>
+    <li class="list-group-item" v-if="groups_.length == 0">
+      No groups yet!
+    </li>
+  </ul>
+  
+</div>
 </template>
 
 <script>

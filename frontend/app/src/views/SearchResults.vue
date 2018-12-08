@@ -1,8 +1,8 @@
 <template>
     <div id="SearchResults">
       <NavBar/>
+      
       <h1>Search results</h1>
-      <!--<SearchBar/>-->
       <div class="container">
         <div class="row justify-content-center">
           <SearchUsers class="col-8"/>

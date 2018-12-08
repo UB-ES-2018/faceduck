@@ -1,17 +1,17 @@
 <template>
-  <div class="group-list">
-		<ul class="list-group"><!-- actual bootstrap class 😅 -->
-      <a>Your friends:</a>
-			<li class="list-group-item"
+<div class="friend-list">
+  <ul class="list-group"><!-- actual bootstrap class 😅 -->
+    <a>Your friends:</a>
+    <li class="list-group-item"
         
-				v-for="result in results" :key="result.username">
-				<a v-bind:href="'/user/'+ result.username">{{result.username}}: {{result.name}} {{result.surname}}</a>
-			</li>
-			<li class="list-group-item" v-if="nores">
-				No friends found
-			</li>
-		</ul>
-	</div> 
+	v-for="result in results" :key="result.username">
+      <a v-bind:href="'/user/'+ result.username">{{result.username}}: {{result.name}} {{result.surname}}</a>
+    </li>
+    <li class="list-group-item" v-if="nores">
+      No friends found
+    </li>
+  </ul>
+</div> 
 </template>
 
 
