@@ -18,6 +18,14 @@ var ducklist = [{
     "special": "duckload"
 }];
 
+var noposts = [{
+    "author": {
+        "username": "No posts found"
+    },
+    "text": "",
+    "special": "no-posts"
+}];
+
 var host = window.location.hostname;
 var api = '//' + host + ':5000/post/search';
 
@@ -90,21 +98,22 @@ export default {
             if (this.list.length === 0
                 || this.list[0].special == "no-posts")
                 this.list = ducklist;
-            
+
             fetch(api, this.fetch_options)
+            .catch(() => {
+                this.list = noposts;
+            })
+            .then(res => {
+                if (!res.ok) this.list = noposts;
+                return res;
+            })
             .then(res => res.json())
             .then(res => {
                 if (res.length > 0)
                     this.list = res;
                 else {
                     if (this.list && this.list.length > 0 && this.list[0].special) {
-                        this.list = [{
-                            "author": {
-                                "username": "No posts found"
-                            },
-                            "text": "",
-                            "special": "no-posts"
-                        }];
+                        this.list = noposts;
                     }
                 }
             });
