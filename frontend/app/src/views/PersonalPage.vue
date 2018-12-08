@@ -15,7 +15,7 @@
   
   <main>
     <FriendList class="friend-list"/>
-    <GroupList class="group-list" v-bind:userId="this.user.id"/>
+    <GroupList class="group-list" v-bind:userId="this.userid"/>
     
     <div class="post-wall">
       <PostForm class="post-form"/>
@@ -48,7 +48,7 @@ export default {
     },
     data() {
         return {
-            user: JSON.parse(localStorage.getItem("user")),
+            user: {},
             post: {
                 "image-url": '',
             },
@@ -100,6 +100,8 @@ export default {
                         if(res.hasOwnProperty("image-url")){
                             this.hasImage = true
                             this.post["image-url"] = res["image-url"]
+                        }else{
+                            this.hasImage = false
                         }
                     })
                 }
@@ -111,15 +113,19 @@ export default {
         
         userHasImage() {
             var user = JSON.parse(localStorage.getItem("user"));
+            
             console.log(user)
             if (this.$route.path === '/profile') {
+                this.user = user;
+                this.userid=this.user.id
                 if (user.hasOwnProperty("image-url")) {
                     this.post["image-url"] = user["image-url"]
                     this.hasImage = true
                 }
                 console.log(this.hasImage)
             } else {
-                if (user.username == this.$route.username) {
+                this.userid=this.$route.params.userid
+                if (user.id == this.$route.params.userid) {
                     if (user.hasOwnProperty("image-url")) {
                         this.post["image-url"] = user["image-url"]
                         this.hasImage = true
