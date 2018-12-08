@@ -1,13 +1,14 @@
 <template>
     <div id="SearchResults">
       <NavBar/>
+      
       <h1>Search results</h1>
-      <!--<SearchBar/>-->
       <div class="container">
         <div class="row justify-content-center">
           <SearchUsers class="col-8"/>
         </div>
         <PostList/>
+        <SearchGroups/>
       </div>
     </div>   
 </template>
@@ -18,6 +19,7 @@
 import NavBar from "../components/NavBar.vue";
 import SearchUsers from "../components/SearchUsers.vue";
 import PostList from "../components/PostList.vue";
+import SearchGroups from "../components/SearchGroups.vue";
 
 export default {
     name: "SearchResults",
@@ -28,7 +30,8 @@ export default {
       // SearchBar,
       NavBar,
       SearchUsers,
-      PostList
+      PostList,
+      SearchGroups
     }
 }
 </script>

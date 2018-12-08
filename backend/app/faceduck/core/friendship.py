@@ -164,7 +164,7 @@ def get_full_friends(user_id):
                             "state": "friends"
                         }
                     },
-                    "should": [
+                    "must": [
                         {
                             "multi_match": {
                                 "query": user_id,

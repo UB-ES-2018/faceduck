@@ -1,10 +1,8 @@
 <template>
-    <div id="search-bar">
-        <form class="inputbox" v-on:submit="submitQuery">
-          <input type="text" placeholder="Type to search…" v-model="searchQuery">
-          <button type="submit">Search</button>
-        </form>
-    </div>
+<form class="search-bar" v-on:submit="submitQuery">
+  <input type="text" placeholder="Type to search…" v-model="searchQuery">
+  <button type="submit">Search</button>
+</form>
 </template>
 
 <script>
@@ -27,6 +25,7 @@ export default {
       }
       this.getUsers();
       this.getPosts();
+      this.getGroups();
     },
     methods: {
         //wip
@@ -36,6 +35,7 @@ export default {
           if (!this.redirect) {
             this.getUsers();
             this.getPosts();
+            this.getGroups();
           }
         },
         getUsers() {
@@ -51,30 +51,52 @@ export default {
             this.$root.$emit("getUserResults", {
               results: data
             });
-          });
+          }).catch();
         },
         getPosts() {
           this.$root.$emit("postEvent", {
             "query": this.searchQuery
           });
         },
+        getGroups(){
+          this.$root.$emit("groupEvent", {
+            "query": this.searchQuery
+          });
+        }
     }
 }
 </script>
 
 <style lang="sass" scoped>
-.inputbox button
-  background-color: #ffb511
-  border: none
-  color: white
-  font-size: 12px
+@import '../assets/global.sass';
+
+$search-button-width: 100px
+$search-border-radius: .4rem
+
+.search-bar
+  display: flex
+  flex-direction: row
+  align-items: center
+
+.search-bar > *
+  font-size: 17px
+  padding: 6px 5px 4px 5px
+  border: 1px solid grey
+
+.search-bar > input
+  padding-left: 10px
+  border-radius: $search-border-radius 0 0 $search-border-radius
+  width: calc(100% - #{$search-button-width})
+  z-index: 0
+
+.search-bar > button
   font-weight: bold
-  box-sizing: content-box
-  padding: 10px
-  border-radius: 10px
-  width: 60px
-  position: relative
-  left: 1% 
+  margin-left: -5px
+  border-radius: 0 $search-border-radius $search-border-radius 0
+  width: $search-button-width
+  background-color: $accent3
+  color: white
+  outline: none
   cursor: pointer
 
 </style>

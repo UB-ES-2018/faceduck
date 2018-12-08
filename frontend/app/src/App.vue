@@ -1,25 +1,18 @@
 <template>
-  <div id="app">
-    <nav>
-    </nav>
-    <router-view/>
-  </div>
+<div id="app">
+  <router-view/>
+</div>
 </template>
 
 <style lang="sass">
 @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css");
 @import 'assets/global.sass';
 
-html 
+body
+  width: 100%
   height: 100%
   background-color: $background
-
-
-body 
-  background-color: $background
-  height: 100%
   display: flex
-
 
 #app 
   font-family: 'Avenir', Helvetica, Arial, sans-serif
@@ -31,14 +24,11 @@ body
   background-color: $background
   flex-grow: 1
 
-
 nav 
   a 
     font-weight: bold
     color: #ffb511
     &.router-link-exact-active 
       color: #42b983
-    
-  
 
 </style>

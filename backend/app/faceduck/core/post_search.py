@@ -18,6 +18,16 @@ def search_posts(query, user_id, start=START, size=SIZE):
 
     return [d for d in response.hits]
 
+def get_all_public_posts():
+    response = Post.search().from_dict({
+        "query": {
+            "match_phrase": {
+                "visibility": "public"
+            }
+        }
+    }).doc_type(Post).scan()
+
+    return [p for p in response]
 
 def search_posts_by_author(author, user_id, start=START, size=SIZE):
     base_q = {"match_phrase": {"author": author}}

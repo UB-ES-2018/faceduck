@@ -1,7 +1,6 @@
 from elasticsearch_dsl.connections import connections
 
-FRONTEND_HOST = "localhost"
-FRONTEND_PORT = 8080
+FRONTEND_HOST = "faceduck.xyz"
 FRONTEND_PATHS = [
     '/',
     '/about',

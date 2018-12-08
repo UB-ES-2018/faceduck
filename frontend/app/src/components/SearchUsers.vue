@@ -39,6 +39,7 @@ export default {
   mounted() {
     this.$root.$on("getUserResults", (event) => {
       // console.log(event)
+      console.log(event.results)
       this.results = event.results;
       this.nores = (event.results.length === 0);
     });
