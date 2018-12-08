@@ -29,15 +29,25 @@ export default {
             return this.$route.params.idpost;
         },
         fetchData() {
+            var accessToken = localStorage.getItem("access-token");
+            var headers = {};
+            if (accessToken) {
+                headers = {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer: " + accessToken
+                };
+            }
             fetch(apiPostFormUrl + '/' + this.idpost, {
-                method: "GET"
+                method: "GET",
+                headers: headers
             }).then(res => {
                 if (res.ok) {
                     res.json().then(data => {
                         this.post = data;
-                    })
+                    });
                 } else {
-                    this.$router.push("/");
+                    //this.$router.push("/");
+                    console.log(res)
                 }
             });
         }

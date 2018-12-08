@@ -2,7 +2,6 @@
   <div id="PersonalWall">
     <NavBar/>
     <div class="container" align="center">
-      <!--<SearchBar redirect/>-->
       <PostForm/>
       <PostList newsfeed/>
     </div>
