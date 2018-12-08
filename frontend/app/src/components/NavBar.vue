@@ -1,8 +1,8 @@
 <template>
     <nav class = 'navbar navbar-light'>
         <h1 class="title">Faceduck</h1>
-        <SearchBar v-bind:redirect="!searchPage" />
-        <form class="form-inline">
+        <SearchBar v-bind:redirect="!searchPage" v-if="user"/>
+        <form class="form-inline" v-if="user">
     
             <div class="mr-sm-2">
                 <router-link to="/profile">{{user.username}}</router-link>

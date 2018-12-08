@@ -31,7 +31,8 @@
 <script>
 
 var host = window.location.hostname;
-var user_id = JSON.parse(localStorage.getItem("user")).id;
+var user_id = 
+    (JSON.parse(localStorage.getItem("user")) || {id: -1}).id;
 
 export default {
 	name: "EmotionButtons",

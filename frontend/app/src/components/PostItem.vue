@@ -1,13 +1,13 @@
 <template>
     <div class="row justify-content-center">
         <div class="post-item col-xl-7 col-lg-8 col-md-10 col-sm-12">
-            <div class="post-username">
+            <div class="post-username" v-if="post.author && post.author.username">
                 <a v-bind:href="'/profile/' + post.author.username" v-if="!post.special">
                     {{post.author.username}}
                 </a>
                 <span v-else>{{post.author.username}}</span>
             </div>
-            <div class="post-text" v-html="richText"></div>
+            <div class="post-text" v-if="post.text" v-html="richText"></div>
             <div class="post-image" v-if="post['image-url']">
                 <img v-bind:src="post['image-url']"/>
             </div>
