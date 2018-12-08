@@ -72,6 +72,8 @@ export default {
                 fetch_options["method"] = "GET";
                 api = '//' + host + ':5000/post/newsfeed';
             } else {
+                api = '//' + host + ':5000/post/search';
+                
                 if (this.authorId)
                     body["author-id"] = this.authorId;
 
