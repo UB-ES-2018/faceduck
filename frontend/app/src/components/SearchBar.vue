@@ -27,6 +27,7 @@ export default {
       }
       this.getUsers();
       this.getPosts();
+      this.getGroups();
     },
     methods: {
         //wip
