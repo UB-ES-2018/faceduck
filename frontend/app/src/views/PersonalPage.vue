@@ -4,8 +4,10 @@
   <NavBar class="navbar"/>
   
   <div class="containerPhoto">
-    <img name="photo" class="photo" v-show="hasImage" v-bind:src="post['image-url']" />
-    <ImageUploader uploader-id="personal-image-uploader" />
+    <div class="personal-photo">
+      <img name="photo" class="photo" v-show="hasImage" v-bind:src="post['image-url']" />
+      <ImageUploader class="image-uploader" uploader-id="personal-image-uploader" />
+    </div>
     <div class="username" v-bind:userName="user.username">
       {{ user.username }}
     </div>
@@ -131,6 +133,9 @@ export default {
   width: 100vw
   
 .containerPhoto
+  display: flex
+  flex-direction: column
+  align-items: center
   padding-top: 2.2rem
   min-width: 100%
   //background: #ffb511
@@ -142,16 +147,36 @@ export default {
   //background-repeat: no-repeat;
   //background-size: cover;
 
-.photo
-  margin: auto
+.containerPhoto > .personal-photo
+  position: relative
   border-radius: 100%
   background-color: gray
-  height: 15vh
-  width: 15vh
+  width: 100px
+  height: 100px
+  overflow: hidden
   
-.username
+.personal-photo > .photo
+  height: inherit
+  width: inherit
+
+.personal-photo:hover > .photo
+  display: none
+
+.personal-photo > .image-uploader
+  position: absolute
+  right: calc(50% - 21px)
+  top: calc(50% - 19px)
+  display: none
+  
+.personal-photo:hover > .image-uploader
+  display: block
+  
+.containerPhoto > .username
   color: black
-  font-size: 4vh
+  font-size: 24px
+  margin-top: .8rem
+  margin-bottom: .8rem
+  width: auto
 
 #user-page > main
   display: grid
