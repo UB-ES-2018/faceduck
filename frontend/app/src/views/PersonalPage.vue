@@ -131,26 +131,20 @@ export default {
 #user-page
   min-width: 320px
   width: 100vw
-  
+
 .containerPhoto
   display: flex
   flex-direction: column
   align-items: center
   padding-top: 2.2rem
   min-width: 100%
-  //background: #ffb511
-  background:  #FFDC3333 
-  //box-shadow: inset 0 -80px 80px -80px black, inset 0 80px 80px -80px black
-  border-bottom: 5px solid $accent3
-  //background-image: url(../assets/h2.jpg)
-  //background-position: center;
-  //background-repeat: no-repeat;
-  //background-size: cover;
+  background: $lightestprimary
+  border-bottom: 5px solid $primary
 
 .containerPhoto > .personal-photo
   position: relative
   border-radius: 100%
-  background-color: gray
+  background-color: $darkgray
   width: 100px
   height: 100px
   overflow: hidden
@@ -174,7 +168,7 @@ export default {
   z-index: 1
   
 .containerPhoto > .username
-  color: black
+  color: $darkestgray
   font-size: 24px
   margin-top: .8rem
   margin-bottom: .8rem
@@ -194,7 +188,6 @@ export default {
   @media screen and (max-width: $break-small)
     margin-right: 15px
     margin-left: 15px
-    //margin-bottom: 15px
 
 #user-page > main > .friend-list
   grid-column: 3 / 4
