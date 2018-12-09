@@ -1,27 +1,29 @@
 <template>
-  <div id="PersonalWall">
-    <NavBar/>
-    <div class="container" align="center">
-      <!--<SearchBar redirect/>-->
-      <PostForm/>
-      <PostList newsfeed/>
-    </div>
+
+<div id="personal-wall">
+  <NavBar class="navbar"/>
+  
+  <div class="container2">
+    <PostForm/>
+    <PostList newsfeed/>
   </div>
+</div>
+
 </template>
 
 <script>
 import NavBar from "../components/NavBar.vue";
-import SearchBar from "../components/SearchBar.vue";
 import PostForm from "../components/PostForm.vue";
 import PostList from "../components/PostList.vue";
+import SearchBar from "../components/SearchBar.vue";
 
 export default {
   name: 'PersonalWall',
   components: {
     NavBar,
-    SearchBar,
     PostForm,
-    PostList
+    PostList,
+    SearchBar
   },
   data() {
     return {};
@@ -31,25 +33,21 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../assets/global.sass';
 
-  .title
-    font-family: "Avenir", Helvetica, Arial, sans-serif
-    text-align: center
-    color: #ffb511
-    text-shadow: 3px 3px #555
-    font-size: 25px
+#personal-wall
+  min-width: 320px
+  width: 100vw
 
-  .button
-    background-color: #ffb511
-    border: none
-    color: white
-    font-size: 12px
-    font-weight: bold
-    box-sizing: content-box
-    padding: 10px
-    border-radius: 10px
-    width: 60px
-    left: 40% 
-    cursor: pointer
+.container2
+  width: 70%;
+  min-width: 320px
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-top: 1.8rem
+  margin-right: auto;
+  margin-left: auto;
+  @media screen and (min-width: 700px)
+    max-width: 700px
 
 </style>

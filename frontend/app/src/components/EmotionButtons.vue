@@ -91,46 +91,48 @@ export default {
 <style lang="sass" scoped>
 
 .emotions
-    position: absolute
-    background-color: #fff
-    border: 1px solid #9b9797
-    left: 0%
-    border-radius: 100px
-    width: 300px
-    
+  position: absolute
+  background-color: #fff
+  border: 1px solid #9b9797
+  left: 0%
+  border-radius: 100px
+  width: auto
+  padding-left: 0
+  overflow: hidden
+  
 .emotions li
-    padding: 10px
-    margin: 0 auto
-    cursor: pointer
-
+  padding: 8px
+  margin: 0 auto
+  cursor: pointer
+  
 .emotions li[data-selected] 
-    background-color: #4B0082
-
+  background-color: #4B0082
+  
 .react
-    width: 25px
-    height: 25px
-    transition: all .2s ease-in-out
-
+  width: 25px
+  height: 25px
+  transition: all .2s ease-in-out
+  
 .react:hover
-    transform: scale(1.7)
-
+  transform: scale(1.7)
+  
 .icons
-    height: 26px
-    padding: 0px 25px
-
-.icons li
-    padding: 10px
-    padding-top: 5px
-    text-align: left
-    cursor: pointer
-    
+  height: 26px
+  padding: 0px 25px
+  
+.icons > li
+  padding: 10px
+  padding-top: 5px
+  text-align: left
+  cursor: pointer
+  
 ul li
-    list-style-type: none
-    float: left
+  list-style-type: none
+  float: left
 
 .fa
-	width: 100px
-    height: 100px
-    color: #ffb511
+  //width: 100px
+  //height: 100px
+  //color: #ffb511
 
 </style>

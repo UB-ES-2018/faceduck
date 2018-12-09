@@ -1,5 +1,5 @@
 <template>
-    <div class="post-list container">
+    <div class="post-list container5">
         <PostItem 
             v-for="post in list" 
             v-bind:post="post"
@@ -130,10 +130,12 @@ export default {
 <style lang="sass" scoped>
 
 .post-list
-    margin-top: 20px
-    padding-bottom: 20px
+  margin-top: 20px
+  padding-bottom: 20px
+  padding-right: 0
+  padding-left: 0
 
 .post-list > .row
-    margin-bottom: 12px
+  margin-bottom: 12px
 
 </style>

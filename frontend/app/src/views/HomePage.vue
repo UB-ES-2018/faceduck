@@ -21,7 +21,8 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped> 
+<style lang="sass" scoped>
+
 #head
   top: 25%
 
@@ -65,5 +66,6 @@ export default {
     box-shadow: 0 0.125em 0.05em -0.05em rgba(255, 255, 255, 0.4), inset 0 0.063em rgba(255, 255, 255, 0.4), inset 0 -0.15em rgba(0, 0, 0, 0.15)
   &:active
     box-shadow: inset 0 0 1.094em #ffb451, inset 0 0.063em #ffb351, inset 0 -0.188em #ffe451, 0 0.063em rgba(255, 255, 255, 0.4)
+
 </style>
 
