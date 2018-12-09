@@ -181,6 +181,8 @@ export default {
 
 .main-menu > li:hover > a
   color: $darkprimary
+  @media screen and (max-width: $break-mid)
+    color: $darkestprimary
 
 .dropdown-content > li:hover > a
   color: $darkestprimary
@@ -265,6 +267,7 @@ export default {
   @media screen and (max-width: $break-mid)
     position: relative
     width: 100%
+    box-shadow: none
   
 .dropdown-content a
   color: $darkestgray;
