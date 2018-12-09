@@ -7,7 +7,7 @@
       <div class="results-item" v-for="result in results" :key="result.username">
         <div class="border-b-1 row">
           <div class="results-item-text col-8">
-          <h3><a href="#"> {{result.name}} {{result.surname}}</a></h3>
+          <h3><a :href="'/profile/'+result.id"> {{result.name}} {{result.surname}}</a></h3>
           <h4>{{result.email}}</h4>
           <p>Gender: {{result.gender}}, born: {{result.birthday}}</p>
           </div>

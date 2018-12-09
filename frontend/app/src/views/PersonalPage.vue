@@ -14,7 +14,7 @@
   </div>
   
   <main>
-    <FriendList class="friend-list"/>
+    <FriendList class="friend-list" v-bind:userId="this.userid"/>
     <GroupList class="group-list" v-bind:userId="this.userid"/>
     
     <div class="post-wall">

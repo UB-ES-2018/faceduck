@@ -5,7 +5,7 @@
     <li class="list-group-item"
         
 	v-for="result in results" :key="result.username">
-      <a v-bind:href="'/user/'+ result.username">{{result.username}}: {{result.name}} {{result.surname}}</a>
+      <a v-bind:href="'/profile/'+ result.username">{{result.username}}: {{result.name}} {{result.surname}}</a>
     </li>
     <li class="list-group-item" v-if="nores">
       No friends found
@@ -18,6 +18,7 @@
 <script>
 var friendsAPI = 'http://' + window.location.hostname + ':5000/user/friends'; //Backend friends search
 export default {
+  props: ["userId"],
   data() {
     return {
       results: [],
@@ -28,7 +29,6 @@ export default {
   mounted() {
     this.getFriends();
     this.$root.$on("getFriends", (event) => {
-      // console.log(event)
       this.results = event.results;
       this.nores = (event.results.length === 0);
     });
@@ -37,7 +37,7 @@ export default {
         //wip
         
         getFriends() {
-          fetch(friendsAPI, {
+          fetch(friendsAPI+'/'+this.userId+"?full/true", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -45,6 +45,8 @@ export default {
             }
           }).then(res => res.json())
           .then(data => {
+            //this.results = data
+            console.log(JSON.stringify(data))
             this.$root.$emit("getFriends", {
               results: data
             });
