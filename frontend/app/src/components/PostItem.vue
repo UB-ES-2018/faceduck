@@ -132,6 +132,7 @@ img
     align: "right"
 
 .emotionsButton
-    border-top: 1px solid $gray
+  border-top: 1px solid $gray
+  position: relative
     
 </style>
