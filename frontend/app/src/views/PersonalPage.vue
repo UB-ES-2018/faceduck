@@ -27,24 +27,24 @@
 </template>
 
 <script>
+import FriendList from "../components/FriendList.vue";
+import GroupList from "../components/GroupList.vue";
 import NavBar from "../components/NavBar.vue";
 import PostForm from "../components/PostForm.vue";
 import PostList from "../components/PostList.vue";
 import ImageUploader from "../components/ImageUploader";
-import FriendList from "../components/FriendList.vue";
-import GroupList from "../components/GroupList.vue";
 
 var host = window.location.hostname
 var apiPutImageUrl = 'http://' + host + ':5000/user'; //Backend ip
 export default {
     name: 'PersonalPage',
     components: {
+        FriendList,
+        GroupList,
         NavBar,
         PostForm,
         PostList,
-        ImageUploader,
-        FriendList,
-        GroupList
+        ImageUploader
     },
     data() {
         return {

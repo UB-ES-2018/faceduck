@@ -16,8 +16,8 @@
 // SearchBar unimported, as it is now in the navbar
 // import SearchBar from "../components/SearchBar.vue";
 import NavBar from "../components/NavBar.vue";
-import SearchUsers from "../components/SearchUsers.vue";
 import PostList from "../components/PostList.vue";
+import SearchUsers from "../components/SearchUsers.vue";
 
 export default {
     name: "SearchResults",
@@ -27,8 +27,8 @@ export default {
     components: {
       // SearchBar,
       NavBar,
-      SearchUsers,
-      PostList
+      PostList,
+      SearchUsers
     }
 }
 </script>
