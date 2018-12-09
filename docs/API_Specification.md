@@ -32,6 +32,7 @@
 - [Update User Role](#update-user-role)
 - [Get Group User](#get-group-user)
 - [Delete Group User](#delete-group-user)
+- [Get User Groups](#get-user-groups)
 
 ## Summary of codes and ids
 
