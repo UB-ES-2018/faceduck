@@ -25,6 +25,7 @@ export default {
       }
       this.getUsers();
       this.getPosts();
+      this.getGroups();
     },
     methods: {
         //wip
@@ -34,6 +35,7 @@ export default {
           if (!this.redirect) {
             this.getUsers();
             this.getPosts();
+            this.getGroups();
           }
         },
         getUsers() {
@@ -49,13 +51,18 @@ export default {
             this.$root.$emit("getUserResults", {
               results: data
             });
-          });
+          }).catch();
         },
         getPosts() {
           this.$root.$emit("postEvent", {
             "query": this.searchQuery
           });
         },
+        getGroups(){
+          this.$root.$emit("groupEvent", {
+            "query": this.searchQuery
+          });
+        }
     }
 }
 </script>

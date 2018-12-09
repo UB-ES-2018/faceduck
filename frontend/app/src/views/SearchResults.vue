@@ -8,6 +8,7 @@
           <SearchUsers class="col-8"/>
         </div>
         <PostList/>
+        <SearchGroups/>
       </div>
     </div>   
 </template>
@@ -17,6 +18,7 @@
 // import SearchBar from "../components/SearchBar.vue";
 import NavBar from "../components/NavBar.vue";
 import PostList from "../components/PostList.vue";
+import SearchGroups from "../components/SearchGroups.vue";
 import SearchUsers from "../components/SearchUsers.vue";
 
 export default {
@@ -25,9 +27,9 @@ export default {
         return {}
     },
     components: {
-      // SearchBar,
       NavBar,
       PostList,
+      SearchGroups,
       SearchUsers
     }
 }

@@ -1,18 +1,20 @@
 <template>
+
 <div class="group-list">
   <ul class="list-group"><!-- actual bootstrap class 😅 -->
     <li class="list-group-item"
-	v-for="group in groups_" v-bind:key="group.id">
+	v-for="group in internalGroups" v-bind:key="group.id">
       <a v-bind:href="'/group/' + group.id">
 	{{group.name}}
       </a>
     </li>
-    <li class="list-group-item" v-if="groups_.length == 0">
+    <li class="list-group-item" v-if="internalGroups.length == 0">
       No groups yet!
     </li>
   </ul>
   
 </div>
+
 </template>
 
 <script>
@@ -27,10 +29,19 @@ export default {
 			groups_: []
 		}
 	},
-	created() {
-		if (this.groups) {
-			this.groups_ = this.groups
-		} else {
+	computed: {
+		internalGroups: {
+			get: function() {
+				if (this.groups) return this.groups;
+				else return this.groups_;
+			},
+			set: function(groups) {
+				this.groups_ = groups;
+			} 
+		}
+	},
+	mounted() {
+		if (!this.groups) {
 			this.fetchGroups();
 		}
 	},
