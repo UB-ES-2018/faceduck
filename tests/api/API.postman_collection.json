@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e5eb7e9d-948d-4487-9330-57bd3837c03c",
+		"_postman_id": "4a57229c-ee23-4885-9f1a-b4d42acfb08a",
 		"name": "API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1411,6 +1411,64 @@
 			"response": []
 		},
 		{
+			"name": "Create Group 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "291ccc54-3f20-4500-9de2-ee308400a7b3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"var json = pm.response.json();",
+							"",
+							"pm.environment.set(\"group_id2\", json[\"id\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Test Group 2\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Group To Remove",
 			"event": [
 				{
@@ -2008,6 +2066,63 @@
 					"path": [
 						"group",
 						"{{group_id}}",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user to group 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69eaf26e-dbb0-4028-9d82-3234db4704d3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\" : \"{{user_id}}\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/group/{{group_id2}}/members",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"group",
+						"{{group_id2}}",
 						"members"
 					]
 				}
@@ -2640,10 +2755,41 @@
 			"response": []
 		},
 		{
-			"name": "Shutdown API",
+			"name": "Get Users Groups",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29cfb242-21a1-40aa-b122-4bedd1b635f5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Number of groups is 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(2);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
 				},
 				"method": "GET",
 				"header": [],
@@ -2652,14 +2798,16 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{host}}:{{port}}/shutdown",
+					"raw": "http://{{host}}:{{port}}/user/{{user_id}}/groups",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
 					],
 					"port": "{{port}}",
 					"path": [
-						"shutdown"
+						"user",
+						"{{user_id}}",
+						"groups"
 					]
 				}
 			},
