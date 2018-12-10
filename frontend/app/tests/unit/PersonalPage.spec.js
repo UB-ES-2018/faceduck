@@ -7,12 +7,18 @@ const $route = {
         path: "/profile"
     }
 };
+const $router = {
+    push(e) {
+        return true
+    }
+}
 describe("PersonalPage.vue", () => {
     it("sets expects not image", () => {
         const wrapper = shallowMount(PersonalPage, {
             stubs: ['router-link', 'router-view'],
             mocks: {
-                $route
+                $route,
+                $router
             }
         })
         wrapper.setData({ hasImage: false })
@@ -23,7 +29,8 @@ describe("PersonalPage.vue", () => {
             stubs: ['router-link', 'router-view'],
             mocks: {
 
-                $route
+                $route,
+                $router
             }
         })
         wrapper.setData({ hasImage: true })
