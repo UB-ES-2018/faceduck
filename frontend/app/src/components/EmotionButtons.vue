@@ -40,7 +40,7 @@ export default {
 	data() {
 		return {
             isVisible: false,
-            selected: ""
+            selected: "",
         }
     },
     created() {

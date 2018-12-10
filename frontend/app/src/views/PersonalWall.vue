@@ -6,7 +6,6 @@
     <PostList newsfeed/>
   </div>
 </div>
-
 </template>
 
 <script>

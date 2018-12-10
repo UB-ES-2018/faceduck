@@ -14,13 +14,12 @@
             <div class="reaction" v-if="!post.special">
                 <EmotionCounter v-bind:post="post"/>
             </div>
-            <div class="emotionsButton" v-if="!post.special">
+            <div class="emotionsButton" v-if="!post.special && user">
                 <EmotionButtons v-bind:post="post"/>
-                <!-- FUTURE: comments -->
             </div>
             <CommentsView 
-              v-bind:count="this.post['comments-count']"
-              v-bind:post_id="this.post['id']"
+              v-bind:count="post['comments-count']"
+              v-bind:post_id="post['id']"
               v-if="!post.special"/>
         </div>
     </div>
@@ -35,7 +34,10 @@ export default {
     name: "PostItem",
     props: ["post"],
     data() {
-        return { interval: false }
+        return { 
+            interval: false,
+            user: JSON.parse(localStorage.getItem("user"))
+        }
     },
     computed: {
         richText() {

@@ -1,7 +1,9 @@
 <template>
     <div id="PostPage">
         <NavBar/>
-        <PostItem v-bind:post="post" v-bind:key="idpost" />
+        <div class="container2">
+            <PostItem v-if="post.id" v-bind:post="post" v-bind:key="idpost" />
+        </div>
     </div>
 </template>
 
@@ -59,3 +61,17 @@ export default {
 
 }
 </script>
+
+<style lang="sass" scoped>
+.container2
+  width: 70%;
+  min-width: 320px
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-top: 1.8rem
+  margin-right: auto;
+  margin-left: auto;
+  @media screen and (min-width: 700px)
+    max-width: 700px
+
+</style>

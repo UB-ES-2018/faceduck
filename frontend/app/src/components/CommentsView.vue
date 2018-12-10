@@ -13,8 +13,8 @@
                 </div>
             </div>
             
-        <input type="text" placeholder="Your comment…" v-model="commentText" v-on:keyup.enter="postComment(post_id)">
-        <button class="c-post" v-on:click="postComment(post_id)">Post</button>
+        <input type="text" placeholder="Your comment…" v-model="commentText" v-on:keyup.enter="postComment(post_id)" v-if="user">
+        <button class="c-post" v-on:click="postComment(post_id)" v-if="user">Post</button>
         </div>
         
     </div>
@@ -36,20 +36,20 @@ export default {
         raw_comments: [],
         count: Number,
         post_id: String,
-        showComments: false,
-        //user: JSON.parse(localStorage.getItem("user"))
+        showComments: false
 	},
 	data() {
 		return {
 			authors: [],
-            commentText: ""
+      commentText: "",
+      user: JSON.parse(localStorage.getItem("user"))
 		}
 	},
-	mounted() {
-		if(this.count!=0){
-            this.getComments(this.post_id);
-        }
-    },
+  updated() {
+    if(this.count!=0 && this.post_id){
+        this.getComments(this.post_id);
+    }
+  },
 	methods: {
 		getAuthor: function(author_id, i) {
 			fetch(userAPI + author_id, {
