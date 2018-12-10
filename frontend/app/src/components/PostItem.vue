@@ -91,6 +91,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../assets/global.sass';
 
 .post-item
   width: 100%
@@ -98,8 +99,8 @@ export default {
   webkit-border-radius: 8px
   border: 1px #666 solid
   padding: 10px 20px
-  background-color: #eee
-  color: #333
+  background-color: $lightgray
+  color: $darkestgray
   text-align: left
   max-height: 30rem
   overflow-y: scroll
@@ -114,7 +115,7 @@ export default {
 
 .post-text
   text-align: left
-  white-space: pre;
+  white-space: pre-wrap;
 
 .post-image
     margin: 10px 0
@@ -122,15 +123,16 @@ export default {
 
 img
     max-width: 100%
-    border: 1px #aaa solid
+    border: 1px $darkgray solid
     padding: 4px
     border-radius: 3px
 
 .reaction
-    border-top: 1px solid #aaa
+    border-top: 1px solid $gray
     align: "right"
 
 .emotionsButton
-    border-top: 1px solid #aaa
+  border-top: 1px solid $gray
+  position: relative
     
 </style>

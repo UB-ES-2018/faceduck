@@ -62,11 +62,12 @@ export default {
   padding: 0;
   
 .navbar h1
-  color: $accent3
+  color: $primary
   margin: 0
   
 .navbar a, .navbar a:hover
   text-decoration: none
+  outline: none
   
 // Navbar layout
   
@@ -74,7 +75,7 @@ export default {
   position: relative;
   width: 100%
   padding: 1rem 1rem;
-  background-color: $accent2
+  background-color: $darkestgray
   box-shadow: 0px 0px 8px 2px #00000099;
   
 .navbar-content
@@ -98,11 +99,9 @@ export default {
 .title
   font-family: "Avenir", Helvetica, Arial, sans-serif
   text-align: center
-  color: #ffb511
+  color: $primary
   text-shadow: 3px 3px #555
   font-size: 25px
-  
-.title
   margin: 0
   margin-right: 2rem
   font-family: inherit;
@@ -111,6 +110,9 @@ export default {
   color: inherit
   @media screen and (max-width: $break-small)
     margin-right: auto
+
+.title:hover > h1
+  color: $darkprimary
   
 // Search bar
   
@@ -121,7 +123,7 @@ export default {
   @media screen and (max-width: $break-small)
     margin-right: 0
     order: 10
-    
+
 // Menu
   
 .main-menu
@@ -146,20 +148,26 @@ export default {
     
 .main-menu a:hover
   @media screen and (max-width: $break-mid)
-    background-color: #ddd;
+    background-color: $lightgray;
     
 .mobile-menu:hover .main-menu
   @media screen and (max-width: $break-mid)
     display: block;
+    z-index: 20
     
 .mobile-menu:hover > div
   @media screen and (max-width: $break-mid)
     display: block;
+    z-index: 20
     
 .main-menu li.router-link-exact-active
   @media screen and (min-width: $break-mid)
     color: inherit
-    border-bottom: 2px solid $accent3;
+    border-bottom: 2px solid $primary;
+  
+  &:hover
+    @media screen and (min-width: $break-mid)
+      border-bottom: 2px solid $darkprimary;
 
 .main-menu > li
   @media screen and (min-width: $break-mid)
@@ -171,18 +179,20 @@ export default {
     &:last-child
       margin-right: 0
 
-.main-menu > li > a:hover
-  color: black
+.main-menu > li:hover > a
+  color: $darkprimary
+  @media screen and (max-width: $break-mid)
+    color: $darkestprimary
 
-.dropdown-content > li > a:hover
-  color: black
+.dropdown-content > li:hover > a
+  color: $darkestprimary
 
 .dropdown
   position: relative;
   display: inline-block;
 
 .dropdown > button
-  color: $accent3;
+  color: $primary;
   padding: 8px;
   font-size: 20px;
   border: none;
@@ -191,14 +201,14 @@ export default {
 
 .desktop-menu:hover > button
   @media screen and (min-width: $break-mid)
-    background-color: $accent3;
-    color: $accent2
+    background-color: $primary;
+    color: $darkestprimary
 
 .mobile-menu
   &:hover > button, &:active > button
     @media screen and (max-width: $break-mid)
-      background-color: $accent3;
-      color: $accent2
+      background-color: $primary;
+      color: $darkestprimary
 
 .desktop-menu
   &:hover .dropdown-content, &:active .dropdown-content
@@ -212,10 +222,12 @@ export default {
 
 .mobile-menu a:hover
   @media screen and (max-width: $break-mid)
-    background-color: #ddd;
+    background-color: $lightprimary;
+    color: $darkestprimary
 
 .desktop-menu a:hover
-  background-color: #ddd;
+  color: $darkestprimary
+  background-color: $lightprimary;
 
 .mobile-menu
   display: flex
@@ -245,7 +257,7 @@ export default {
   display: none;
   position: absolute;
   right: 0
-  background-color: #f1f1f1;
+  background-color: $lightestgray//#f1f1f1;
   //min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -255,9 +267,10 @@ export default {
   @media screen and (max-width: $break-mid)
     position: relative
     width: 100%
+    box-shadow: none
   
 .dropdown-content a
-  color: black;
+  color: $darkestgray;
   padding: 12px 16px;
   display: block;
   white-space: nowrap;
@@ -276,8 +289,7 @@ export default {
     display: none;
     position: absolute;
     right: 0
-    background-color: #f1f1f1;
-    //min-width: 100px;
+    background-color: $lightestgray;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: .4rem 0 .4rem .4rem

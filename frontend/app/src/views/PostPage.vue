@@ -6,8 +6,8 @@
 </template>
 
 <script>
-    import PostItem from "../components/PostItem.vue";
     import NavBar from "../components/NavBar.vue";
+    import PostItem from "../components/PostItem.vue";
     var host = window.location.hostname;
     var apiPostFormUrl = '//' + host + ':5000/post';
     export default {
@@ -19,8 +19,8 @@
             }
         },
         components: {
-            PostItem,
             NavBar,
+            PostItem
         },
         methods: {
             setIdpost() {

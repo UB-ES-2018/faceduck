@@ -81,7 +81,7 @@ $search-border-radius: .4rem
 .search-bar > *
   font-size: 17px
   padding: 6px 5px 4px 5px
-  border: 1px solid grey
+  border: 1px solid $darkgray
 
 .search-bar > input
   padding-left: 10px
@@ -94,9 +94,13 @@ $search-border-radius: .4rem
   margin-left: -5px
   border-radius: 0 $search-border-radius $search-border-radius 0
   width: $search-button-width
-  background-color: $accent3
-  color: white
+  background-color: $primary
+  color: $lightestgray
   outline: none
   cursor: pointer
+  &:hover
+    background-color: $lightprimary
+    color: $darkprimary
+    
 
 </style>

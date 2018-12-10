@@ -13,17 +13,17 @@
 
 <script>
 import NavBar from "../components/NavBar.vue";
-import SearchBar from "../components/SearchBar.vue";
 import PostForm from "../components/PostForm.vue";
 import PostList from "../components/PostList.vue";
+import SearchBar from "../components/SearchBar.vue";
 
 export default {
   name: 'PersonalWall',
   components: {
     NavBar,
-    SearchBar,
     PostForm,
-    PostList
+    PostList,
+    SearchBar
   },
   data() {
     return {};

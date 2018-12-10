@@ -27,24 +27,24 @@
 </template>
 
 <script>
+import FriendList from "../components/FriendList.vue";
+import GroupList from "../components/GroupList.vue";
 import NavBar from "../components/NavBar.vue";
 import PostForm from "../components/PostForm.vue";
 import PostList from "../components/PostList.vue";
 import ImageUploader from "../components/ImageUploader";
-import FriendList from "../components/FriendList.vue";
-import GroupList from "../components/GroupList.vue";
 
 var host = window.location.hostname
 var apiPutImageUrl = 'http://' + host + ':5000/user'; //Backend ip
 export default {
     name: 'PersonalPage',
     components: {
+        FriendList,
+        GroupList,
         NavBar,
         PostForm,
         PostList,
-        ImageUploader,
-        FriendList,
-        GroupList
+        ImageUploader
     },
     data() {
         return {
@@ -75,7 +75,6 @@ export default {
                 .then((response) => {
                     if (response.ok) {
                         response.json().then(res => {
-                            console.log(res)
                             localStorage.setItem("user",
                                                  JSON.stringify(res))
                             this.hasImage = true           
@@ -114,7 +113,6 @@ export default {
         userHasImage() {
             var user = JSON.parse(localStorage.getItem("user"));
             
-            console.log(user)
             if (this.$route.path === '/profile') {
                 this.user = user;
                 this.userid=this.user.id
@@ -122,7 +120,6 @@ export default {
                     this.post["image-url"] = user["image-url"]
                     this.hasImage = true
                 }
-                console.log(this.hasImage)
             } else {
                 this.userid=this.$route.params.userid
                 if (user.id == this.$route.params.userid) {
@@ -133,7 +130,6 @@ export default {
                 } else {
                     this.getUser()
                 }
-                console.log(this.hasImage)
             }
         }
     },
@@ -157,48 +153,44 @@ export default {
 #user-page
   min-width: 320px
   width: 100vw
-  
+
 .containerPhoto
   display: flex
   flex-direction: column
   align-items: center
   padding-top: 2.2rem
   min-width: 100%
-  //background: #ffb511
-  background:  #FFDC3333 
-  //box-shadow: inset 0 -80px 80px -80px black, inset 0 80px 80px -80px black
-  border-bottom: 5px solid $accent3
-  //background-image: url(../assets/h2.jpg)
-  //background-position: center;
-  //background-repeat: no-repeat;
-  //background-size: cover;
+  background: $lightestprimary
+  border-bottom: 5px solid $primary
 
 .containerPhoto > .personal-photo
   position: relative
   border-radius: 100%
-  background-color: gray
+  background-color: $darkgray
   width: 100px
   height: 100px
   overflow: hidden
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   
 .personal-photo > .photo
+  position: relative
   height: inherit
-  width: inherit
-
+  z-index: 1
+  
 .personal-photo:hover > .photo
-  display: none
+  opacity: 0.2;
 
 .personal-photo > .image-uploader
   position: absolute
   right: calc(50% - 21px)
   top: calc(50% - 19px)
-  display: none
+  z-index: 0
   
 .personal-photo:hover > .image-uploader
-  display: block
+  z-index: 1
   
 .containerPhoto > .username
-  color: black
+  color: $darkestgray
   font-size: 24px
   margin-top: .8rem
   margin-bottom: .8rem
@@ -218,7 +210,6 @@ export default {
   @media screen and (max-width: $break-small)
     margin-right: 15px
     margin-left: 15px
-    //margin-bottom: 15px
 
 #user-page > main > .friend-list
   grid-column: 3 / 4

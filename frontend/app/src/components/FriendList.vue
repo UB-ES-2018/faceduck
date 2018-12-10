@@ -46,7 +46,6 @@ export default {
           }).then(res => res.json())
           .then(data => {
             //this.results = data
-            console.log(JSON.stringify(data))
             this.$root.$emit("getFriends", {
               results: data
             });
