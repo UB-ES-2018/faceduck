@@ -42,3 +42,6 @@ class User(Document):
         if group_id in self.groups:
             self.groups.remove(group_id)
 
+    def getGroups(self):
+        return self.groups
+
