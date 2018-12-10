@@ -447,3 +447,15 @@ def edit_user():
         return client_error(e.id)
     
     return (jsonify(user_mapper(user)))
+
+
+@api.route('/user/<user_id>/groups', methods=["GET"])
+@jwt_required
+def get_groups(user_id):
+    try:
+        gs = core.get_groups(user_id)
+        groups = [core.get_group(g) for g in gs]
+    except FaceduckError as e:
+        return client_error(e.id)
+    
+    return (jsonify([group_mapper(g) for g in groups]))

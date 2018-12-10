@@ -2,6 +2,9 @@ from .user import get_user
 from .post import create_post, get_post, get_post_by_id
 import uuid
 from faceduck.models.group import Group
+from elasticsearch.exceptions import NotFoundError
+from faceduck.utils import FaceduckError
+
 def create_group(name,image_url,user_id):
     id = uuid.uuid4()
     group = Group(
@@ -26,6 +29,8 @@ def get_group(group_id):
 
 def remove_group(group_id):
     group = get_group(group_id)
+    for i in group.getUsers():
+        group.removeUser(get_user(i))
     group.delete()
 
 def get_group_posts(group_id):
