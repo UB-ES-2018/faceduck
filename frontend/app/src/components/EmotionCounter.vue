@@ -24,14 +24,13 @@ export default {
             post_: {}
         }
     },
-    mounted() {
+    created() {
         this.post_ = this.post;
         this.updateVisibleReactions();
 
         /* istanbul ignore next */
         this.$root.$on("showReaction", (event) => {
-            console.log(event);
-            if (!this.post || event.post.id == this.post.id) {
+            if (event.post.id == this.post.id) {
                 this.post_ = event.post;
                 this.updateVisibleReactions();
             }
