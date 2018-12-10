@@ -27,6 +27,7 @@
                 return this.$route.params.idpost
             },
             fetchData() {
+                /* istanbul ignore next */
                 fetch(apiPostFormUrl + '/' + this.idpost, {
                     method: "GET",
                     headers: {

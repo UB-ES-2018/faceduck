@@ -16,7 +16,7 @@
   <main>
     <FriendList class="friend-list" v-bind:userId="this.userid"/>
     <GroupList class="group-list" v-bind:userId="this.userid"/>
-    
+    <button class="group-button" v-if="isUser" v-on:click="createGroup"> Create Group </button>
     <div class="post-wall">
       <PostForm class="post-form"/>
       <PostList class="post-list" v-bind:authorId="this.user.id"/>
@@ -131,6 +131,9 @@ export default {
                     this.getUser()
                 }
             }
+        },
+        createGroup(){
+            this.$router.push('/group');
         }
     },
     mounted() {
@@ -224,6 +227,24 @@ export default {
 #user-page > main > .post-wall
   grid-column: 2 / 3
   grid-row: 1 / 4
-  width: auto;
+  width: auto
+
+#user-page > main > .group-button
+  grid-column: 3 / 4
+  grid-row: 3 / 4
+  height: auto
+
+button
+  background-color: #ffb511
+  border: none
+  color: white
+  font-size: 12px
+  font-weight: bold
+  box-sizing: content-box
+  padding: 10px
+  border-radius: 10px
+  width: auto
+  float: right
+  cursor: pointer
 
 </style>
