@@ -32,6 +32,7 @@ export default {
 	computed: {
 		internalGroups: {
 			get: function() {
+				console.log(this.groups_)
 				if (this.groups) return this.groups;
 				else return this.groups_;
 			},
@@ -47,6 +48,7 @@ export default {
 	},
 	methods: {
 		fetchGroups() {
+			console.log(this.userId)
 			if (!this.userId) {
 				user_id = JSON.parse(localStorage.getItem("user")).id;
 			} else {
@@ -54,13 +56,15 @@ export default {
 			}
 
 			/* istanbul ignore next */
-			fetch(apiGetUser + user_id, {
+			fetch(apiGetUser + user_id + "/groups", {
 				method: "GET",
-				"Authorization": "Bearer " + localStorage.getItem("access-token"),
+				headers: {
+					"Authorization": "Bearer " + localStorage.getItem("access-token"),
+                },
 			}).then(res => res.json())
 			.then(user => {
-				if (user.groups !== undefined)
-					this.groups_ = user.groups;
+				if (user !== undefined)
+					this.groups_ = user;
 				else
 					this.groups_ = [];
 			});

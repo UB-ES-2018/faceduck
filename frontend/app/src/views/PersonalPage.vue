@@ -58,6 +58,7 @@ export default {
         }
     },
     created() {
+        this.$router.push(0)
         this.userHasImage()
     },
     updated() {},
@@ -123,6 +124,7 @@ export default {
             } else {
                 this.userid=this.$route.params.userid
                 if (user.id == this.$route.params.userid) {
+                    this.user = user
                     if (user.hasOwnProperty("image-url")) {
                         this.post["image-url"] = user["image-url"]
                         this.hasImage = true

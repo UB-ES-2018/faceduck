@@ -5,7 +5,7 @@
     <li class="list-group-item"
         
 	v-for="result in results" :key="result.username">
-      <a v-bind:href="'/profile/'+ result.username">{{result.username}}: {{result.name}} {{result.surname}}</a>
+      <a v-bind:href="'/profile/'+ result.id">{{result.username}}: {{result.name}} {{result.surname}}</a>
     </li>
     <li class="list-group-item" v-if="nores">
       No friends found
@@ -37,7 +37,7 @@ export default {
         //wip
         
         getFriends() {
-          fetch(friendsAPI+'/'+this.userId+"?full/true", {
+          fetch(friendsAPI+'/'+this.userId+"?full=true", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
