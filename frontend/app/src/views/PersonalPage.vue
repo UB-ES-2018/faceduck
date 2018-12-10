@@ -58,6 +58,7 @@ export default {
         }
     },
     created() {
+        /* istanbul ignore next */
         this.$router.push(0)
         this.userHasImage()
     },
