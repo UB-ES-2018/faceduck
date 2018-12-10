@@ -1,156 +1,154 @@
 <template>
-
-<div id="user-page" >
-  <NavBar class="navbar"/>
-  
-  <div class="containerPhoto">
-    <div class="personal-photo">
-      <img name="photo" class="photo" v-show="hasImage" v-bind:src="post['image-url']" />
-      <ImageUploader class="image-uploader" v-if="isUser" uploader-id="personal-image-uploader" />
+    <div id="user-page">
+        <NavBar class="navbar" />
+    
+        <div class="containerPhoto">
+            <div class="personal-photo">
+                <img name="photo" class="photo" v-show="hasImage" v-bind:src="post['image-url']" />
+                <ImageUploader class="image-uploader" v-if="isUser" uploader-id="personal-image-uploader" />
+            </div>
+            <div class="username" v-bind:userName="user.username">
+                {{ user.username }}
+            </div>
+        </div>
+    
+        <main>
+            <FriendList class="friend-list" v-bind:userId="this.userid" />
+            <GroupList class="group-list" v-bind:userId="this.userid" />
+            <button class="group-button" v-if="isUser" v-on:click="createGroup"> Create Group </button>
+            <div class="post-wall">
+                <PostForm class="post-form" />
+                <PostList class="post-list" v-bind:authorId="this.user.id" />
+            </div>
+        </main>
     </div>
-    <div class="username" v-bind:userName="user.username">
-      {{ user.username }}
-    </div>
-  </div>
-  
-  <main>
-    <FriendList class="friend-list" v-bind:userId="this.userid"/>
-    <GroupList class="group-list" v-bind:userId="this.userid"/>
-    <button class="group-button" v-if="isUser" v-on:click="createGroup"> Create Group </button>
-    <div class="post-wall">
-      <PostForm class="post-form"/>
-      <PostList class="post-list" v-bind:authorId="this.user.id"/>
-    </div>
-  </main>
-</div>
-
 </template>
 
 <script>
-import FriendList from "../components/FriendList.vue";
-import GroupList from "../components/GroupList.vue";
-import NavBar from "../components/NavBar.vue";
-import PostForm from "../components/PostForm.vue";
-import PostList from "../components/PostList.vue";
-import ImageUploader from "../components/ImageUploader";
-
-var host = window.location.hostname
-var apiPutImageUrl = 'http://' + host + ':5000/user'; //Backend ip
-export default {
-    name: 'PersonalPage',
-    components: {
-        FriendList,
-        GroupList,
-        NavBar,
-        PostForm,
-        PostList,
-        ImageUploader
-    },
-    data() {
-        return {
-            user: {},
-            post: {
-                "image-url": '',
-            },
-            hasImage: false,
-            userid: '',
-            isUser: true,
-        }
-    },
-    created() {
-        /* istanbul ignore next */
-        this.$router.push(0)
-        this.userHasImage()
-    },
-    updated() {},
-    methods: {
-        putImage() {
-            var post = this.post;
-            fetch(apiPutImageUrl, {
-                method: "PUT",
-                headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                    "Content-Type": "application/json",
+    import FriendList from "../components/FriendList.vue";
+    import GroupList from "../components/GroupList.vue";
+    import NavBar from "../components/NavBar.vue";
+    import PostForm from "../components/PostForm.vue";
+    import PostList from "../components/PostList.vue";
+    import ImageUploader from "../components/ImageUploader";
+    
+    var host = window.location.hostname
+    var apiPutImageUrl = 'http://' + host + ':5000/user'; //Backend ip
+    export default {
+        name: 'PersonalPage',
+        components: {
+            FriendList,
+            GroupList,
+            NavBar,
+            PostForm,
+            PostList,
+            ImageUploader
+        },
+        data() {
+            return {
+                user: {},
+                post: {
+                    "image-url": '',
                 },
-                body: JSON.stringify(post)
-            })
-                .then((response) => {
+                hasImage: false,
+                userid: '',
+                isUser: true,
+            }
+        },
+        created() {
+            /* istanbul ignore next */
+            this.$router.push(0)
+            this.userHasImage()
+        },
+        updated() {},
+        methods: {
+            putImage() {
+                var post = this.post;
+                fetch(apiPutImageUrl, {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(post)
+                    })
+                    .then((response) => {
+                        if (response.ok) {
+                            response.json().then(res => {
+                                localStorage.setItem("user",
+                                    JSON.stringify(res))
+                                this.hasImage = true
+                            })
+                        }
+                    }).catch(() => {});
+    
+            },
+            getUser() {
+                this.userid = this.$route.params.userid
+                this.isUser = false
+                fetch(apiPutImageUrl + '/' + this.userid, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("access-token"),
+                        "Content-Type": "application/json",
+                    }
+                }).then((response) => {
                     if (response.ok) {
                         response.json().then(res => {
-                            localStorage.setItem("user",
-                                                 JSON.stringify(res))
-                            this.hasImage = true           
+                            this.user = res
+                            if (res.hasOwnProperty("image-url")) {
+                                this.hasImage = true
+                                this.post["image-url"] = res["image-url"]
+                            } else {
+                                this.hasImage = false
+                            }
                         })
                     }
-                }).catch(() => {});
-            
-        },
-        getUser() {
-            this.userid=this.$route.params.userid
-            this.isUser = false
-            fetch(apiPutImageUrl+'/'+this.userid,{
-                method: "GET",
-                headers:{
-                     "Authorization": "Bearer " + localStorage.getItem("access-token"),
-                    "Content-Type": "application/json",
-                }
-            }).then((response)=>{
-                if(response.ok){
-                    response.json().then(res=>{
-                        this.user = res
-                        if(res.hasOwnProperty("image-url")){
-                            this.hasImage = true
-                            this.post["image-url"] = res["image-url"]
-                        }else{
-                            this.hasImage = false
-                        }
-                    })
-                }
-            });
-        },
-        refreshUser(){
-            this.user = JSON.parse(localStorage.getItem("user"))
-        },
-        
-        userHasImage() {
-            var user = JSON.parse(localStorage.getItem("user"));
-            
-            if (this.$route.path === '/profile') {
-                this.user = user;
-                this.userid=this.user.id
-                if (user.hasOwnProperty("image-url")) {
-                    this.post["image-url"] = user["image-url"]
-                    this.hasImage = true
-                }
-            } else {
-                this.userid=this.$route.params.userid
-                if (user.id == this.$route.params.userid) {
-                    this.user = user
+                });
+            },
+            refreshUser() {
+                this.user = JSON.parse(localStorage.getItem("user"))
+            },
+    
+            userHasImage() {
+                var user = JSON.parse(localStorage.getItem("user"));
+    
+                if (this.$route.path === '/profile') {
+                    this.user = user;
+                    this.userid = this.user.id
                     if (user.hasOwnProperty("image-url")) {
                         this.post["image-url"] = user["image-url"]
                         this.hasImage = true
                     }
                 } else {
-                    this.getUser()
+                    this.userid = this.$route.params.userid
+                    if (user.id == this.$route.params.userid) {
+                        this.user = user
+                        if (user.hasOwnProperty("image-url")) {
+                            this.post["image-url"] = user["image-url"]
+                            this.hasImage = true
+                        }
+                    } else {
+                        this.getUser()
+                    }
                 }
+            },
+            createGroup() {
+                /* istanbul ignore next */
+                this.$router.push('/group');
             }
         },
-        createGroup(){
-            this.$router.push('/group');
+        mounted() {
+            this.$root.$on("imageUpload", (event) => {
+                if (event.emitter === "personal-image-uploader") {
+                    this.post["image-url"] = event.url;
+                    this.hasImage = true
+                    this.putImage()
+    
+                }
+            });
         }
-    },
-    mounted() {
-        this.$root.$on("imageUpload", (event) => {
-            if (event.emitter === "personal-image-uploader") {
-                this.post["image-url"] = event.url;
-                this.hasImage = true
-                this.putImage()
-                
-            }
-        });
     }
-}
-
 </script>
 
 <style lang="sass" scoped>
