@@ -1,5 +1,5 @@
 <template>
-    <div class="post-list container">
+    <div class="post-list container5">
         <PostItem 
             v-for="post in list" 
             v-bind:post="post"
@@ -16,6 +16,14 @@ var ducklist = [{
     },
     "text": "",
     "special": "duckload"
+}];
+
+var noposts = [{
+    "author": {
+        "username": "No posts found"
+    },
+    "text": "",
+    "special": "no-posts"
 }];
 
 var host = window.location.hostname;
@@ -64,6 +72,8 @@ export default {
                 fetch_options["method"] = "GET";
                 api = '//' + host + ':5000/post/newsfeed';
             } else {
+                api = '//' + host + ':5000/post/search';
+                
                 if (this.authorId)
                     body["author-id"] = this.authorId;
 
@@ -90,21 +100,22 @@ export default {
             if (this.list.length === 0
                 || this.list[0].special == "no-posts")
                 this.list = ducklist;
-            
+
             fetch(api, this.fetch_options)
+            .catch(() => {
+                this.list = noposts;
+            })
+            .then(res => {
+                if (!res.ok) this.list = noposts;
+                return res;
+            })
             .then(res => res.json())
             .then(res => {
                 if (res.length > 0)
                     this.list = res;
                 else {
                     if (this.list && this.list.length > 0 && this.list[0].special) {
-                        this.list = [{
-                            "author": {
-                                "username": "No posts found"
-                            },
-                            "text": "",
-                            "special": "no-posts"
-                        }];
+                        this.list = noposts;
                     }
                 }
             });
@@ -119,10 +130,12 @@ export default {
 <style lang="sass" scoped>
 
 .post-list
-    margin-top: 20px
-    padding-bottom: 20px
+  margin-top: 20px
+  padding-bottom: 20px
+  padding-right: 0
+  padding-left: 0
 
 .post-list > .row
-    margin-bottom: 12px
+  margin-bottom: 12px
 
 </style>

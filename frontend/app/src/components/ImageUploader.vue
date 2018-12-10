@@ -1,11 +1,11 @@
 <template>
-    <form enctype="multipart/form-data" ref="image_form">
-        <input type="file" 
-               ref="image" 
-               class=""
-               accept="image/*" 
-               v-on:change="handleFileUpload()">
-    </form>
+<form class="uploader" enctype="multipart/form-data" ref="image_form">
+  <button class="form-control far fa-image"></button>
+  <input type="file"
+         accept="image/*" 
+         ref="image"
+         v-on:change="handleFileUpload()">
+</form>
 </template>
 
 <script>
@@ -54,3 +54,32 @@ export default {
     }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.uploader
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+.uploader > button
+  position: relative;
+  display: inline-block;
+  width: auto
+  overflow: hidden;
+  float: left;
+  clear: left;
+
+.uploader input[type=file]
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%
+  width: 100%
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+
+</style>
+

@@ -1,13 +1,13 @@
 <template>
-    <div class="emotions" id="emotions" v-show="isVisible">
-    <ul>
-        <li v-if="like > 0"><img src="/emotions/like.png" class="react"> {{like}} </li>
-        <li v-if="love > 0"><img src="/emotions/love.png" class="react"> {{love}} </li>
-        <li v-if="laughing > 0"><img src="/emotions/laughing_face.png" class="react"> {{laughing}} </li>
-        <li v-if="angry > 0"><img src="/emotions/angry_face.png" class="react"> {{angry}} </li>
-        <li v-if="sad > 0"><img src="/emotions/sad_crying_face.png" class="react"> {{sad}} </li>
-    </ul>
-    </div>
+<div class="emotions" id="emotions" v-show="isVisible">
+  <ul>
+    <li v-if="like > 0"><img src="/emotions/like.png" class="react"> {{like}} </li>
+    <li v-if="love > 0"><img src="/emotions/love.png" class="react"> {{love}} </li>
+    <li v-if="laughing > 0"><img src="/emotions/laughing_face.png" class="react"> {{laughing}} </li>
+    <li v-if="angry > 0"><img src="/emotions/angry_face.png" class="react"> {{angry}} </li>
+    <li v-if="sad > 0"><img src="/emotions/sad_crying_face.png" class="react"> {{sad}} </li>
+  </ul>
+</div>
 </template>
 
 <script>
@@ -86,16 +86,20 @@ export default {
 <style lang="sass" scoped>
 
 .emotions
-    height: 40px
-    padding: 4px 30px
+  padding: 0
+  padding-top: 10px
+  padding-bottom: 18px
 
+.emotions > ul
+  padding: 0
+  
 .react
-    width: 25px
-    height: 25px
-    
+  width: 25px
+  height: 25px
+  
 div li
-    list-style-type: none
-    float: left
-    padding: 0px 3px
-
+  list-style-type: none
+  float: left
+  padding: 0px 3px
+  
 </style>

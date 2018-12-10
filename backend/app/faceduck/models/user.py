@@ -16,21 +16,9 @@ class User(Document):
     surname = Text()
     birthday = Date()
     gender = Text()
-
     login_logs = Nested(LoginLog)
-    
     groups = Keyword(multi = True)
-    #location = Text()
-    #description = Text()
-    #url = Text()
-    #registerDate = Date()
-    #profileImagePath = Text()
-    #phone = Text()
-    #website = Text()
-    #postCount = Integer()
-    #posts = Nested(Post)
-    #friendsCount = Integer()
-    #friends = Nested(User)
+    image_url = Text()
     
     class Index:
         name = 'user'

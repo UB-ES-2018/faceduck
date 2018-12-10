@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center">
-        <div class="post-item col-xl-7 col-lg-8 col-md-10 col-sm-12">
+        <div class="post-item">
             <div class="post-username" v-if="post.author && post.author.username">
                 <a v-bind:href="'/profile/' + post.author.username" v-if="!post.special">
                     {{post.author.username}}
@@ -91,25 +91,31 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../assets/global.sass';
+
 .post-item
-    border-radius: 8px
-    webkit-border-radius: 8px
-    border: 1px #666 solid
-    padding: 10px 20px
-    
-    background-color: #eee
-    color: #333
-    text-align: left
-    max-height: 30rem
-    
-    overflow-y: scroll
-    overflow-wrap: break-word
+  width: 100%
+  border-radius: 8px
+  webkit-border-radius: 8px
+  border: 1px #666 solid
+  padding: 10px 20px
+  background-color: $lightgray
+  color: $darkestgray
+  text-align: left
+  max-height: 30rem
+  overflow-y: scroll
+  overflow-wrap: break-word
+
+.row
+  margin-right: 0;
+  margin-left: 0;
 
 .post-username
-    font-weight: bold
+  font-weight: bold
 
 .post-text
-    text-align: left
+  text-align: left
+  white-space: pre-wrap;
 
 .post-image
     margin: 10px 0
@@ -117,15 +123,16 @@ export default {
 
 img
     max-width: 100%
-    border: 1px #aaa solid
+    border: 1px $darkgray solid
     padding: 4px
     border-radius: 3px
 
 .reaction
-    border-top: 1px solid #aaa
+    border-top: 1px solid $gray
     align: "right"
 
 .emotionsButton
-    border-top: 1px solid #aaa
+  border-top: 1px solid $gray
+  position: relative
     
 </style>
