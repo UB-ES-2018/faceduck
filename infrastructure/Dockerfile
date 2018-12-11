@@ -1,5 +1,7 @@
 FROM ansible
 
-ADD .
+ADD . /root
+
+WORKDIR /root
 
 CMD "ansible-playbook -i hosts site.yml"
