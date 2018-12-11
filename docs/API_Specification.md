@@ -32,6 +32,7 @@
 - [Update User Role](#update-user-role)
 - [Get Group User](#get-group-user)
 - [Delete Group User](#delete-group-user)
+- [Get User Groups](#get-user-groups)
 
 ## Summary of codes and ids
 
@@ -4045,6 +4046,217 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
     "error-id": "001",
     "error-message": "Invalid data"
 }
+```
+
+### Response: server error
+
+`500 Internal Server Error`
+
+## Get User Groups
+
+### Request
+
+**GET** `/user/{user_id}/groups`
+
+#### - Request headers
+
+| Property      | Required | Values                |
+|---------------|:--------:|:---------------------:|
+| Authorization | Yes      | Bearer {access-token} |
+
+*Examples:*
+
+```
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
+```
+
+### Response: success
+
+`200 Ok`
+
+#### - Response headers
+
+| Property     | Values           |
+|--------------|:----------------:|
+| Content-Type | application/json |
+
+#### - Response body
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get groups success",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+		"id": {"type": "string"},
+        "name": {"type": "string"},
+        "image-url": {"type": "string"},
+        "admins": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "username": {"type": "string"},
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "name": {"type": "string"},
+                    "surname": {"type": "string"},
+                    "birthday": {"type": "string"},
+                    "gender": {"type": "string"}
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "name",
+                    "surname",
+                    "birthday",
+                    "gender"
+                ]
+            }
+        },
+        "users": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "username": {"type": "string"},
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "name": {"type": "string"},
+                    "surname": {"type": "string"},
+                    "birthday": {"type": "string"},
+                    "gender": {"type": "string"}
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "email",
+                    "name",
+                    "surname",
+                    "birthday",
+                    "gender"
+                ]
+            }
+        },
+        "posts": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "text": {"type": "string"},
+                    "created-at": {"type": "string"},
+                    "image-url": {"type": "string"},
+                    "author": {"type":"User"},
+                    "reactions-count" : {"type":"array"},
+                    "user-reaction":{"type":"array"}
+                },
+                "required": [
+                    "id",
+                    "text",
+                    "created-at",
+                    "author"
+                ]
+            }
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "admins",
+        "users"
+    ]
+        }
+    }
+}
+```
+
+*Examples:*
+
+```json
+[
+	{
+	    "id": "300",
+	    "name": "Test Group",
+	    "image-url": "http://localhost:5000/media/1.jpg",
+	    "admins": [
+		{
+		    "id" : "45",
+		    "username" : "test",
+		    "email" : "test@test.com",
+		    "name" : "Test",
+		    "surname" : "User",
+		    "birthday": "1984-10-01",
+		    "gender": "male"
+		}
+	    ],
+	    "users": [
+		{
+		    "id" : "45",
+		    "username" : "test",
+		    "email" : "test@test.com",
+		    "name" : "Test",
+		    "surname" : "User",
+		    "birthday": "1984-10-01",
+		    "gender": "male"
+		},{
+		    "id" : "45",
+		    "username" : "test",
+		    "email" : "test@test.com",
+		    "name" : "Test",
+		    "surname" : "User",
+		    "birthday": "1984-10-01",
+		    "gender": "male"
+		}
+	    ],
+	    "posts":[
+		{
+		    "id": "42",
+		    "text": "Hello this is a post.",
+		    "created-at": "12-01-2018, 03:45:34",
+		    "author": {
+			"id": "32",
+			"username": "test123",
+			"email": "test@faceduck.com",
+			"name": "Scrum",
+			"surname": "Master",
+			"birthday": "1984-10-01",
+			"gender": "male"
+		    },
+		    "image-url": "http://localhost:5000/media/1.jpg",
+		    "reactions-count": [
+			{
+			    "count": 1,
+			    "reaction": "love"
+			},
+			{
+			    "count": 1,
+			    "reaction": "like"
+			}
+		    ],
+		    "user-reaction": [
+			{
+			    "reaction": "like",
+			    "user-id": "32"
+			},
+			{
+			    "reaction": "love",
+			    "user-id": "42"
+			}
+		    ]
+		}
+	    ]
+	}
+]
 ```
 
 ### Response: server error

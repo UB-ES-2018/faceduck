@@ -41,3 +41,7 @@ def edit_user(user_id, newData):
             user.image_url = newData[key]
     user.save()
     return user
+
+def get_groups(user_id):
+    user = get_user(user_id)
+    return user.getGroups()

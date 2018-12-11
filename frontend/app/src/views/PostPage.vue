@@ -47,9 +47,10 @@ export default {
                     res.json().then(data => {
                         this.post = data;
                     });
+                } else if (accessToken) {
+                    this.$router.push("/wall")
                 } else {
-                    //this.$router.push("/");
-                    console.log(res)
+                    this.$router.push("/");
                 }
             });
         }
