@@ -67,6 +67,8 @@ export default {
     flex-direction: row
     align-items: center
     justify-content: space-between
+    @media screen and (max-width: $break-small)
+      flex-direction: column
     &:last-child
       margin-bottom: 0
     & > .user-content

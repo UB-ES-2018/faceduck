@@ -205,10 +205,14 @@
   margin-top: 1.8rem
   grid-gap: 15px
   grid-template-columns: 2fr minmax(305px, 700px) minmax(180px, 300px) 1fr;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto auto auto;
   @media screen and (max-width: $break-small)
     display: flex
     flex-direction: column
+    & > *
+      margin-bottom: 15px
+    & > *:last-child
+      margin-bottom: 0
 
 #user-page > main > *
   @media screen and (max-width: $break-small)
@@ -227,7 +231,7 @@
 
 #user-page > main > .post-wall
   grid-column: 2 / 3
-  grid-row: 1 / 4
+  grid-row: 1 / 5
   width: auto
 
 #user-page > main > .group-button
