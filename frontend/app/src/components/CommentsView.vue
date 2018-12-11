@@ -45,13 +45,13 @@ export default {
       user: JSON.parse(localStorage.getItem("user"))
 		}
 	},
-  updated() {
+  updated /* istanbul ignore next */ () {
     if(this.count!=0 && this.post_id){
         this.getComments(this.post_id);
     }
   },
 	methods: {
-		getAuthor: function(author_id, i) {
+		getAuthor /* istanbul ignore next */ (author_id, i) {
 			fetch(userAPI + author_id, {
             method: "GET",
 			headers: {
@@ -67,7 +67,7 @@ export default {
                 });
                 
 		},
-		postComment: function(post_id){
+    postComment /* istanbul ignore next */ (post_id){
             fetch(commentAPI + post_id + "/" + "comments" , {
             method: "POST",
             headers: {
@@ -90,7 +90,8 @@ export default {
             this.commentText="";
 
         },
-		getComments: function(post_id){
+		/* istanbul ignore next */
+    getComments /* istanbul ignore next */ (post_id){
             fetch(commentAPI + post_id + "/" + "comments" , {
             method: "GET",
             headers: {
