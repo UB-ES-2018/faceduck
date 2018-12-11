@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="post-item">
             <div class="post-username" v-if="post.author && post.author.username">
-                <a v-bind:href="'/profile/' + post.author.username" v-if="!post.special">
+                <a v-bind:href="'/profile/' + post.author.id" v-if="!post.special">
                     {{post.author.username}}
                 </a>
                 <span v-else>{{post.author.username}}</span>
@@ -85,9 +85,9 @@ export default {
         clearInterval(this.interval);
     },
     components: {
+        CommentsView,
         EmotionButtons,
         EmotionCounter,
-        CommentsView
     }
 }
 </script>
