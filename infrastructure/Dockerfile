@@ -1,4 +1,4 @@
-FROM ansible
+FROM ansible/ansible
 
 ADD . /root
 
