@@ -20,13 +20,8 @@ export default {
             visibility:'friends'
         }
     },
-    /** props:{
-           visible: String
-            },
-        
-        }*/
     methods:{
-        setValue(){
+        setValue /* istanbul ignore next */ (){
             this.$root.$emit("visibilityChange", {
                 visibility: this.visibility
             });
