@@ -1,19 +1,19 @@
 <template>
 
-<div class="group-list">
-  <ul class="list-group"><!-- actual bootstrap class 😅 -->
-    <li class="list-group-item"
-	v-for="group in internalGroups" v-bind:key="group.id">
-      <a v-bind:href="'/group/' + group.id">
-	{{group.name}}
-      </a>
-    </li>
-    <li class="list-group-item" v-if="internalGroups.length == 0">
-      No groups yet!
-    </li>
-  </ul>
-  
-</div>
+	<div class="group-list">
+		<ul class="list-group"><!-- actual bootstrap class 😅 -->
+			<li class="list-group-item"
+				v-for="group in internalGroups" v-bind:key="group.id">
+				<a v-bind:href="'/group/' + group.id">
+					{{group.name}}
+				</a>
+			</li>
+			<li class="list-group-item" v-if="internalGroups.length == 0">
+				No groups yet!
+			</li>
+		</ul>
+
+	</div>
 
 </template>
 
@@ -32,6 +32,7 @@ export default {
 	computed: {
 		internalGroups: {
 			get: function() {
+				console.log(this.groups_)
 				if (this.groups) return this.groups;
 				else return this.groups_;
 			},
@@ -47,6 +48,7 @@ export default {
 	},
 	methods: {
 		fetchGroups() {
+			console.log(this.userId)
 			if (!this.userId) {
 				user_id = JSON.parse(localStorage.getItem("user")).id;
 			} else {
@@ -54,13 +56,15 @@ export default {
 			}
 
 			/* istanbul ignore next */
-			fetch(apiGetUser + user_id, {
+			fetch(apiGetUser + user_id + "/groups", {
 				method: "GET",
-				"Authorization": "Bearer " + localStorage.getItem("access-token"),
+				headers: {
+					"Authorization": "Bearer " + localStorage.getItem("access-token"),
+                },
 			}).then(res => res.json())
 			.then(user => {
-				if (user.groups !== undefined)
-					this.groups_ = user.groups;
+				if (user !== undefined)
+					this.groups_ = user;
 				else
 					this.groups_ = [];
 			});

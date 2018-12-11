@@ -207,9 +207,15 @@ def delete_friendship():
 @api.route('/user/friends/<user_id>')
 @jwt_required
 def get_friends(user_id):
-    friends = core.get_friends(user_id)
-    
-    return jsonify([friendship_mapper(f) for f in friends])
+    full_users = request.args.get('full', False, type=bool)
+
+    if full_users:
+        friends = core.get_full_friend_ids(user_id)
+        users = [core.get_user(f) for f in friends]  # OPTIMIZE
+        return jsonify([user_mapper(u) for u in users])
+    else:
+        friends = core.get_friends(user_id)
+        return jsonify([friendship_mapper(f) for f in friends])
 
 
 @api.route('/user/friends/', methods=["GET"])
