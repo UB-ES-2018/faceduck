@@ -82,8 +82,12 @@ export default {
             fetch(apiAddUserUrl, {
                 method: "POST",
                 headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("access-token"),
                     "Content-Type": "application/json",
                 },
+                body:JSON.stringify({
+                    "user_id":JSON.parse(localStorage.getItem("user")).id
+                })
             })
             .then((response) => {
                 if (response.ok) {
