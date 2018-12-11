@@ -1,26 +1,25 @@
 <template>
     <div class="row justify-content-center">
         <div class="post-item">
-            <div class="post-username">
+            <div class="post-username" v-if="post.author && post.author.username">
                 <a v-bind:href="'/profile/' + post.author.username" v-if="!post.special">
                     {{post.author.username}}
                 </a>
                 <span v-else>{{post.author.username}}</span>
             </div>
-            <div class="post-text" v-html="richText"></div>
+            <div class="post-text" v-if="post.text" v-html="richText"></div>
             <div class="post-image" v-if="post['image-url']">
                 <img v-bind:src="post['image-url']"/>
             </div>
             <div class="reaction" v-if="!post.special">
                 <EmotionCounter v-bind:post="post"/>
             </div>
-            <div class="emotionsButton" v-if="!post.special">
+            <div class="emotionsButton" v-if="!post.special && user">
                 <EmotionButtons v-bind:post="post"/>
-                <!-- FUTURE: comments -->
             </div>
             <CommentsView 
-              v-bind:count="this.post['comments-count']"
-              v-bind:post_id="this.post['id']"
+              v-bind:count="post['comments-count']"
+              v-bind:post_id="post['id']"
               v-if="!post.special"/>
         </div>
     </div>
@@ -35,7 +34,10 @@ export default {
     name: "PostItem",
     props: ["post"],
     data() {
-        return { interval: false }
+        return { 
+            interval: false,
+            user: JSON.parse(localStorage.getItem("user"))
+        }
     },
     computed: {
         richText() {

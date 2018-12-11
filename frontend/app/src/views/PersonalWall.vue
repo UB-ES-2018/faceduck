@@ -1,14 +1,11 @@
 <template>
-
 <div id="personal-wall">
   <NavBar class="navbar"/>
-  
   <div class="container2">
     <PostForm/>
     <PostList newsfeed/>
   </div>
 </div>
-
 </template>
 
 <script>

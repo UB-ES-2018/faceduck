@@ -4,9 +4,9 @@
     <router-link class="title" to="/wall">
       <h1>Faceduck</h1>
     </router-link>
-    <SearchBar class="search-bar" v-bind:redirect="!searchPage" />
+    <SearchBar class="search-bar" v-bind:redirect="!searchPage" v-if="user"/>
     
-    <div class="mobile-menu dropdown">
+    <div class="mobile-menu dropdown" v-if="user">
       <button class="fas fa-bars"></button>
       <div>
         <ul class="main-menu">
@@ -35,9 +35,9 @@ export default {
     data() {
         return {
             user: JSON.parse(localStorage.getItem("user")),
-                searchPage: (this.$route.name === "search")
-            }
-        },
+            searchPage: (this.$route.name === "search")
+        }
+    },
         methods: {
             logout: function() {
                 localStorage.removeItem("access-token");

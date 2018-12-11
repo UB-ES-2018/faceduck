@@ -1,5 +1,5 @@
 <template>
-<div class="emotions" id="emotions" v-show="isVisible">
+<div class="emotions" id="emotions" v-if="like + love + laughing + angry + sad > 0">
   <ul>
     <li v-if="like > 0"><img src="/emotions/like.png" class="react"> {{like}} </li>
     <li v-if="love > 0"><img src="/emotions/love.png" class="react"> {{love}} </li>
@@ -16,7 +16,6 @@ export default {
     props: ["post"],
 	data() {
 		return {
-            isVisible: true,
             like: 0,
             love: 0,
             laughing: 0,
@@ -25,7 +24,6 @@ export default {
             post_: {}
         }
     },
-
     created() {
         this.post_ = this.post;
         this.updateVisibleReactions();
