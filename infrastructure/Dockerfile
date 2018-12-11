@@ -1,7 +1,5 @@
 FROM williamyeh/ansible:debian8
 
-ADD . /root
+COPY . /root
 
-WORKDIR /root
-
-CMD "ansible-playbook -i hosts site.yml"
+CMD /usr/local/bin/ansible-playbook -i /root/hosts /root/site.yml

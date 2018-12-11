@@ -19,9 +19,9 @@ script:
   - docker-compose run --entrypoint "bash -c 'newman run /API.postman_collection.json -e /TRAVIS_ENV.json --delay-request 800'" test_runner
   - docker-compose run --entrypoint "ash -c 'cd /app; pip install coverage; coverage report'" api
 
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: bash deploy.sh
-  on:
-    all_branches: true
+#deploy:
+#  provider: script
+#  skip_cleanup: true
+#  script: bash deploy.sh
+#  on:
+#    all_branches: SP5
