@@ -21,6 +21,7 @@ script:
 
 deploy:
   provider: script
+  skip_cleanup: true
   script:
     - cd infrastructure; docker build -t deploy .
     - docker run deploy
