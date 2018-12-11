@@ -1,0 +1,28 @@
+---
+- name: Install Docker Compose
+  apt:
+    name: docker-compose
+    autoclean: true
+    state: present
+    
+- name: Install git
+  apt:
+    name: git
+    autoclean: true
+    state: present
+    
+- name: Deploy git repository
+  git:
+    repo: "https://github.com/UB-ES-2018/faceduck.git"
+    dest: /root/faceduck
+    version: SP5
+    
+- name: Kill old docker compose containers
+  shell: docker image prune --force; docker-compose kill
+  args:
+    chdir: /root/faceduck
+    
+- name: Build and run new docker version
+  shell: ./rebuild.sh; ./run-live.sh
+  args:
+    chdir: /root/faceduck
