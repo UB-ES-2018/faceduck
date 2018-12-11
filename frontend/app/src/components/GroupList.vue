@@ -1,11 +1,12 @@
 <template>
 	<div class="group-list">
 		<ul class="list-group">
+			<a>Your Groups:</a>
 			<!-- actual bootstrap class 😅 -->
 			<li class="list-group-item" v-for="group in internalGroups" v-bind:key="group.id">
 				<a v-bind:href="'/group/' + group.id">
-						{{group.name}}
-					</a>
+							{{group.name}}
+						</a>
 			</li>
 			<li class="list-group-item" v-if="internalGroups.length == 0">
 				No groups yet!
