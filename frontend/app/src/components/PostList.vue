@@ -51,10 +51,12 @@ export default {
             this.query_ = "";
 
         this.fetchPosts();
+        /* istanbul ignore next */
         this.$root.$on("postEvent", (event) => {
             if (event && event.query) this.query_ = event.query.trim();
             this.fetchPosts();
         });
+        /* istanbul ignore next */
         this.$root.$on("addPost", (event) => {
             if (event && event.post)
                 // unshift: push to position 0
@@ -101,6 +103,7 @@ export default {
                 || this.list[0].special == "no-posts")
                 this.list = ducklist;
 
+            /* istanbul ignore next */
             fetch(api, this.fetch_options)
             .catch(() => {
                 this.list = noposts;
