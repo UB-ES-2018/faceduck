@@ -20,6 +20,7 @@ script:
   - docker-compose run --entrypoint "ash -c 'cd /app; pip install coverage; coverage report'" api
 
 deploy:
+  skip_cleanup: false
   provider: script
   script:
     - cd infrastructure; docker build -t deploy .
