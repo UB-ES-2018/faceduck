@@ -34,7 +34,7 @@ describe("PostItem.vue", () => {
 	it("has a link to the post author profile", () => {
 		const wrapper = factory();
 
-		expect(wrapper.find(".post-username a").attributes("href")).toEqual("/profile/john");
+		expect(wrapper.find(".post-username a").attributes("href")).toEqual("/profile/90ada2f2-1b5d-4319-9c55-77ea566015e4");
 	});
 
 	it("renders links to hashtags", () => {
