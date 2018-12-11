@@ -1,4 +1,4 @@
-FROM ansible/ansible
+FROM williamyeh/ansible:debian8
 
 ADD . /root
 
