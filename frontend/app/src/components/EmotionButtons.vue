@@ -1,7 +1,7 @@
 <template>
 	<div>
         <ul class="icons" v-on:mouseover="isVisible = true;" v-on:mouseout="isVisible = false;">
-            <li><i class="fa fa-thumbs-up"><span> Like </span></i></li>
+            <li><i class="fa fa-thumbs-up"></i><span> Like </span></li>
             <ul class="emotions" id="emotions" v-show="isVisible"><!--&lt;EmotionButtons/&gt;-->
                 <li v-bind:data-selected="selected == 'like'"><img 
                     src="/emotions/like.png" 
@@ -119,7 +119,7 @@ export default {
   
 .icons
   height: 26px
-  padding: 0px 25px
+  padding: 0px 0
   
 .icons > li
   padding: 10px

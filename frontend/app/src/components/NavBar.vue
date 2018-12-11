@@ -117,7 +117,7 @@ export default {
 // Search bar
   
 .search-bar
-  min-width: 300px
+  min-width: 288px
   width: 30%
   margin-right: auto
   @media screen and (max-width: $break-small)

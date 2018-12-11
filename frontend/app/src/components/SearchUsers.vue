@@ -1,25 +1,25 @@
 <template>
-  <div id='SearchUsers'>
-    <div v-if="nores">
-        <h3>No Users found</h3>
+<div id='SearchUsers'>
+  
+  <div class="results-item" v-if="nores">
+    <h3>No Users found</h3>
+  </div>
+  
+  <div class="results-item" v-for="result in results" :key="result.username" v-else>
+    <div class="user-content">
+      <h3><a :href="'/profile/'+result.id"> {{result.name}} {{result.surname}}</a></h3>
+      <h4>{{result.email}}</h4>
+      <p>Gender: {{result.gender}}, born: {{result.birthday}}</p>
     </div>
-    <div class="results-list" v-else>
-      <div class="results-item" v-for="result in results" :key="result.username">
-        <div class="border-b-1 row">
-          <div class="results-item-text col-8">
-          <h3><a :href="'/profile/'+result.id"> {{result.name}} {{result.surname}}</a></h3>
-          <h4>{{result.email}}</h4>
-          <p>Gender: {{result.gender}}, born: {{result.birthday}}</p>
-          </div>
-          <div class="col-4 friend-button" v-if="result.id !== user.id">
-            <FriendButton 
-              v-bind:name="result.name"
-              v-bind:userId="result.id"/>
-          </div>
-        </div>
-      </div>
-    </div>   
-  </div>   
+    
+    <div class="friend-button-container" v-if="result.id !== user.id">
+      <FriendButton class="friend-button"
+        v-bind:name="result.name"
+        v-bind:userId="result.id"/>
+    </div>
+  </div>
+  
+</div>   
 </template>
 
 <script>
@@ -50,8 +50,45 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../assets/global.sass';
+
+#SearchUsers
+  width: 100%
+  & > .results-item
+    width: 100%
+    border-radius: 8px
+    border: 1px #666 solid
+    padding: 10px 20px
+    background-color: $lightgray
+    text-align: left
+    overflow-wrap: break-word
+    margin-bottom: 12px
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    @media screen and (max-width: $break-small)
+      flex-direction: column
+    &:last-child
+      margin-bottom: 0
+    & > .user-content
+      & > h3
+        font-size: 18px;
+        color: $darkprimary
+      & > h4
+        font-size: 16px;
+        color: $darkprimary
+      & > p
+        color: $darkprimary
+    & > .friend-button-container
+      display: flex
+      justify-content: center
+      align-items: center
+      //& > .friend-button
+      
+
 .inputbox button
-  background-color: #ffb511
+  background-color: $primary
   border: none
   color: white
   font-size: 12px
@@ -63,18 +100,5 @@ export default {
   position: relative
   left: 1% 
   cursor: pointer
-
-h3
-  font-size: 18px;
-h4
-  font-size: 16px;
-
-.border-b-1
-  border-bottom: 1px solid rgba(225,225,225,.16)
-
-.friend-button
-  display: flex
-  justify-content: center
-  align-items: center
 
 </style>

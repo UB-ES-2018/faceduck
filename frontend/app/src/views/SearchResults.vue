@@ -1,16 +1,20 @@
 <template>
-    <div id="SearchResults">
-      <NavBar/>
-      
-      <h1>Search results</h1>
-      <div class="container">
-        <div class="row justify-content-center">
-          <SearchUsers class="col-8"/>
-        </div>
-        <PostList/>
-        <SearchGroups/>
-      </div>
-    </div>   
+
+<div id="SearchResults">
+  <NavBar/>
+  
+  <div class="container2">
+    <h2>Users</h2>
+    <SearchUsers class="search-users"/>
+    
+    <h2>Posts</h2>
+    <PostList class="post-list"/>
+    
+    <h2>Groups</h2>
+    <SearchGroups class="search-groups"/>
+  </div>
+</div>
+
 </template>
 
 <script>
@@ -35,29 +39,29 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-h3
-  font-size: 18px;
-h4
-  font-size: 16px;
-</style>
-
 <style lang="sass">
-    
-.results-item
-  border: 10px
-  color: white
-  font-size: 12px
-  font-weight: bold
-  box-sizing: content-box
-  padding: 10px
-  position: relative 
-  cursor: pointer
-  text-align: left
-  //width: 200px
+@import '../assets/global.sass';
 
-.results-list
+#SearchResults
+  & h2
+    margin-top: 25px
+    margin-bottom: 15px
+    font-size: 25px
+    color: $darkprimary
+  & > .container2
+    width: 70%;
+    min-width: 320px
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: 1.8rem
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 25px
+    @media screen and (min-width: 700px)
+      max-width: 700px
+    & > .post-list
+      padding-bottom: 0
+    & > .post-list > .row:last-child
+      margin-bottom: 0
 
-.border-b-1
-  border-bottom: 1px solid rgba(225,225,225,.16)
 </style>
