@@ -18,9 +18,9 @@ export default {
             searchQuery: ""
         };
     },
-    mounted() {
-      if (this.$route.name !== "search") return;
-      if (this.$route.query.query !== undefined) {
+    mounted /* istanbul ignore next */ () {
+      if (this.$route && this.$route.name !== "search") return;
+      if (this.$route && this.$route.query.query !== undefined) {
         this.searchQuery = this.$route.query.query;
       }
       this.getUsers();
@@ -29,7 +29,7 @@ export default {
     },
     methods: {
         //wip
-        submitQuery(e) {
+        submitQuery /* istanbul ignore next */ (e) {
           e.preventDefault();
           this.$router.push("/search?query=" + encodeURIComponent(this.searchQuery));
           if (!this.redirect) {
@@ -38,7 +38,7 @@ export default {
             this.getGroups();
           }
         },
-        getUsers() {
+        getUsers /* istanbul ignore next */ () {
           fetch(apiUsersSearchUrl, {
             method: "POST",
             headers: {
@@ -53,12 +53,12 @@ export default {
             });
           }).catch();
         },
-        getPosts() {
+        getPosts /* istanbul ignore next */ () {
           this.$root.$emit("postEvent", {
             "query": this.searchQuery
           });
         },
-        getGroups(){
+        getGroups /* istanbul ignore next */ (){
           this.$root.$emit("groupEvent", {
             "query": this.searchQuery
           });

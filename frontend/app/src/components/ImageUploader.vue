@@ -19,12 +19,13 @@ export default {
         return {}
     },
     created() {
+        /* istanbul ignore next */
         this.$root.$on("clearImageUpload", () => {
             this.$refs.image_form.reset();
         });
     },
     methods: {
-        handleFileUpload() {
+        handleFileUpload /* istanbul ignore next */ () {
             var formData = new FormData();
             formData.append('file', this.$refs.image.files[0]);
             
