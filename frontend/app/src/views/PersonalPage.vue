@@ -96,6 +96,7 @@
                     if (response.ok) {
                         response.json().then(res => {
                             this.user = res
+                            this.userid = res.id
                             if (res.hasOwnProperty("image-url")) {
                                 this.hasImage = true
                                 this.post["image-url"] = res["image-url"]
@@ -115,14 +116,14 @@
     
                 if (this.$route.path === '/profile') {
                     this.user = user;
-                    this.userid = this.user.id
+                    this.userid = user.id
                     if (user.hasOwnProperty("image-url")) {
                         this.post["image-url"] = user["image-url"]
                         this.hasImage = true
                     }
                 } else {
                     this.userid = this.$route.params.userid
-                    if (user.id == this.$route.params.userid) {
+                    if (user.id === this.$route.params.userid) {
                         this.user = user
                         if (user.hasOwnProperty("image-url")) {
                             this.post["image-url"] = user["image-url"]
@@ -233,7 +234,7 @@
 #user-page > main > .group-button
   grid-column: 3 / 4
   grid-row: 3 / 4
-  height: auto
+  height: 15%
 
 button
   background-color: #ffb511
