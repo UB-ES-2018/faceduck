@@ -12,5 +12,5 @@ def search_users(query):
         }
     }).doc_type(User).execute()
 
-    return [d for d in response.hits]
+    return [d for d in response.hits if d.meta.index == "user"]
 

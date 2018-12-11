@@ -12,4 +12,4 @@ def search_groups(query):
         }
     }).doc_type(Group).execute()
 
-    return [d for d in response.hits]
+    return [d for d in response.hits if d.meta.index == "group"]
