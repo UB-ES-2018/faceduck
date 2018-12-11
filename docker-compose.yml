@@ -25,6 +25,8 @@ services:
       - 'node_modules:/app/node_modules'
     restart: "${DOCKER_RESTART}"
     environment:
+      - CI=${CI-false}
+    environment:
       - CHOKIDAR_USEPOLLING=true
   elasticsearch:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:6.2.2'
