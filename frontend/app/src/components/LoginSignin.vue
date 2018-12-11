@@ -1,52 +1,92 @@
 <template>
-    <div class="container">
-      <div class="backbox">
-        <div class="loginMsg" v-bind:toggleClass="{visible: !loginVisible }">
-          <div class="textcontent">
-            <p class="title">Don't have an account?</p>
-            <p>Sign up and find your friends.</p>
-            <button id="switch1" v-on:click="showSignUp">SIGN UP</button>
-          </div>
-        </div>
-        <div class="signupMsg">
-          <div class="textcontent">
-            <p class="title">Have an account?</p>
-            <p>Log in to meet your friends.</p>
-            <button id="switch2" v-on:click="showLogIn">LOG IN</button>
-          </div>
+<div class="login-signin">
+  
+  <div class="pretabies">
+    <div class="backbox">
+      <div class="loginMsg" v-bind:toggleClass="{visible: !loginVisible }">
+        <div class="textcontent">
+          <p class="title">Don't have an account?</p>
+          <p>Sign up and find your friends.</p>
+          <button id="switch1" v-on:click="showSignUp">SIGN UP</button>
         </div>
       </div>
-      <!-- backbox -->
-
-      <div class="frontbox" v-bind:class="{ moving: !loginVisible }">
-        <div class="login" v-if="loginVisible">
-          <h2>LOG IN</h2>
-          <form class="inputbox" v-on:submit="submitLogin">
-            <input type="text" name="email" v-model="login.email"
-              placeholder="  EMAIL">
-            <input type="password" name="password" v-model="login.password"
-              placeholder="  PASSWORD">
-            <!--<p>FORGOT PASSWORD?</p>-->
-            <button type="submit" v-on:click="failedLogin = false"
-              v-bind:class="{ shaking: failedLogin }">LOG IN</button>
-          </form>
+      <div class="signupMsg">
+        <div class="textcontent">
+          <p class="title">Have an account?</p>
+          <p>Log in to meet your friends.</p>
+          <button id="switch2" v-on:click="showLogIn">LOG IN</button>
         </div>
-
-        <div class="signup" v-if="!loginVisible">
-          <h2>SIGN UP</h2>
-          <form class="inputbox" v-on:submit="submitSignup" v-if="!successfulSignup">
-            <input type="text" name="username" v-model="signup.username" placeholder= " USERNAME" required>
+      </div>
+    </div>
+  
+    <div class="tabies">
+      <button v-on:click="showSignUp" v-bind:class="{ 'bu-shadow': loginVisible }">Sign Up</button>
+      <button v-on:click="showLogIn" v-bind:class="{ 'bu-shadow': !loginVisible }">Log In</button>
+    </div>
+    
+    <div class="frontbox" v-bind:class="{ moving: !loginVisible }">
+      
+      <div class="login" v-bind:class="{ hide: !loginVisible }">
+        
+        <h2>Log In</h2>
+        
+        <form class="inputbox" v-on:submit="submitLogin">
+          <input type="text"
+                 name="email"
+                 v-model="login.email"
+                 placeholder="Email"
+                 required>
+          <input type="password"
+                 name="password"
+                 v-model="login.password"
+                 placeholder="Password"
+                 required>
+          
+          <button type="submit" v-on:click="failedLogin = false"
+                  v-bind:class="{ shaking: failedLogin }">LOG IN</button>
+        </form>
+        
+      </div>
+      
+      <div class="signup" v-bind:class="{ hide: loginVisible }">
+        
+        <h2>Sign Up</h2>
+        
+        <div>
+          <div class="success" v-if="successfulSignup">
+            You signed up correctly
+            
+            <button class="login-now" v-on:click="showLogIn">LOGIN NOW!</button>
+          </div>
+          
+          <form class="inputbox" v-on:submit="submitSignup" v-bind:class="{ hide: successfulSignup }">
+            <input type="text"
+                   name="username"
+                   v-model="signup.username"
+                   placeholder="Username"
+                   required>
             <div class="inline-input">
-              <input type="text" name="name" v-model="signup.name"
-                placeholder="  NAME" required>
-              <input type="text" name="surname" v-model="signup.surname"
-                placeholder="  SURNAME" required>
+              <input type="text"
+                     name="name"
+                     v-model="signup.name"
+                     placeholder="Name"
+                     required>
+              <input type="text"
+                     name="surname"
+                     v-model="signup.surname"
+                     placeholder="Surname"
+                     required>
             </div>
-            <input type="email" name="email" v-model="signup.email"
-              placeholder="  EMAIL" required>
-            <input type="password" name="password" v-model="signup.password"
-              placeholder="  PASSWORD" required>
-            <!--<datepicker :format="'dd/MM/yyyy'" v-model="signup.birthday"></datepicker>-->
+            <input type="email"
+                   name="email"
+                   v-model="signup.email"
+                   placeholder="Email"
+                   required>
+            <input type="password"
+                   name="password"
+                   v-model="signup.password"
+                   placeholder="Password"
+                   required>
             <FormDate v-model="signup.birthday" required/>
             <select name="gender" v-model="signup.gender" required>
               <option value="" disabled selected>Select one…</option>
@@ -54,19 +94,19 @@
               <option value="female">Female</option>
               <option value="other">Other</option>
             </select>
-            <button type="submit" v-on:click="failedSignup = false"
-              v-bind:class="{ shaking: failedSignup }">SIGN UP</button>
+            <button type="submit"
+                    v-on:click="failedSignup = false"
+                    v-bind:class="{ shaking: failedSignup }">SIGN UP</button>
           </form>
-          <div class="success" v-if="successfulSignup">
-            You signed up correctly
-
-            <button class="login-now" v-on:click="showLogIn">LOGIN NOW!</button>
-          </div>
         </div>
-
+        
       </div>
-      <!-- frontbox -->
     </div>
+    
+  </div>
+  
+</div>
+
 </template>
 
 
@@ -166,59 +206,117 @@ export default {
 <style lang="sass" scoped>
 @import '../assets/global.sass';
 
-.container
-  //border:1px solid white
-  width: 600px
-  height: 350px
-  position: absolute
-  top: 45%
-  left: 50%
-  transform: translate(-50%, -50%)
-  display: inline-flex
-
+.login-signin
+  position: relative
+  height: auto
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 100%
+  @media screen and (min-width: $break-login)
+    display: inline-flex
+    width: 60%
+    max-width: 700px
+    min-width: 650px
+ 
+.pretabies
+  position: relative
+  height: auto
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: auto
+  @media screen and (min-width: $break-login)
+    display: inline-flex
+    width: 60%
+    max-width: 700px
+    min-width: 650px
+  
 .backbox
-  background-color: $background
-  width: 90%
-  height: 100%
-  position: absolute
-  transform: translate(0, -50%)
-  top: 50%
-  display: inline-flex
+  display: none
+  @media screen and (min-width: $break-login)
+    display: inline-flex
+    background-color: $background
+    width: 90%
+    height: 100%
+    
+.tabies
+  display: flex
+  flex-direction: row
+  box-shadow: 3px 3px 5px #888888;
+  border-radius: 8px 8px 0 0
+  background-color: $gray
+  width: 100%
+  @media screen and (min-width: $break-login)
+    display: none
+
+.tabies > button
+  border: 0.5px solid $darkestprimary
+  border-bottom: 0
+  border-radius: 8px 8px 0 0
+  background-color: $lightgray
+  padding: 15px
+  padding-top: 8px
+  padding-bottom: 3px
+  margin-bottom: -2px
+  z-index: 1
+  color: $darkgray
+  font-size: 22px
+  font-weight: bold
+  outline: none
+  width: 50%
+  &:first-child
+    border-radius: 8px 0 0 0
+    border-right: 0
+  &:last-child
+    border-radius: 0 8px 0 0
+    border-left: 0.5px solid $darkgray
+
+.bu-shadow
+  background-color: $gray
+  opacity: 0.7
+  border-bottom: 0.5px solid $darkgray
 
 .frontbox
-  background-color: #ffffff
-  border-radius: 20px
-  height: 150%
-  width: 50%
-  z-index: 10
-  position: absolute
-  right: 0
-  margin-right: 3%
-  margin-left: 3%
-  transition: right .8s ease-in-out
-
+  position: relative
+  height: 100%
+  border: 0.5px solid $darkestprimary
+  box-shadow: 3px 3px 5px #888888;
+  border-radius: 0 0 20px 20px
+  background-color: $lightgray
+  @media screen and (min-width: $break-login)
+    height: auto
+    border-radius: 20px
+    width: 50%
+    position: absolute
+    right: 0
+    margin-right: 3%
+    margin-left: 3%
+    transition: right .8s ease-in-out
+    
 .moving
-  right: 50%
-
+  @media screen and (min-width: $break-login)
+    right: 50%
+    
 
 .loginMsg, .signupMsg
   width: 75%
   height: 100%
   font-size: 15px
   box-sizing: border-box
-
+  
 .loginMsg .title, .signupMsg .title
   font-weight: 300
   font-size: 23px
-
+  
 .loginMsg p, .signupMsg p
   font-weight: 100
-
+  
 .textcontent
   color: $darkestgray
   margin-top: 65px
   margin-left: 5%
-
+  
 .loginMsg button, .signupMsg button
   background-color: $background
   border: 2px solid $darkestgray
@@ -229,30 +327,47 @@ export default {
   font-weight: 300
   padding: 10px
   margin-top: 20px
-
+  
 /* front box content */
-
+  
+.login
+  z-index: 1
+  //height: 100%
+  width: 100%
+  position: absolute
+  
+.signup
+  height: 100%
+  @media screen and (min-width: $break-login)
+    height: auto
+  
 .login, .signup
   padding: 20px
   text-align: center
-
+  
 .login h2, .signup h2
-  color: #ffb511
-  font-size: 22px
-
+  display: none
+  @media screen and (min-width: $break-login)
+    display: inline
+    color: $darkgray
+    font-size: 26px
+    font-weight: bold
+  
 .inputbox
-  margin-top: 30px
-
+  margin-top: 18px
+  
 .login input, .signup input, .signup select
   display: block
   width: 100%
   height: 40px
-  background-color: $lightgray
+  background-color: white
   color: $darkgray
-  border: none
+  border: 0.5px solid $gray
   margin-bottom: 20px
   font-size: 12px
 
+.signup > div
+  position: relative
 
 .inputbox button[type="submit"]
   background-color: #ffb511
@@ -266,7 +381,7 @@ export default {
   width: 60px
   bottom: -10%
   cursor: pointer
-
+  
 button.login-now 
   background-color: #ffb511
   border: none
@@ -279,22 +394,36 @@ button.login-now
   margin-top: 10px
   width: 100px
   cursor: pointer
-
+  
 .inline-input 
   display: flex
+  width: 100%
+  position: relative
   & input:not(:last-child)
-    margin-right: 5px
-  & input
-    width: 49%
+    margin-right: 5%
+    width: 41%
+  & input:last-child
+    width: 54%
 
-
+input
+  padding-left: 10px
+      
+input::placeholder
+  font-size: 15px
+    
 .success
+  position: absolute
+  width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  z-index: 2
   color: #008000
   font-weight: bold
   text-align: center
-
+  
 /* Fade In & Out */
-
+  
 .login p
   cursor: pointer
   color: #404040
@@ -306,9 +435,6 @@ button.login-now
 
 .visibility
   opacity: 0
-
-.hide
-  display: none
 
 /* Button shake */
 
@@ -327,6 +453,10 @@ button.login-now
 
   40%, 60% 
     transform: translate3d(4px, 0, 0);
+
+.hide
+  opacity: 0
+  z-index: -1
 
 
 </style>

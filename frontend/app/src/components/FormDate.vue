@@ -98,7 +98,7 @@ export default {
 
 .FormDate {
   $spacing: 0.25em;
-  $color: #eeeeee;
+  $color: white;
   margin-bottom: 1em;
   
   display: inline-flex;
