@@ -15,7 +15,7 @@
   git:
     repo: "https://github.com/UB-ES-2018/faceduck.git"
     dest: /root/faceduck
-    version: SP5
+    version: CD
     
 - name: Kill old docker compose containers
   shell: docker image prune --force; docker-compose kill

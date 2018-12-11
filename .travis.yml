@@ -18,3 +18,11 @@ script:
   - docker-compose run --entrypoint "npm run test:unit -- --coverage" frontend
   - docker-compose run --entrypoint "bash -c 'newman run /API.postman_collection.json -e /TRAVIS_ENV.json --delay-request 800'" test_runner
   - docker-compose run --entrypoint "ash -c 'cd /app; pip install coverage; coverage report'" api
+
+deploy:
+  provider: script
+  script:
+    - cd infrastructure; docker build -t deploy .
+    - docker run deploy
+  on:
+    all_branches: true
