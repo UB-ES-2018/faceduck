@@ -273,7 +273,10 @@ def add_comment(post_id):
     try:
         user_id = current_user.meta.id
         text = request.json["text"]
-        response = core.add_comment(post_id, user_id, text)
+        if text!="":
+            response = core.add_comment(post_id, user_id, text)
+        else:
+            return client_error("001")
     except KeyError:
         return client_error("001")
     except FaceduckError as e:
