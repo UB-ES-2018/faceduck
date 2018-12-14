@@ -1,6 +1,6 @@
 <template>
     <div class="comments">
-        <div class="c-cnt" v-on:click="showComments=!showComments">{{count}} comment(s)
+        <div class="c-cnt" v-on:click="showComments=!showComments; getComments(post_id);">{{count}} comment(s)
             <span v-if="!showComments">Show</span>
             <span v-else>Hide</span>
         </div>
@@ -45,9 +45,9 @@ export default {
       user: JSON.parse(localStorage.getItem("user"))
 		}
 	},
-  updated /* istanbul ignore next */ () {
+  mounted /* istanbul ignore next */ () {
     if(this.count!=0 && this.post_id){
-        this.getComments(this.post_id);
+        //this.getComments(this.post_id);
     }
   },
 	methods: {
@@ -68,6 +68,7 @@ export default {
                 
 		},
     postComment /* istanbul ignore next */ (post_id){
+        if(this.commentText!==""){
             fetch(commentAPI + post_id + "/" + "comments" , {
             method: "POST",
             headers: {
@@ -88,7 +89,7 @@ export default {
             this.comments=[];
             this.comments=this.raw_comments;
             this.commentText="";
-
+        }
         },
 		/* istanbul ignore next */
     getComments /* istanbul ignore next */ (post_id){
